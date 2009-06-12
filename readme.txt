@@ -1,11 +1,11 @@
 === Reveal Template ===
 Contributors: Scott Reilly
-Donate link: http://coffee2code.com
-Tags: template, theme, debug, presentation
+Donate link: http://coffee2code.com/donate
+Tags: template, theme, debug, presentation, coffee2code
 Requires at least: 2.6
-Tested up to: 2.7.1
-Stable tag: trunk
-Version: 1.0
+Tested up to: 2.8
+Stable tag: 1.0.1
+Version: 1.0.1
 
 Reveal the theme template file used to render the displayed page (for debugging purposes).
 
@@ -38,7 +38,7 @@ This plugin is primarily intended to be activated on an as-needed basis.
 
 == Installation ==
 
-1. Unzip `reveal-template-v1.0.zip` inside the `/wp-content/plugins/` directory for your site
+1. Unzip `reveal-template.zip` inside the `/wp-content/plugins/` directory for your site
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 1. Optionally customize the plugin's settings by click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the'Design' -> 'Reveal Template' link, to go to the plugin's admin settings page.
 

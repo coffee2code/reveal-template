@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Reveal Template
-Version: 1.0
+Version: 1.0.1
 Plugin URI: http://coffee2code.com/wp-plugins/reveal-template
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -36,7 +36,7 @@ Examples of path types:
 
 This plugin is primarily intended to be activated on an as-needed basis.
 
-Compatible with WordPress 2.6+, 2.7+.
+Compatible with WordPress 2.6+, 2.7+, 2.8+.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
@@ -122,7 +122,7 @@ class RevealTemplate {
 		static $plugin_basename;
 		if ( $this->show_admin ) {
 			global $wp_version;
-			if ( current_user_can('edit_posts') ) {
+			if ( current_user_can('manage_options') ) {
 				$plugin_basename = plugin_basename(__FILE__); 
 				if ( version_compare( $wp_version, '2.6.999', '>' ) )
 					add_filter( 'plugin_action_links_' . $plugin_basename, array(&$this, 'plugin_action_links') );
@@ -191,7 +191,7 @@ class RevealTemplate {
 		}
 
 		$action_url = $_SERVER[PHP_SELF] . '?page=' . $plugin_basename;
-		$logo = get_option('siteurl') . '/wp-content/plugins/' . basename($_GET['page'], '.php') . '/c2c_minilogo.png';
+		$logo = plugins_url() . '/' . basename($_GET['page'], '.php') . '/c2c_minilogo.png';
 
 		echo <<<END
 		<div class='wrap'>
