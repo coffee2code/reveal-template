@@ -2,11 +2,11 @@
 /**
  * @package Reveal_Template
  * @author Scott Reilly
- * @version 2.0
+ * @version 2.0.1
  */
 /*
 Plugin Name: Reveal Template
-Version: 2.0
+Version: 2.0.1
 Plugin URI: http://coffee2code.com/wp-plugins/reveal-template/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -40,7 +40,7 @@ if ( !class_exists( 'c2c_RevealTemplate' ) ) :
 
 require_once( 'c2c-plugin.php' );
 
-class c2c_RevealTemplate extends C2C_Plugin_013 {
+class c2c_RevealTemplate extends C2C_Plugin_016 {
 
 	var $template = '';
 
@@ -50,7 +50,7 @@ class c2c_RevealTemplate extends C2C_Plugin_013 {
 	 * @return void
 	 */
 	function c2c_RevealTemplate() {
-		$this->C2C_Plugin_013( '2.0', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		$this->C2C_Plugin_016( '2.0.1', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 	}
 
 	/**

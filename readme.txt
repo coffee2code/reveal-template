@@ -4,8 +4,8 @@ Donate link: http://coffee2code.com/donate
 Tags: template, theme, debug, presentation, template, design, coffee2code
 Requires at least: 2.8
 Tested up to: 3.0.1
-Stable tag: 2.0
-Version: 2.0
+Stable tag: 2.0.1
+Version: 2.0.1
 
 Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
@@ -16,15 +16,15 @@ Reveal the theme template file used to render the displayed page, via the footer
 
 Designers and developers know that it can sometimes be confusing and frustrating to determine the exact template being utilized to render the currently displayed page in WordPress.  Sometimes page or category specific templates exist, or a page/post has been set by the post author to use a particular template, or the current theme doesn't employ certain templates causing WordPress to fall back to others.
 
-This plugin relieves the aggravation by assisting designers and developers by displaying the template being used to render the currently displayed page in WordPress.  This typically appears in the site's footer (though only if the theme follows the recommended practice of calling the wp_footer() template tag) at some point.  Also, obviously this can only universally apply to the site if said footer is actually used on every page.
+This plugin relieves the aggravation by assisting designers and developers by displaying the template being used to render the currently displayed page in WordPress.  This typically appears in the site's footer (though only if the theme follows the recommended practice of calling the `wp_footer()` template tag) at some point.  Also, obviously this can only universally apply to the site if said footer is actually used on every page.
 
 A template tag is also provided which can be used to display the template file.
 
-`<?php reveal_template(); ?>`
+`<?php c2c_reveal_template(); ?>`
 
-By default, reveal_template() will echo the template name.  To simply retrieve the template filename rather than displaying it:
+By default, `c2c_reveal_template()` will echo the template name.  To simply retrieve the template filename rather than displaying it:
 
-`<?php $template = reveal_template(false); ?>`
+`<?php $template = c2c_reveal_template(false); ?>`
 
 The template tag also takes a second argument which be can be one of the following: absolute, relative, template-relative, filename.  This determines the path style you'd like reported.  If not specified, it uses the default defined in the plugin's settings page.
 
@@ -45,7 +45,43 @@ This plugin is primarily intended to be activated on an as-needed basis.
 1. Optionally customize the plugin's settings by click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the'Design' -> 'Reveal Template' link, to go to the plugin's admin settings page.
 
 
+== Template Tags ==
+
+The plugin provides one template tag for use in your theme templates, functions.php, or plugins.
+
+= Functions =
+
+* `<?php function c2c_reveal_template( $echo = true, $template_path_type = '' ) ?>`
+Formats for output the template path info for the currently rendered template.
+
+= Arguments =
+
+* `$echo` (bool)
+Optional.  Echo the template info? Default is true.
+
+* `$template_path_type` (string)
+Optional.  The style of the template's path for return. Accepts: 'absolute', 'relative', 'theme-relative', 'filename'.  Default is '', which causes the function to use the template path type configured via the plugin's settings page.
+
+= Examples =
+
+* `<?php //Output the current template
+c2c_reveal_template( true, 'theme-relative' );
+?>`
+
+* `<?php // Retrieve the value for use in code, so don't display/echo it.
+$current_template = c2c_reveal_template( false, 'filename' );
+if ( $current_template == 'category-12.php' ) {
+   // Do something here
+}
+?>`
+
+
 == Changelog ==
+
+= 2.0.1 =
+* Update plugin framework to 016
+* Fix template tag name references in readme.txt to use renamed function name
+* Add Template Tags section to readme.txt
 
 = 2.0 =
 * Re-implementation by extending C2C_Plugin_013, which among other things adds support for:
@@ -83,6 +119,9 @@ This plugin is primarily intended to be activated on an as-needed basis.
 
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+Minor update.  Fixed and expanded readme.txt.  Updated plugin framework to latest version (016).
 
 = 2.0 =
 Recommended update. Highlights: re-implementation; full localization support; deprecated reveal_template() (use c2c_reveal_template() instead); misc non-functionality changes; verified WP 3.0 compatibility.
