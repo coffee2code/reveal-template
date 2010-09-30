@@ -4,8 +4,8 @@ Donate link: http://coffee2code.com/donate
 Tags: template, theme, debug, presentation, template, design, coffee2code
 Requires at least: 2.8
 Tested up to: 3.0.1
-Stable tag: 2.0.1
-Version: 2.0.1
+Stable tag: 2.0.2
+Version: 2.0.2
 
 Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
@@ -78,8 +78,11 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
+= 2.0.2 =
+* Update plugin framework to version 017
+
 = 2.0.1 =
-* Update plugin framework to 016
+* Update plugin framework to version 016
 * Fix template tag name references in readme.txt to use renamed function name
 * Add Template Tags section to readme.txt
 
@@ -119,6 +122,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 2.0.2 =
+Minor update.  Updated plugin framework to latest version (017).
 
 = 2.0.1 =
 Minor update.  Fixed and expanded readme.txt.  Updated plugin framework to latest version (016).
