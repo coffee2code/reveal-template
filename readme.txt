@@ -3,9 +3,9 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: template, theme, debug, presentation, template, design, coffee2code
 Requires at least: 2.8
-Tested up to: 3.0.1
-Stable tag: 2.0.2
-Version: 2.0.2
+Tested up to: 3.1
+Stable tag: 2.0.3
+Version: 2.0.3
 
 Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
@@ -36,6 +36,8 @@ Examples of path types:
 * "filename" : single.php
 
 This plugin is primarily intended to be activated on an as-needed basis.
+
+Links: [Plugin Homepage]:(http://coffee2code.com/wp-plugins/reveal-template/) | [Author Homepage]:(http://coffee2code.com)
 
 
 == Installation ==
@@ -77,6 +79,13 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Changelog ==
+
+= 2.0.3 =
+* Update plugin framework to version 021
+* Explicitly declare all class functions public
+* Delete plugin options upon uninstallation
+* Note compatibility through WP 3.1+
+* Update copyright date (2011)
 
 = 2.0.2 =
 * Update plugin framework to version 017
@@ -122,6 +131,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 2.0.3 =
+Minor release: updated underlying plugin framework; noted compatibility with WP 3.1+ and updated copyright date.
 
 = 2.0.2 =
 Minor update.  Updated plugin framework to latest version (017).

@@ -2,26 +2,29 @@
 /**
  * @package Reveal_Template
  * @author Scott Reilly
- * @version 2.0.2
+ * @version 2.0.3
  */
 /*
 Plugin Name: Reveal Template
-Version: 2.0.2
+Version: 2.0.3
 Plugin URI: http://coffee2code.com/wp-plugins/reveal-template/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Description: Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
-Compatible with WordPress 2.8+, 2.9+, 3.0+.
+Compatible with WordPress 2.8+, 2.9+, 3.0+, 3.1+.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
 =>> Or visit: http://wordpress.org/extend/plugins/reveal-template/
 
+TODO:
+	* Change default of template_path to theme-relative? (to differeniate b/w parent and child themes)
+	* Widget
 */
 
 /*
-Copyright (c) 2008-2010 by Scott Reilly (aka coffee2code)
+Copyright (c) 2008-2011 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
@@ -40,17 +43,31 @@ if ( !class_exists( 'c2c_RevealTemplate' ) ) :
 
 require_once( 'c2c-plugin.php' );
 
-class c2c_RevealTemplate extends C2C_Plugin_017 {
+class c2c_RevealTemplate extends C2C_Plugin_021 {
 
-	var $template = '';
+	private $template = '';
 
 	/**
 	 * Constructor
 	 *
 	 * @return void
 	 */
-	function c2c_RevealTemplate() {
-		$this->C2C_Plugin_017( '2.0.2', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+	public function c2c_RevealTemplate() {
+		$this->C2C_Plugin_021( '2.0.3', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
+	}
+
+	/**
+	 * Handles uninstallation tasks, such as deleting plugin options.
+	 *
+	 * This can be overridden.
+	 *
+	 * @since 2.0.3
+	 *
+	 * @return void
+	 */
+	public function uninstall() {
+		delete_option( 'c2c_reveal_template' );
 	}
 
 	/**
@@ -58,7 +75,7 @@ class c2c_RevealTemplate extends C2C_Plugin_017 {
 	 *
 	 * @return void
 	 */
-	function load_config() {
+	public function load_config() {
 		$this->name = __( 'Reveal Template', $this->textdomain );
 		$this->menu_name = __( 'Reveal Template', $this->textdomain );
 
@@ -86,7 +103,7 @@ class c2c_RevealTemplate extends C2C_Plugin_017 {
 	 *
 	 * @return void
 	 */
-	function register_filters() {
+	public function register_filters() {
 //		add_action('plugins_loaded', array(&$reveal_template, 'actions_and_filters'));
 		$options = $this->get_options();
 		$templates = array( '404', 'archive', 'attachment', 'author', 'category', 'comments_popup',
@@ -103,7 +120,7 @@ class c2c_RevealTemplate extends C2C_Plugin_017 {
 	 *
 	 * @return void (Text will be echoed.)
 	 */
-	function options_page_description() {
+	public function options_page_description() {
 		$options = $this->get_options();
 		parent::options_page_description( __( 'Reveal Template Settings', $this->textdomain ) );
 		echo '<p>' . __( 'Reveal the theme template used to render the displayed page.  By default this appears in the site\'s footer.', $this->textdomain ) . '</p>';
@@ -116,7 +133,7 @@ class c2c_RevealTemplate extends C2C_Plugin_017 {
 	 * @param string $template The template name
 	 * @return string The unmodified template name
 	 */
-	function template_handler( $template ) {
+	public function template_handler( $template ) {
 		$this->template = $template;
 		return $template;
 	}
@@ -129,7 +146,7 @@ class c2c_RevealTemplate extends C2C_Plugin_017 {
 	 * @param bool $in_footer (optional) Should the path info be output in the footer? Default is true
 	 * @return string The path info for the currently rendered template
 	 */
-	function reveal( $echo = true, $template_path_type = '', $in_footer = true ) {
+	public function reveal( $echo = true, $template_path_type = '', $in_footer = true ) {
 		$template = $this->template;
 		$options = $this->get_options();
 		// Handle customized output of template filename + path
@@ -197,6 +214,7 @@ $GLOBALS['c2c_reveal_template'] = new c2c_RevealTemplate();
 	 */
 	if ( !function_exists( 'reveal_template' ) ) :
 		function reveal_template( $echo = true, $template_path_type = '' ) {
+			_deprecated_function( 'reveal_template', '2.0', 'c2c_reveal_template' );
 			return c2c_reveal_template( $echo, $template_path_type );
 		}
 	endif;
