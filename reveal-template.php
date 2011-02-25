@@ -2,11 +2,11 @@
 /**
  * @package Reveal_Template
  * @author Scott Reilly
- * @version 2.0.3
+ * @version 2.0.4
  */
 /*
 Plugin Name: Reveal Template
-Version: 2.0.3
+Version: 2.0.4
 Plugin URI: http://coffee2code.com/wp-plugins/reveal-template/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -53,7 +53,7 @@ class c2c_RevealTemplate extends C2C_Plugin_021 {
 	 * @return void
 	 */
 	public function c2c_RevealTemplate() {
-		$this->C2C_Plugin_021( '2.0.3', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		$this->C2C_Plugin_021( '2.0.4', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
@@ -161,7 +161,7 @@ class c2c_RevealTemplate extends C2C_Plugin_021 {
 				$template = str_replace( ABSPATH,'', $template );
 				break;
 			case 'theme-relative':
-				$template = get_template() . '/' . basename( $template );
+				$template = basename( dirname( $template ) ) . '/' . basename( $template );
 				break;
 			case 'filename':
 			default:

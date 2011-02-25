@@ -4,8 +4,8 @@ Donate link: http://coffee2code.com/donate
 Tags: template, theme, debug, presentation, template, design, coffee2code
 Requires at least: 2.8
 Tested up to: 3.1
-Stable tag: 2.0.3
-Version: 2.0.3
+Stable tag: 2.0.4
+Version: 2.0.4
 
 Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
@@ -32,7 +32,7 @@ Examples of path types:
 
 * "absolute" : /usr/local/www/yoursite/wp-content/themes/yourtheme/single.php
 * "relative" : wp-content/themes/yourtheme/single.php
-* "template-relative" : yourtheme/single.php
+* "theme-relative" : yourtheme/single.php
 * "filename" : single.php
 
 This plugin is primarily intended to be activated on an as-needed basis.
@@ -79,6 +79,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Changelog ==
+
+= 2.0.4 =
+* Fix bug with theme-relative template path output showing parent theme path instead of child theme path
 
 = 2.0.3 =
 * Update plugin framework to version 021
@@ -131,6 +134,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 2.0.4 =
+Bugfix release: fixed bug with theme-relative template path output showing parent theme path instead of child theme path
 
 = 2.0.3 =
 Minor release: updated underlying plugin framework; noted compatibility with WP 3.1+ and updated copyright date.
