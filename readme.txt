@@ -2,10 +2,10 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: template, theme, debug, presentation, template, design, coffee2code
-Requires at least: 2.8
-Tested up to: 3.1
-Stable tag: 2.0.4
-Version: 2.0.4
+Requires at least: 3.0
+Tested up to: 3.2
+Stable tag: 2.1
+Version: 2.1
 
 Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
@@ -37,7 +37,7 @@ Examples of path types:
 
 This plugin is primarily intended to be activated on an as-needed basis.
 
-Links: [Plugin Homepage]:(http://coffee2code.com/wp-plugins/reveal-template/) | [Author Homepage]:(http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/reveal-template/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -79,6 +79,17 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Changelog ==
+
+= 2.1 =
+* Update plugin framework to 023
+* Save a static version of itself in class variable $instance
+* Deprecate use of global variable $c2c_reveal_template to store instance
+* Explicitly declare all functions as public
+* Add __construct(), activation(), and uninstall()
+* Note compatibility through WP 3.2+
+* Drop compatibility with versions of WP older than 3.0
+* Minor code formatting changes (spacing)
+* Add plugin homepage and author links in description in readme.txt
 
 = 2.0.4 =
 * Fix bug with theme-relative template path output showing parent theme path instead of child theme path
@@ -122,7 +133,6 @@ if ( $current_template == 'category-12.php' ) {
 * Update screenshot
 * Add .pot file
 
-
 = 1.0.1 =
 * Check for 'manage_options' instead of 'edit_posts' permission in order to edit settings
 * Use plugins_url() instead of hard-coding path
@@ -134,6 +144,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 2.1 =
+Recommended update.  Noted WP 3.2 compatibility; dropped support for versions of WP older than 3.0; updated plugin framework; deprecate global variable.
 
 = 2.0.4 =
 Bugfix release: fixed bug with theme-relative template path output showing parent theme path instead of child theme path
