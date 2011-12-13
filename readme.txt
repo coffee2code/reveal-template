@@ -2,10 +2,10 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: template, theme, debug, presentation, template, design, coffee2code
-Requires at least: 3.0
-Tested up to: 3.2
-Stable tag: 2.1
-Version: 2.1
+Requires at least: 3.1
+Tested up to: 3.3
+Stable tag: 2.2
+Version: 2.2
 
 Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
@@ -37,11 +37,12 @@ Examples of path types:
 
 This plugin is primarily intended to be activated on an as-needed basis.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/reveal-template/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/reveal-template/) | [Plugin Directory Page](http://wordpress.org/extend/plugins/reveal-template/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
 
+1. Whether installing or updating, whether this plugin or any other, it is always advisable to back-up your data before starting
 1. Unzip `reveal-template.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 1. Optionally customize the plugin's settings by click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the'Design' -> 'Reveal Template' link, to go to the plugin's admin settings page.
@@ -80,8 +81,20 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
+= 2.2 =
+* Update plugin framework to 031
+* Remove support for 'c2c_reveal_template' global
+* Note compatibility through WP 3.3+
+* Drop support for versions of WP older than 3.1
+* Move .pot into lang/
+* Regenerate .pot
+* Add 'Domain Path' directive to top of main plugin file
+* Update screenshot for WP 3.3
+* Add link to plugin directory page to readme.txt
+* Update copyright date (2012)
+
 = 2.1 =
-* Update plugin framework to 023
+* Update plugin framework to v023
 * Save a static version of itself in class variable $instance
 * Deprecate use of global variable $c2c_reveal_template to store instance
 * Explicitly declare all functions as public
@@ -144,6 +157,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 2.2 =
+Recommended update. Highlights: updated plugin framework; noted compatibility with WP 3.3+; dropped compatibility with versions of WP older than 3.1.
 
 = 2.1 =
 Recommended update.  Noted WP 3.2 compatibility; dropped support for versions of WP older than 3.0; updated plugin framework; deprecate global variable.

@@ -2,17 +2,18 @@
 /**
  * @package Reveal_Template
  * @author Scott Reilly
- * @version 2.1
+ * @version 2.2
  */
 /*
 Plugin Name: Reveal Template
-Version: 2.1
+Version: 2.2
 Plugin URI: http://coffee2code.com/wp-plugins/reveal-template/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
+Domain Path: /lang/
 Description: Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
-Compatible with WordPress 3.0+, 3.1+, 3.2+.
+Compatible with WordPress 3.1+, 3.2+, 3.3+.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
@@ -21,12 +22,10 @@ Compatible with WordPress 3.0+, 3.1+, 3.2+.
 TODO:
 	* Change default of template_path to theme-relative? (to differeniate b/w parent and child themes)
 	* Widget
-	* Update screenshot for WP3.2
-
 */
 
 /*
-Copyright (c) 2008-2011 by Scott Reilly (aka coffee2code)
+Copyright (c) 2008-2012 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
@@ -45,7 +44,7 @@ if ( !class_exists( 'c2c_RevealTemplate' ) ) :
 
 require_once( 'c2c-plugin.php' );
 
-class c2c_RevealTemplate extends C2C_Plugin_023 {
+class c2c_RevealTemplate extends C2C_Plugin_031 {
 
 	public static $instance;
 
@@ -65,7 +64,7 @@ class c2c_RevealTemplate extends C2C_Plugin_023 {
 		if ( ! is_null( self::$instance ) )
 			return;
 
-		$this->C2C_Plugin_023( '2.1', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '2.2', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 		self::$instance = $this;
 	}
@@ -128,7 +127,6 @@ class c2c_RevealTemplate extends C2C_Plugin_023 {
 	 * @return void
 	 */
 	public function register_filters() {
-//		add_action('plugins_loaded', array(&$reveal_template, 'actions_and_filters'));
 		$options = $this->get_options();
 		$templates = array( '404', 'archive', 'attachment', 'author', 'category', 'comments_popup',
 							'date', 'home', 'page', 'search', 'single', 'tag', 'taxonomy' );
@@ -208,10 +206,8 @@ class c2c_RevealTemplate extends C2C_Plugin_023 {
 	}
 } // end c2c_RevealTemplate
 
-
-// NOTICE: The 'c2c_reveal_template' global is deprecated and will be removed in the plugin's version 3.0.
-// Instead, use: c2c_RevealTemplate::$instance
-$GLOBALS['c2c_reveal_template'] = new c2c_RevealTemplate();
+// To access plugin object instance use: c2c_RevealTemplate::$instance
+new c2c_RevealTemplate();
 
 //
 // TEMPLATE FUNCTION
