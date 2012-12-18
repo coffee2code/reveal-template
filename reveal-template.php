@@ -2,18 +2,20 @@
 /**
  * @package Reveal_Template
  * @author Scott Reilly
- * @version 2.2
+ * @version 2.3
  */
 /*
 Plugin Name: Reveal Template
-Version: 2.2
+Version: 2.3
 Plugin URI: http://coffee2code.com/wp-plugins/reveal-template/
 Author: Scott Reilly
-Author URI: http://coffee2code.com
+Author URI: http://coffee2code.com/
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Domain Path: /lang/
 Description: Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
-Compatible with WordPress 3.1+, 3.2+, 3.3+.
+Compatible with WordPress 3.1+ through 3.5+.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
@@ -22,29 +24,35 @@ Compatible with WordPress 3.1+, 3.2+, 3.3+.
 TODO:
 	* Change default of template_path to theme-relative? (to differeniate b/w parent and child themes)
 	* Widget
+	* Support BuddyPress
+	* Add ability to restrict display of template name to admins
 */
 
 /*
-Copyright (c) 2008-2012 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2008-2013 by Scott Reilly (aka coffee2code)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions:
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
-IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( !class_exists( 'c2c_RevealTemplate' ) ) :
+defined( 'ABSPATH' ) or die();
+
+if ( ! class_exists( 'c2c_RevealTemplate' ) ) :
 
 require_once( 'c2c-plugin.php' );
 
-class c2c_RevealTemplate extends C2C_Plugin_031 {
+class c2c_RevealTemplate extends C2C_Plugin_035 {
 
 	public static $instance;
 
@@ -64,7 +72,7 @@ class c2c_RevealTemplate extends C2C_Plugin_031 {
 		if ( ! is_null( self::$instance ) )
 			return;
 
-		parent::__construct( '2.2', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '2.3', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 		self::$instance = $this;
 	}
@@ -128,13 +136,13 @@ class c2c_RevealTemplate extends C2C_Plugin_031 {
 	 */
 	public function register_filters() {
 		$options = $this->get_options();
-		$templates = array( '404', 'archive', 'attachment', 'author', 'category', 'comments_popup',
-							'date', 'home', 'page', 'search', 'single', 'tag', 'taxonomy' );
+		$templates = array( '404', 'archive', 'attachment', 'author', 'category', 'commentspopup', 'date',
+							'frontpage', 'home', 'index', 'page', 'paged', 'search', 'single', 'tag', 'taxonomy' );
 		foreach ( $templates as $template )
-			add_filter( $template.'_template', array( &$this, 'template_handler' ) );
+			add_filter( $template.'_template', array( $this, 'template_handler' ) );
 
 		if ( $options['display_in_footer'] )
-			add_action( 'wp_footer', array( &$this, 'reveal' ) );
+			add_action( 'wp_footer', array( $this, 'reveal' ) );
 	}
 
 	/**
@@ -145,7 +153,7 @@ class c2c_RevealTemplate extends C2C_Plugin_031 {
 	public function options_page_description() {
 		$options = $this->get_options();
 		parent::options_page_description( __( 'Reveal Template Settings', $this->textdomain ) );
-		echo '<p>' . __( 'Reveal the theme template used to render the displayed page.  By default this appears in the site\'s footer.', $this->textdomain ) . '</p>';
+		echo '<p>' . __( 'Reveal the theme template used to render the displayed page.  By default this appears in the site\'s footer and only for logged in users with the "update_themes" capability (such as an admin).', $this->textdomain ) . '</p>';
 		echo '<p>' . sprintf( __( 'Please refer to this plugin\'s <a href="%s" title="readme">readme.txt</a> file for documentation and examples.', $this->textdomain ), $this->readme_url() ) . '</p>';
 	}
 
@@ -192,13 +200,13 @@ class c2c_RevealTemplate extends C2C_Plugin_031 {
 		}
 
 		if ( $in_footer ) {
-			// Should this check to see if user defined %template%, and if not, go ahead and display template?
 			if ( $options['format'] )
 				$display = str_replace( '%template%', $template, $options['format'] );
 			else
 				$display = $template;
-			echo $display;
-		} elseif ( $echo ) {
+			if ( current_user_can( 'update_themes' ) )
+				echo $display;
+		} elseif ( $echo && current_user_can( 'update_themes' ) ) {
 			echo $template;
 		}
 
@@ -242,4 +250,3 @@ new c2c_RevealTemplate();
 	endif;
 
 endif; // end if !class_exists()
-?>

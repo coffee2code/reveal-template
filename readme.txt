@@ -2,10 +2,12 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: template, theme, debug, presentation, template, design, coffee2code
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.1
-Tested up to: 3.3
-Stable tag: 2.2
-Version: 2.2
+Tested up to: 3.5
+Stable tag: 2.3
+Version: 2.3
 
 Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
 
@@ -80,6 +82,22 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Changelog ==
+
+= 2.3 =
+* When set to echo or display in footer, only do so for logged in users with the 'update_themes' capability
+* Recognize 'frontpage' and 'index' templates
+* Fix recognition of 'commentspopup' template
+* Update plugin framework to 035
+* Discontinue use of explicit pass-by-reference for objects
+* Add check to prevent execution of code if file is directly accessed
+* Regenerate .pot
+* Re-license as GPLv2 or later (from X11)
+* Add 'License' and 'License URI' header tags to readme.txt and plugin file
+* Note compatibility through WP 3.5+
+* Update copyright date (2013)
+* Minor code reformatting (spacing)
+* Remove ending PHP close tag
+* Move screenshot into repo's assets directory
 
 = 2.2 =
 * Update plugin framework to 031
@@ -157,6 +175,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 2.3 =
+Recommended update. Highlights: only show in footer for admins; added support for 'front_page' and 'index' templates; updated plugin framework; noted WP 3.5+ compatibility; and more.
 
 = 2.2 =
 Recommended update. Highlights: updated plugin framework; noted compatibility with WP 3.3+; dropped compatibility with versions of WP older than 3.1.

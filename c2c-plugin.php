@@ -2,39 +2,39 @@
 /**
  * @package C2C_Plugins
  * @author Scott Reilly
- * @version 031
+ * @version 035
  */
 /*
 Basis for other plugins
 
-Compatible with WordPress 3.1+, 3.2+, 3.3+.
-
-=>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
-=>> for more information and the latest updates
-
-Installation:
+Compatible with WordPress 3.1+ through 3.5+.
 
 */
 
 /*
-Copyright (c) 2010-2011 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2010-2013 by Scott Reilly (aka coffee2code)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions:
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
-IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'C2C_Plugin_031' ) ) :
+if ( ! defined( 'ABSPATH' ) )
+	die();
 
-abstract class C2C_Plugin_031 {
+if ( ! class_exists( 'C2C_Plugin_035' ) ) :
+
+abstract class C2C_Plugin_035 {
 	protected $plugin_css_version = '008';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -170,7 +170,8 @@ abstract class C2C_Plugin_031 {
 		if ( $this->show_admin && $this->settings_page && ! empty( $this->config ) && current_user_can( 'manage_options' ) ) {
 			add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
 			if ( ! $this->disable_contextual_help ) {
-				add_filter( 'contextual_help', array( &$this, 'contextual_help' ), 10, 3 );
+				if ( version_compare( $GLOBALS['wp_version'], '3.3', '<' ) )
+					add_filter( 'contextual_help', array( &$this, 'contextual_help' ), 10, 3 );
 				if ( $this->is_plugin_admin_page() )
 					add_thickbox();
 			}
@@ -200,9 +201,8 @@ abstract class C2C_Plugin_031 {
 			update_option( 'bkup_' . $this->admin_options_name, $this->options );
 
 			$this->options['_version'] = $this->version;
-			$options = $this->handle_plugin_upgrade( $_version, $this->options );
-			update_option( $this->admin_options_name, $options );
-			$this->options = $options;
+			$this->options = $this->handle_plugin_upgrade( $_version, $this->options );
+			update_option( $this->admin_options_name, $this->options );
 		}
 	}
 
@@ -245,8 +245,8 @@ abstract class C2C_Plugin_031 {
 		if ( 0 !== strpos( $url, 'http://api.wordpress.org/plugins/update-check' ) )
 			return $r; // Not a plugin update request. Bail immediately.
 		$plugins = unserialize( $r['body']['plugins'] );
-		unset( $plugins->plugins[ plugin_basename( __FILE__ ) ] );
-		unset( $plugins->active[ array_search( plugin_basename( __FILE__ ), $plugins->active ) ] );
+		unset( $plugins->plugins[ $this->plugin_basename ] );
+		unset( $plugins->active[ array_search( $this->plugin_basename, $plugins->active ) ] );
 		$r['body']['plugins'] = serialize( $plugins );
 		return $r;
 	}
@@ -284,7 +284,10 @@ abstract class C2C_Plugin_031 {
 	 * @param string $localized_heading_text (optional) Localized page heading text.
 	 * @return void
 	 */
-	protected function options_page_description( $localized_heading_text = '' ) {
+	public function options_page_description( $localized_heading_text = '' ) {
+		if ( ! is_string( $localized_heading_text ) )
+			$localized_heading_text = '';
+
 		if ( empty( $localized_heading_text ) )
 			$localized_heading_text = $this->name;
 		if ( $localized_heading_text )
@@ -461,7 +464,8 @@ abstract class C2C_Plugin_031 {
 
 		$help_url = admin_url( "plugin-install.php?tab=plugin-information&amp;plugin={$this->id_base}&amp;TB_iframe=true&amp;width=640&amp;height=656" );
 
-		$help = '<p class="more-help">';
+		$help = '<h3>More Plugin Help</h3>';
+		$help .= '<p class="more-help">';
 		$help .= '<a title="' . esc_attr( sprintf( __( 'More information about %1$s %2$s', $this->textdomain ), $this->name, $this->version ) ) .
 			'" class="thickbox" href="' . $help_url . '">' . __( 'Click for more help on this plugin', $this->textdomain ) . '</a>' .
 			__( ' (especially check out the "Other Notes" tab, if present)', $this->textdomain );
@@ -484,7 +488,7 @@ abstract class C2C_Plugin_031 {
 		/**
 		 * Remember to increment the plugin_css_version variable if changing the CSS
 		 */
-		echo <<<CSS
+		echo <<<HTML
 		<style type="text/css">
 		.long-text {width:95% !important;}
 		#c2c {
@@ -521,7 +525,7 @@ abstract class C2C_Plugin_031 {
 		.more-help {display:block;margin-top:8px;}
 		</style>
 
-CSS;
+HTML;
 	}
 
 	/**
@@ -542,8 +546,45 @@ CSS;
 				$func_root = $this->settings_page;
 		}
 		$menu_func = 'add_' . $func_root . '_page';
-		if ( function_exists( $menu_func ) )
+		if ( function_exists( $menu_func ) ) {
 			$this->options_page = call_user_func( $menu_func, $this->name, $this->menu_name, 'manage_options', $this->plugin_basename, array( &$this, 'options_page' ) );
+			add_action( 'load-' . $this->options_page, array( &$this, 'help_tabs' ) );
+		}
+	}
+
+	/**
+	 * Initialize help tabs.
+	 *
+	 * @since 034
+	 * @return void
+	 */
+	public function help_tabs() {
+		if ( ! class_exists( 'WP_Screen' ) )
+			return;
+
+		$screen = get_current_screen();
+
+		if ( $screen->id != $this->options_page )
+			return;
+
+		$this->help_tabs_content( $screen );
+	}
+
+	/**
+	 * Configures help tabs content.
+	 *
+	 * This should be overridden by inheriting class if it needs help content.
+	 *
+	 * @since 034
+	 *
+	 * @return void
+	 */
+	public function help_tabs_content( $screen ) {
+		$screen->add_help_tab( array(
+			'id'      => 'c2c-more-help-' . $this->id_base,
+			'title'   => __( 'More Help', $this->textdomain ),
+			'content' => self::contextual_help( '', $this->options_page )
+		) );
 	}
 
 	/**
@@ -622,7 +663,7 @@ CSS;
 	 * @return array The options array for the plugin (which is also stored in $this->options if !$with_options).
 	 */
 	protected function get_options( $with_current_values = true ) {
-		if ( $with_current_values && !empty( $this->options ) )
+		if ( $with_current_values && ! empty( $this->options ) )
 			return $this->options;
 		// Derive options from the config
 		$options = array();
@@ -795,9 +836,6 @@ CSS;
 	public function options_page() {
 		$options = $this->get_options();
 
-		if ( function_exists( 'settings_errors' ) ) // Check for pre-3.0 compatibility
-			settings_errors();
-
 		if ( $this->saved_settings )
 			echo "<div id='message' class='updated fade'><p><strong>" . $this->saved_settings_msg . '</strong></p></div>';
 
@@ -808,7 +846,7 @@ CSS;
 
 		do_action( $this->get_hook( 'before_settings_form' ), $this );
 
-		echo "<form action='options.php' method='post' class='c2c-form'>\n";
+		echo "<form action='" . admin_url( 'options.php' ) . "' method='post' class='c2c-form'>\n";
 
 		settings_fields( $this->admin_options_name );
 		do_settings_sections( $this->plugin_file );
@@ -850,5 +888,3 @@ CSS;
 } // end class
 
 endif; // end if !class_exists()
-
-?>
