@@ -1,34 +1,50 @@
 === Reveal Template ===
 Contributors: coffee2code
-Donate link: http://coffee2code.com/donate
-Tags: template, theme, debug, presentation, template, design, coffee2code
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522
+Tags: template, theme, debug, presentation, template, design, widget, shortcode, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.1
-Tested up to: 3.5
-Stable tag: 2.3
-Version: 2.3
+Requires at least: 3.6
+Tested up to: 3.8
+Stable tag: 3.0
 
-Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
+Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
 
 
 == Description ==
 
-Reveal the theme template file used to render the displayed page, via the footer and/or template tag.
+Designers and developers know that it can sometimes be confusing and frustrating to determine the exact template being utilized to render the currently displayed page in WordPress. Sometimes page or category specific templates exist, or a page/post has been set by the post author to use a particular template, or the current theme doesn't employ certain templates causing WordPress to fall back to others.
 
-Designers and developers know that it can sometimes be confusing and frustrating to determine the exact template being utilized to render the currently displayed page in WordPress.  Sometimes page or category specific templates exist, or a page/post has been set by the post author to use a particular template, or the current theme doesn't employ certain templates causing WordPress to fall back to others.
+This plugin relieves the aggravation by assisting designers and developers by displaying the template being used to render the currently displayed page in WordPress. This can be shown in one or more of the following methods:
 
-This plugin relieves the aggravation by assisting designers and developers by displaying the template being used to render the currently displayed page in WordPress.  This typically appears in the site's footer (though only if the theme follows the recommended practice of calling the `wp_footer()` template tag) at some point.  Also, obviously this can only universally apply to the site if said footer is actually used on every page.
+= Site footer =
 
-A template tag is also provided which can be used to display the template file.
+By default, the theme-relative path to the theme template file used to render the page is shown in the site's footer. The settings page for the plugin, at 'Design' -> 'Reveal Template', allows you to control and configure this particular method. Note: this only works if the theme follows the recommended practice of calling the `wp_footer()` template tag) at some point.
+
+= Widget =
+
+A widget named "Reveal Template" is made available which can be used to display the theme template file used to render the page in any widget location.
+
+= Shortcode =
+
+A shortcode called 'revealtemplate' is made available which can be used in post/page content to display the theme template file used to render the page. Currently it supports two possible attributes:
+
+* 'admin' : Can either be 1 or 0 to indicate if the template name should be revealed to admins only. 1 means to admins only, 0 to all visitors. The default is 1.
+* 'type' : The template path types. Must be one of 'absolute', 'filename', 'relative', or 'theme-relative'. Read the documentation for more information on what each of these mean.
+
+Examples: `[revealtemplate type="absolute"]`, `[revealtemplate type="filename" admin="0"]`
+
+= Template Tag =
+
+A template tag is also provided which can be used to display the theme template file used to render the page.
 
 `<?php c2c_reveal_template(); ?>`
 
-By default, `c2c_reveal_template()` will echo the template name.  To simply retrieve the template filename rather than displaying it:
+By default, `c2c_reveal_template()` will echo the template name. To simply retrieve the template filename rather than displaying it:
 
-`<?php $template = c2c_reveal_template(false); ?>`
+`<?php $template = c2c_reveal_template( false ); ?>`
 
-The template tag also takes a second argument which be can be one of the following: absolute, relative, template-relative, filename.  This determines the path style you'd like reported.  If not specified, it uses the default defined in the plugin's settings page.
+The template tag also takes a second argument which be can be one of the following: absolute, relative, theme-relative, filename. This determines the path style you'd like reported. If not specified, it uses the default defined in the plugin's settings page.
 
 Examples of path types:
 
@@ -39,7 +55,7 @@ Examples of path types:
 
 This plugin is primarily intended to be activated on an as-needed basis.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/reveal-template/) | [Plugin Directory Page](http://wordpress.org/extend/plugins/reveal-template/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/reveal-template/) | [Plugin Directory Page](http://wordpress.org/plugins/reveal-template/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -47,7 +63,13 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/reveal-template/) | [
 1. Whether installing or updating, whether this plugin or any other, it is always advisable to back-up your data before starting
 1. Unzip `reveal-template.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. Optionally customize the plugin's settings by click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the'Design' -> 'Reveal Template' link, to go to the plugin's admin settings page.
+1. Optionally customize the plugin's settings by clicking the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the 'Design' -> 'Reveal Template' link, to go to the plugin's admin settings page. Or use the 'Reveal Template' widget. Or use the shortcode.
+
+
+== Screenshots ==
+
+1. The plugin's settings page.
+2. The 'Reveal Template' widget.
 
 
 == Template Tags ==
@@ -62,10 +84,10 @@ Formats for output the template path info for the currently rendered template.
 = Arguments =
 
 * `$echo` (bool)
-Optional.  Echo the template info? Default is true.
+Optional. Echo the template info? Default is true.
 
 * `$template_path_type` (string)
-Optional.  The style of the template's path for return. Accepts: 'absolute', 'relative', 'theme-relative', 'filename'.  Default is '', which causes the function to use the template path type configured via the plugin's settings page.
+Optional. The style of the template's path for return. Accepts: 'absolute', 'relative', 'theme-relative', 'filename'. Default is '', which causes the function to use the template path type configured via the plugin's settings page.
 
 = Examples =
 
@@ -82,6 +104,39 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Changelog ==
+
+= 3.0 (2013-12-28) =
+* Add 'Reveal Template' widget
+* Add widget framework 008
+* Add 'revealtemplate' shortcode
+* Fix to recognize proper template names for hooks, 'front_page' and 'comments_popup' (they need underscores)
+* Change arguments for object method reveal() (will break code using this method directly)
+* Enhance reveal() with 'format' args option to permit custom format string to be directly sent
+* Enhance reveal() with 'format_from_settings' args option to permit use of the format string defined via settings even if not being shown in footer
+* Enhance reveal() with 'admin_only' args option to control if output should be echoed for just admins or not
+* Enhance reveal() with 'return' args option to allow not returning a value for the function if the user isn't permitted to view the output
+* Add optional $args argument to c2c_reveal_template() to feed into the identical arg for reveal()
+* Add reveal_to_current_user() to contain logic for determining if the current user can be shown the template name/path
+* Add get_template_path_types() to allow fetching of the recognized template path types and their descriptions
+* Add reveal_in_footer() as function hooked to wp_footer (configures use of reveal() for the wp_footer context)
+* Changed default template path type to 'theme-relative'
+* Make class variable $instance private
+* Add get_instance() class method to obtain singleton instance, creating one if it doesn't exist
+* Add get_default_template_path_type() class method to obtain default template path type
+* Remove long deprecated reveal_template(); use c2c_reveal_template() instead if you aren't already
+* Update plugin framework to 036
+* Add unit tests
+* For options_page_description(), match method signature of parent class
+* Note compatibility through WP 3.8+
+* Drop compatibility with version of WP older than 3.6
+* Update copyright date (2014)
+* Add banner
+* Add 'Screenshots' section to readme.txt
+* Add screenshot of widget
+* Updated existing screenshot
+* Regenerate .pot
+* Numerous readme.txt text and formatting tweaks
+* Change donate link
 
 = 2.3 =
 * When set to echo or display in footer, only do so for logged in users with the 'update_themes' capability
@@ -175,6 +230,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 3.0 =
+Major update: added widget, shortcode, and unit tests; changed default initialization; removed deprecated reveal_template() template tag; compatibility now for WP 3.6-3.8+. Potential for incompatibility if the plugin is used by other code. (Normal users won't be affected.)
 
 = 2.3 =
 Recommended update. Highlights: only show in footer for admins; added support for 'front_page' and 'index' templates; updated plugin framework; noted WP 3.5+ compatibility; and more.
