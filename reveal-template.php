@@ -1,37 +1,39 @@
 <?php
 /**
+ * Plugin Name: Reveal Template
+ * Version:     3.1
+ * Plugin URI:  http://coffee2code.com/wp-plugins/reveal-template/
+ * Author:      Scott Reilly
+ * Author URI:  http://coffee2code.com/
+ * License:     GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Domain Path: /lang/
+ * Description: Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
+ *
+ * Compatible with WordPress 3.6+ through 4.1+.
+ *
+ * =>> Read the accompanying readme.txt file for instructions and documentation.
+ * =>> Also, visit the plugin's homepage for additional information and updates.
+ * =>> Or visit: https://wordpress.org/plugins/reveal-template/
+ *
  * @package Reveal_Template
  * @author Scott Reilly
- * @version 3.0
+ * @version 3.1
  */
+
 /*
-Plugin Name: Reveal Template
-Version: 3.0
-Plugin URI: http://coffee2code.com/wp-plugins/reveal-template/
-Author: Scott Reilly
-Author URI: http://coffee2code.com/
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Domain Path: /lang/
-Description: Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
-
-Compatible with WordPress 3.6+ through 3.8+.
-
-=>> Read the accompanying readme.txt file for instructions and documentation.
-=>> Also, visit the plugin's homepage for additional information and updates.
-=>> Or visit: http://wordpress.org/plugins/reveal-template/
-
-TODO:
-	* Support BuddyPress
-	* Filter for reveal_to_current_user()?
-	* Add 'format' field to widget
-	* Add 'format' attribute to shortcode
-	* Add 'Shortcode' section to readme.txt to fully document shortcode
-	* Add 'Frequently Asked Questions' section to readme.txt. (incl mention of no mime-type template support)
+ * TODO:
+ * - Support BuddyPress
+ * - Filter for reveal_to_current_user()?
+ * - Add 'format' field to widget
+ * - Add 'format' attribute to shortcode
+ * - Add 'Shortcode' section to readme.txt to fully document shortcode
+ * - Add 'Frequently Asked Questions' section to readme.txt. (incl mention of no mime-type template support)
+ * - Add optional to only output when WP_DEBUG is true
 */
 
 /*
-	Copyright (c) 2008-2014 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2008-2015 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -55,33 +57,42 @@ if ( ! class_exists( 'c2c_RevealTemplate' ) ) :
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'reveal-template.widget.php' );
 
-final class c2c_RevealTemplate extends C2C_Plugin_036 {
+final class c2c_RevealTemplate extends C2C_Plugin_039 {
 
 	/**
-	 * @var c2c_RevealTemplate The one true instance.
+	 * The one true instance.
+	 *
+	 * @var c2c_RevealTemplate
 	 * @since 3.0
 	 */
 	private static $instance;
 
 	/**
-	 * @var string The default template path type.
+	 * The default template path type.
+	 *
+	 * @var string
 	 * @since 3.0
 	 */
 	private $default_template_path_type = 'theme-relative';
 
 	/**
-	 * @var string The shortcode name.
+	 * The shortcode name.
+	 *
+	 * @var string
 	 * @since 3.0
 	 */
 	private $shortcode = 'revealtemplate';
 
 	/**
-	 * @var string The template being used.
+	 * The template being used.
+	 * @var string
 	 */
 	private $template = '';
 
 	/**
-	 * @var array The memoized template path types array.
+	 * The memoized template path types array.
+	 *
+	 * @var array
 	 * @since 3.0
 	 */
 	private static $template_path_types;
@@ -92,8 +103,9 @@ final class c2c_RevealTemplate extends C2C_Plugin_036 {
 	 * @since 3.0
 	 */
 	public static function get_instance() {
-		if ( ! isset( self::$instance ) )
+		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
+		}
 
 		return self::$instance;
 	}
@@ -102,7 +114,7 @@ final class c2c_RevealTemplate extends C2C_Plugin_036 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '3.0', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '3.1', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		return self::$instance = $this;
@@ -112,10 +124,8 @@ final class c2c_RevealTemplate extends C2C_Plugin_036 {
 	 * Handles activation tasks, such as registering the uninstall hook.
 	 *
 	 * @since 2.1
-	 *
-	 * @return void
 	 */
-	public function activation() {
+	public static function activation() {
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
@@ -123,17 +133,13 @@ final class c2c_RevealTemplate extends C2C_Plugin_036 {
 	 * Handles uninstallation tasks, such as deleting plugin options.
 	 *
 	 * @since 2.1
-	 *
-	 * @return void
 	 */
-	public function uninstall() {
+	public static function uninstall() {
 		delete_option( 'c2c_reveal_template' );
 	}
 
 	/**
 	 * Initializes the plugin's configuration and localizable text variables.
-	 *
-	 * @return void
 	 */
 	public function load_config() {
 		$this->name      = __( 'Reveal Template', $this->textdomain );
@@ -142,21 +148,19 @@ final class c2c_RevealTemplate extends C2C_Plugin_036 {
 		$this->config = array(
 			'display_in_footer' => array( 'input' => 'checkbox', 'default' => true,
 					'label' => __( 'Reveal in footer?', $this->textdomain ),
-					'help' => __( 'To be precise, this displays where <code>&lt;?php wp_footer(); ?></code> is called. If you uncheck this, you\'ll have to use the template tag to display the template.', $this->textdomain ) ),
+					'help'  => __( 'To be precise, this displays where <code>&lt;?php wp_footer(); ?></code> is called. If you uncheck this, you\'ll have to use the widget or the template tag to display the template.', $this->textdomain ) ),
 			'format' => array( 'input' => 'long_text', 'default' => __( '<p>Rendered template: %template%</p>', $this->textdomain ),
 					'label' => __( 'Output format', $this->textdomain ), 'required' => true,
-					'help' => __( 'Only used for the footer display. Use %template% to indicate where the template name should go.', $this->textdomain ) ),
+					'help'  => __( 'Only used for the footer display. Use %template% to indicate where the template name should go.', $this->textdomain ) ),
 			'template_path' => array( 'input' => 'select', 'datatype' => 'hash', 'default' => $this->get_default_template_path_type(),
 					'label' => __( 'Template path', $this->textdomain ),
 					'options' => self::get_template_path_types(),
-					'help' => __( 'How much of the template path do you want reported? Applies directory to footer display, and is the default for the template tag usage (though can be overridden via an argument to <code>reveal_template()</code>)', $this->textdomain ) )
+					'help'  => __( 'How much of the template path do you want reported? Applies directory to footer display, and is the default for the template tag usage (though can be overridden via an argument to <code>c2c_reveal_template()</code>)', $this->textdomain ) )
 		);
 	}
 
 	/**
 	 * Override the plugin framework's register_filters() to actually actions against filters.
-	 *
-	 * @return void
 	 */
 	public function register_filters() {
 		$options = $this->get_options();
@@ -174,9 +178,7 @@ final class c2c_RevealTemplate extends C2C_Plugin_036 {
 	}
 
 	/**
-	 * Outputs the text above the setting form
-	 *
-	 * @return void (Text will be echoed.)
+	 * Outputs the text above the setting form.
 	 */
 	public function options_page_description( $localized_heading_text = '' ) {
 		$options = $this->get_options();
@@ -187,9 +189,9 @@ final class c2c_RevealTemplate extends C2C_Plugin_036 {
 	}
 
 	/**
-	 * Stores the name of the template being rendered
+	 * Stores the name of the template being rendered.
 	 *
-	 * @param string $template The template name
+	 * @param string  $template The template name
 	 * @return string The unmodified template name
 	 */
 	public function template_handler( $template ) {
@@ -243,7 +245,7 @@ final class c2c_RevealTemplate extends C2C_Plugin_036 {
 	 * @since 3.0
 	 *
 	 * @param array  $atts    The shortcode attributes parsed into an array.
-	 * @param string $content The content between pening and closing shortcode tags.
+	 * @param string $content The content between opening and closing shortcode tags.
 	 * @return string
 	 */
 	public function shortcode( $atts, $content = null ) {
@@ -288,14 +290,14 @@ final class c2c_RevealTemplate extends C2C_Plugin_036 {
 	 * - 'return':              (boolean) Return the value regardless of the admin_only value and check? Default is true.
 	 *
 	 * @param string $template_path_type The style of the template's path for return. Accepts: 'absolute', 'relative', 'theme-relative', 'filename'
-	 * @param array $args                (optional) Additional arguments.
+	 * @param array  $args               Optional. Additional arguments.
 	 * @return string                    The path info for the currently rendered template, unless $args['return'] is false AND user wouldn't be shown the output
 	 */
 	public function reveal( $template_path_type, $args = array() ) {
 		$template = $this->template;
 
 		if ( empty( $template ) ) {
-			return;
+			return '';
 		}
 
 		$defaults = array(

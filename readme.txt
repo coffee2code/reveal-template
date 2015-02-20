@@ -5,8 +5,8 @@ Tags: template, theme, debug, presentation, template, design, widget, shortcode,
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.6
-Tested up to: 3.8
-Stable tag: 3.0
+Tested up to: 4.1
+Stable tag: 3.1
 
 Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
 
@@ -55,7 +55,7 @@ Examples of path types:
 
 This plugin is primarily intended to be activated on an as-needed basis.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/reveal-template/) | [Plugin Directory Page](http://wordpress.org/plugins/reveal-template/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/reveal-template/) | [Plugin Directory Page](https://wordpress.org/plugins/reveal-template/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -104,6 +104,19 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Changelog ==
+
+= 3.1 (2015-02-20) =
+* Update plugin framework to 039
+* Update widget framework to 009
+* Add more unit tests
+* Explicitly declare `activation()` and `uninstall()` static
+* Reformat plugin header
+* Change documentation links to wp.org to be https
+* Minor documentation spacing changes throughout
+* Note compatibility through WP 4.1+
+* Update copyright date (2015)
+* Add plugin icon
+* Regenerate .pot
 
 = 3.0 (2013-12-28) =
 * Add 'Reveal Template' widget
@@ -230,6 +243,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 3.1 =
+Minor update: added more unit tests; updated plugin framework to 039; update widget framework to 009; noted compatibility through WP 4.1+; added plugin icon
 
 = 3.0 =
 Major update: added widget, shortcode, and unit tests; changed default initialization; removed deprecated reveal_template() template tag; compatibility now for WP 3.6-3.8+. Potential for incompatibility if the plugin is used by other code. (Normal users won't be affected.)

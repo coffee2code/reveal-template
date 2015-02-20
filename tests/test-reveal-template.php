@@ -14,7 +14,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 
-	/**
+	/*
 	 *
 	 * DATA PROVIDERS
 	 *
@@ -41,7 +41,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 
-	/**
+	/*
 	 *
 	 * HELPER FUNCTIONS
 	 *
@@ -104,12 +104,40 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 
-	/**
+	/*
 	 *
 	 * TESTS
 	 *
 	 */
 
+
+	function test_class_exists() {
+		$this->assertTrue( class_exists( 'c2c_RevealTemplate' ) );
+	}
+
+	function test_plugin_framework_class_name() {
+		$this->assertTrue( class_exists( 'C2C_Plugin_039' ) );
+	}
+
+	function test_widget_class_exists() {
+		$this->assertTrue( class_exists( 'c2c_RevealTemplateWidget' ) );
+	}
+
+	function test_widget_framework_class_name() {
+		$this->assertTrue( class_exists( 'C2C_Widget_009' ) );
+	}
+
+	function test_version() {
+		$this->assertEquals( '3.1', c2c_RevealTemplate::get_instance()->version() );
+	}
+
+	function test_instance_object_is_returned() {
+		$this->assertTrue( is_a( c2c_RevealTemplate::get_instance(), 'c2c_RevealTemplate' ) );
+	}
+
+	function test_widget_registration_is_hooked_to_widgets_init() {
+		$this->assertNotFalse( has_filter( 'widgets_init', 'register_c2c_RevealTemplateWidget' ) );
+	}
 
 	/**
 	 * @dataProvider get_template_path_types
@@ -147,6 +175,13 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertTrue( is_user_logged_in() );
 		$this->assertTrue( c2c_RevealTemplate::get_instance()->reveal_to_current_user() );
 		$this->assert_template_types( $full_path );
+	}
+
+	/**
+	 * @dataProvider get_templates
+	 */
+	function test_hooks_template_filter( $template ) {
+		$this->assertNotFalse( has_filter( $template . '_template', array( c2c_RevealTemplate::get_instance(), 'template_handler' ) ) );
 	}
 
 	function test_c2c_reveal_template_arg_admin_only() {
@@ -213,6 +248,18 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => false ) ) );
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => true ) ) );
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => 'gibberish' ) ) );
+	}
+
+	function test_page_specific_template_is_returned_when_set() {
+		$template = 'single.php'; // Something non-standard but the template actually exists.
+		$post_id = $this->factory->post->create( array( 'post_type' => 'page' ) );
+		add_post_meta( $post_id, '_wp_page_template', $template, true );
+
+		$this->go_to( get_permalink( $post_id ) );
+		$templates = get_page_template();
+
+		$this->assertEquals( $template, get_page_template_slug( $post_id ) );
+		$this->assertEquals( $template, c2c_reveal_template( false, 'filename', array( 'return' => true ) ) );
 	}
 
 	/**
