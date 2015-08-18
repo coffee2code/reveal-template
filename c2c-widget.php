@@ -5,15 +5,15 @@
  * Copyright (c) 2010-2015 by Scott Reilly (aka coffee2code)
  *
  * @package C2C_Widget
- * @author Scott Reilly
- * @version 009
+ * @author  Scott Reilly
+ * @version 010
  */
 
 defined( 'ABSPATH' ) or die();
 
-if ( class_exists( 'WP_Widget' ) && ! class_exists( 'C2C_Widget_009' ) ) :
+if ( class_exists( 'WP_Widget' ) && ! class_exists( 'C2C_Widget_010' ) ) :
 
-class C2C_Widget_009 extends WP_Widget {
+class C2C_Widget_010 extends WP_Widget {
 
 	public $config         = array();
 
@@ -24,6 +24,18 @@ class C2C_Widget_009 extends WP_Widget {
 	protected $description = '';
 	protected $hook_prefix = '';
 	protected $defaults    = array();
+
+	/**
+	 * Returns version of the widget library.
+	 *
+	 * @since 010
+	 *
+	 * @return string
+	 */
+	public static function version() {
+		return '010';
+	}
+
 
 	/**
 	 * Constructor.
@@ -61,7 +73,7 @@ class C2C_Widget_009 extends WP_Widget {
 		);
 		$widget_ops  = apply_filters( $this->get_hook( 'widget_ops' ), $widget_ops );
 		$control_ops = apply_filters( $this->get_hook( 'control_ops' ), $control_ops );
-		$this->WP_Widget( $this->widget_id, $this->title, $widget_ops, $control_ops );
+		parent::__construct( $this->widget_id, $this->title, $widget_ops, $control_ops );
 	}
 
 	/**

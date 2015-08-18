@@ -124,11 +124,15 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 	function test_widget_framework_class_name() {
-		$this->assertTrue( class_exists( 'C2C_Widget_009' ) );
+		$this->assertTrue( class_exists( 'C2C_Widget_010' ) );
 	}
 
 	function test_version() {
-		$this->assertEquals( '3.1', c2c_RevealTemplate::get_instance()->version() );
+		$this->assertEquals( '3.1.1', c2c_RevealTemplate::get_instance()->version() );
+	}
+
+	function test_widget_version() {
+		$this->assertEquals( '010', C2C_Widget_010::version() );
 	}
 
 	function test_instance_object_is_returned() {

@@ -5,8 +5,8 @@ Tags: template, theme, debug, presentation, template, design, widget, shortcode,
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.6
-Tested up to: 4.1
-Stable tag: 3.1
+Tested up to: 4.3
+Stable tag: 3.1.1
 
 Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
 
@@ -104,6 +104,12 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Changelog ==
+
+= 3.1.1 (2015-08-17) =
+* Update: Discontinue use of PHP4-style constructor invocation of WP_Widget to prevent PHP notices in PHP7.
+* Update: Update widget framework to 010.
+* Update: Note compatibility through WP 4.3+.
+* Add: Add unit test for widget version.
 
 = 3.1 (2015-02-20) =
 * Update plugin framework to 039
@@ -243,6 +249,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 3.1.1 =
+Minor bugfix update: Prevented PHP notice under PHP7+ for widget; noted compatibility through WP 4.3+
 
 = 3.1 =
 Minor update: added more unit tests; updated plugin framework to 039; update widget framework to 009; noted compatibility through WP 4.1+; added plugin icon

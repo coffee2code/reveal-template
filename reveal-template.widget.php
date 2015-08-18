@@ -15,7 +15,7 @@ if ( ! class_exists( 'c2c_RevealTemplateWidget' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-widget.php' );
 
-class c2c_RevealTemplateWidget extends C2C_Widget_009 {
+class c2c_RevealTemplateWidget extends C2C_Widget_010 {
 
 	protected static $template_path_types;
 
@@ -43,7 +43,7 @@ class c2c_RevealTemplateWidget extends C2C_Widget_009 {
 			),
 			'show_non_admins' => array( 'input' => 'checkbox',
 				'label'   => __( 'Show widget to all visitors?', $this->textdomain ),
-				'help'    => __( 'If checked, the widget will always be visible. By default (and when unchecked), the widget is only shown to users with the "update_themes" capability.', $this->textdomain ),
+				'help'    => __( 'If checked, the widget will always be visible. By default (and when unchecked), the widget is only shown to users with the "update_themes" capability, which is generally only admins.', $this->textdomain ),
 			),
 		);
 	}
