@@ -1,24 +1,26 @@
 <?php
 
+defined( 'ABSPATH' ) or die();
+
 class Reveal_Template_Test extends WP_UnitTestCase {
 
-	function setUp() {
+	public function setUp() {
 		parent::setUp();
 		$this->post_id = $this->factory->post->create();
 		$this->user_id = $this->factory->user->create();
 	}
 
-	function tearDown() {
+	public function tearDown() {
 		parent::tearDown();
 		$this->unset_current_user();
 	}
 
 
-	/*
-	 *
-	 * DATA PROVIDERS
-	 *
-	 */
+	//
+	//
+	// DATA PROVIDERS
+	//
+	//
 
 
 	public static function get_templates() {
@@ -41,11 +43,11 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 
-	/*
-	 *
-	 * HELPER FUNCTIONS
-	 *
-	 */
+	//
+	//
+	// HELPER FUNCTIONS
+	//
+	//
 
 
 	private function create_user( $role, $set_as_current = true ) {
@@ -63,7 +65,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$current_user = $user_ID = null;
     }
 
-	function get_output( $template_path_type, $args = array() ) {
+	public function get_output( $template_path_type, $args = array() ) {
 		ob_start();
 		c2c_reveal_template( true, $template_path_type, $args );
 		$out = ob_get_contents();
@@ -71,7 +73,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		return $out;
 	}
 
-	function get_template_path_part( $absolute_path, $template_type ) {
+	public function get_template_path_part( $absolute_path, $template_type ) {
 		$path = pathinfo( $absolute_path );
 		$parts = explode( DIRECTORY_SEPARATOR, $absolute_path );
 
@@ -96,7 +98,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		return $part;
 	}
 
-	function assert_template_types( $absolute_path ) {
+	public function assert_template_types( $absolute_path ) {
 		foreach ( c2c_RevealTemplate::get_instance()->get_template_path_types() as $template_type => $desc ) {
 			$expected = $this->get_template_path_part( $absolute_path, $template_type );
 			$this->assertEquals( $expected, c2c_reveal_template( false, $template_type ) );
@@ -104,49 +106,59 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 
-	/*
-	 *
-	 * TESTS
-	 *
-	 */
+	//
+	//
+	// TESTS
+	//
+	//
 
 
-	function test_class_exists() {
+	public function test_class_exists() {
 		$this->assertTrue( class_exists( 'c2c_RevealTemplate' ) );
 	}
 
-	function test_plugin_framework_class_name() {
-		$this->assertTrue( class_exists( 'C2C_Plugin_039' ) );
+	public function test_version() {
+		$this->assertEquals( '3.2', c2c_RevealTemplate::get_instance()->version() );
 	}
 
-	function test_widget_class_exists() {
-		$this->assertTrue( class_exists( 'c2c_RevealTemplateWidget' ) );
+	public function test_plugin_framework_class_name() {
+		$this->assertTrue( class_exists( 'c2c_RevealTemplate_Plugin_041' ) );
 	}
 
-	function test_widget_framework_class_name() {
-		$this->assertTrue( class_exists( 'C2C_Widget_010' ) );
+	public function test_plugin_framework_version() {
+		$this->assertEquals( '041', c2c_RevealTemplate::get_instance()->c2c_plugin_version() );
 	}
 
-	function test_version() {
-		$this->assertEquals( '3.1.1', c2c_RevealTemplate::get_instance()->version() );
-	}
-
-	function test_widget_version() {
-		$this->assertEquals( '010', C2C_Widget_010::version() );
-	}
-
-	function test_instance_object_is_returned() {
+	public function test_instance_object_is_returned() {
 		$this->assertTrue( is_a( c2c_RevealTemplate::get_instance(), 'c2c_RevealTemplate' ) );
 	}
 
-	function test_widget_registration_is_hooked_to_widgets_init() {
-		$this->assertNotFalse( has_filter( 'widgets_init', 'register_c2c_RevealTemplateWidget' ) );
+	/* Widget */
+
+	public function test_widget_class_exists() {
+		$this->assertTrue( class_exists( 'c2c_RevealTemplateWidget' ) );
+	}
+
+	public function test_widget_version() {
+		$this->assertEquals( '003', c2c_RevealTemplateWidget::version() );
+	}
+
+	public function test_widget_framework_class_name() {
+		$this->assertTrue( class_exists( 'c2c_Widget_012' ) );
+	}
+
+	public function test_widget_framework_version() {
+		$this->assertEquals( '012', c2c_Widget_012::version() );
+	}
+
+	public function test_widget_hooks_widgets_init() {
+		$this->assertEquals( 10, has_filter( 'widgets_init', array( 'c2c_RevealTemplateWidget', 'register_widget' ) ) );
 	}
 
 	/**
 	 * @dataProvider get_template_path_types
 	 */
-	function test_template_tag_echoes_nothing_for_non_user( $template_path_type ) {
+	public function test_template_tag_echoes_nothing_for_non_user( $template_path_type ) {
 		apply_filters( 'single_template', get_stylesheet_directory() . '/single.php' );
 
 		$this->assertFalse( is_user_logged_in() );
@@ -156,7 +168,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	/**
 	 * @dataProvider get_templates
 	 */
-	function test_template_tag_for_path_types( $template ) {
+	public function test_template_tag_for_path_types( $template ) {
 		$this->create_user( 'administrator' );
 
 		$full_path = get_stylesheet_directory() . "/$template.php";
@@ -170,7 +182,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	/**
 	 * @dataProvider get_templates
 	 */
-	function test_template_tag_for_path_types_with_fallback_template( $template ) {
+	public function test_template_tag_for_path_types_with_fallback_template( $template ) {
 		$this->create_user( 'administrator' );
 
 		$full_path = get_stylesheet_directory() . "/index.php";
@@ -184,11 +196,11 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	/**
 	 * @dataProvider get_templates
 	 */
-	function test_hooks_template_filter( $template ) {
+	public function test_hooks_template_filter( $template ) {
 		$this->assertNotFalse( has_filter( $template . '_template', array( c2c_RevealTemplate::get_instance(), 'template_handler' ) ) );
 	}
 
-	function test_c2c_reveal_template_arg_admin_only() {
+	public function test_c2c_reveal_template_arg_admin_only() {
 		apply_filters( 'single_template', get_stylesheet_directory() . '/single.php' );
 
 		$this->assertEmpty( $this->get_output( 'filename', array( 'admin_only' => true ) ) );
@@ -205,7 +217,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	 * Currently c2c_reveal_template() has an $echo arg that takes precedence
 	 * over 'echo' specified via $args, so verify as much.
 	 */
-	function test_c2c_reveal_template_arg_echo() {
+	public function test_c2c_reveal_template_arg_echo() {
 		$this->create_user( 'administrator' );
 
 		apply_filters( 'single_template', get_stylesheet_directory() . '/single.php' );
@@ -220,7 +232,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $out );
 	}
 
-	function test_c2c_reveal_template_arg_format() {
+	public function test_c2c_reveal_template_arg_format() {
 		apply_filters( 'category_template', get_stylesheet_directory() . '/category.php' );
 
 		$this->assertEquals(
@@ -229,7 +241,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		);
 	}
 
-	function test_c2c_reveal_template_arg_format_from_settings() {
+	public function test_c2c_reveal_template_arg_format_from_settings() {
 		apply_filters( 'category_template', get_stylesheet_directory() . '/category.php' );
 
 		$options = c2c_RevealTemplate::get_instance()->get_options();
@@ -240,7 +252,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		);
 	}
 
-	function test_c2c_reveal_template_arg_return() {
+	public function test_c2c_reveal_template_arg_return() {
 		apply_filters( 'category_template', get_stylesheet_directory() . '/category.php' );
 
 		$this->assertEmpty( '', c2c_reveal_template( false, 'filename', array( 'return' => false ) ) );
@@ -254,7 +266,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => 'gibberish' ) ) );
 	}
 
-	function test_page_specific_template_is_returned_when_set() {
+	public function test_page_specific_template_is_returned_when_set() {
 		$template = 'single.php'; // Something non-standard but the template actually exists.
 		$post_id = $this->factory->post->create( array( 'post_type' => 'page' ) );
 		add_post_meta( $post_id, '_wp_page_template', $template, true );
@@ -269,7 +281,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	/**
 	 * @dataProvider get_template_path_types
 	 */
-	function test_shortcode_echoes_nothing_for_non_user( $template_path_type ) {
+	public function test_shortcode_echoes_nothing_for_non_user( $template_path_type ) {
 		$str = 'The template used to render this page is [revealtemplate type="' . $template_path_type . '"].';
 		$expected = 'The template used to render this page is .';
 		apply_filters( 'category_template', get_stylesheet_directory() . '/category.php' );
@@ -280,7 +292,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	/**
 	 * @dataProvider get_template_path_types
 	 */
-	function test_shortcode_for_path_types( $template_path_type ) {
+	public function test_shortcode_for_path_types( $template_path_type ) {
 		$this->create_user( 'administrator' );
 
 		$str = 'The template used to render this page is [revealtemplate type="' . $template_path_type . '"].';
@@ -294,7 +306,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	/**
 	 * @dataProvider get_template_path_types
 	 */
-	function test_shortcode_for_admin_only( $template_path_type ) {
+	public function test_shortcode_for_admin_only( $template_path_type ) {
 		$full_path = get_stylesheet_directory() . "/category.php";
 		apply_filters( 'category_template', $full_path );
 

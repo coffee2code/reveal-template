@@ -2,11 +2,11 @@
 /**
  * Reveal Widget plugin widget code.
  *
- * Copyright (c) 2013-2015 by Scott Reilly (aka coffee2code)
+ * Copyright (c) 2013-2016 by Scott Reilly (aka coffee2code)
  *
  * @package c2c_RevealTemplateWidget
- * @author Scott Reilly
- * @version 002
+ * @author  Scott Reilly
+ * @version 003
  */
 
 defined( 'ABSPATH' ) or die();
@@ -15,35 +15,63 @@ if ( ! class_exists( 'c2c_RevealTemplateWidget' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-widget.php' );
 
-class c2c_RevealTemplateWidget extends C2C_Widget_010 {
+class c2c_RevealTemplateWidget extends c2c_Widget_012 {
 
 	protected static $template_path_types;
 
 	/**
+	 * Returns version of the widget.
+	 *
+	 * @since 004
+	 *
+	 * @return string
+	 */
+	public static function version() {
+		return '003';
+	}
+
+	/**
+	 * Registers the widget.
+	 *
+	 * @since 003
+	 */
+	public static function register_widget() {
+		register_widget( __CLASS__ );
+	}
+
+	/**
 	 * Constructor.
 	 */
-	function __construct() {
+	public function __construct() {
+		// Load textdomain.
+		load_plugin_textdomain( 'reveal-template' );
+
 		parent::__construct( 'reveal-template', __FILE__, array() );
 	}
 
 	/**
 	 * Initializes the plugin's configuration and localizable text variables.
 	 */
-	function load_config() {
-		$this->title       = __( 'Reveal Template', $this->textdomain );
-		$this->description = __( 'Reveal the name of the theme template used to render the displayed page.', $this->textdomain );
+	public function load_config() {
+		$this->title       = __( 'Reveal Template', 'reveal-template' );
+		$this->description = __( 'Reveal the name of the theme template used to render the displayed page.', 'reveal-template' );
 
 		$this->config = array(
-			'title' => array( 'input' => 'text', 'default' => __( 'Revealed Template', $this->textdomain ),
-				'label'   => __( 'Title', $this->textdomain ) ),
-			'template_path_type' => array( 'input' => 'select', 'default' => c2c_RevealTemplate::get_instance()->get_default_template_path_type(),
-				'label'   => __( 'Template path type', $this->textdomain ),
+			'title' => array(
+				'input'   => 'text',
+				'default' => __( 'Revealed Template', 'reveal-template' ),
+				'label'   => __( 'Title', 'reveal-template' ),
+			),
+			'template_path_type' => array(
+				'input'   => 'select',
+				'default' => c2c_RevealTemplate::get_instance()->get_default_template_path_type(),
+				'label'   => __( 'Template path type', 'reveal-template' ),
 				'options' => array_keys( $this->get_template_path_types() ),
 				'help'    => $this->get_template_path_types_help(),
 			),
 			'show_non_admins' => array( 'input' => 'checkbox',
-				'label'   => __( 'Show widget to all visitors?', $this->textdomain ),
-				'help'    => __( 'If checked, the widget will always be visible. By default (and when unchecked), the widget is only shown to users with the "update_themes" capability, which is generally only admins.', $this->textdomain ),
+				'label'   => __( 'Show widget to all visitors?', 'reveal-template' ),
+				'help'    => __( 'If checked, the widget will always be visible. By default (and when unchecked), the widget is only shown to users with the "update_themes" capability, which is generally only admins.', 'reveal-template' ),
 			),
 		);
 	}
@@ -54,7 +82,7 @@ class c2c_RevealTemplateWidget extends C2C_Widget_010 {
 	 * @return array
 	 */
 	private function get_template_path_types() {
-		if ( ! isset( self::$template_path_types ) ) {
+		if ( ! self::$template_path_types ) {
 			self::$template_path_types = c2c_RevealTemplate::get_instance()->get_template_path_types();
 		}
 
@@ -82,7 +110,7 @@ class c2c_RevealTemplateWidget extends C2C_Widget_010 {
 	 * @param array   $settings Widget settings.
 	 * @return string The widget body content.
 	 */
-	function widget_body( $args, $instance, $settings ) {
+	public function widget_body( $args, $instance, $settings ) {
 		extract( $args );
 		extract( $settings );
 
@@ -102,7 +130,7 @@ class c2c_RevealTemplateWidget extends C2C_Widget_010 {
 	 * @param array  $instance Array of widget instance values
 	 * @return array The filtered array of widget instance values
 	 */
-	function validate( $instance ) {
+	public function validate( $instance ) {
 		if ( ! in_array( $instance['template_path_type'], array( 'absolute', 'relative', 'theme-relative', 'filename' ) ) ) {
 			$instance['template_path_type'] = 'absolute';
 		}
@@ -111,9 +139,6 @@ class c2c_RevealTemplateWidget extends C2C_Widget_010 {
 
 } // end class
 
-function register_c2c_RevealTemplateWidget() {
-	register_widget( 'c2c_RevealTemplateWidget' );
-}
-add_action( 'widgets_init', 'register_c2c_RevealTemplateWidget' );
+add_action( 'widgets_init', array( 'c2c_RevealTemplateWidget', 'register_widget' ) );
 
 endif;

@@ -1,16 +1,16 @@
 <?php
 /**
  * Plugin Name: Reveal Template
- * Version:     3.1.1
+ * Version:     3.2
  * Plugin URI:  http://coffee2code.com/wp-plugins/reveal-template/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Domain Path: /lang/
+ * Text Domain: reveal-template
  * Description: Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
  *
- * Compatible with WordPress 3.6+ through 4.3+.
+ * Compatible with WordPress 4.1+ through 4.4+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -18,7 +18,7 @@
  *
  * @package Reveal_Template
  * @author  Scott Reilly
- * @version 3.1.1
+ * @version 3.2
  */
 
 /*
@@ -33,7 +33,7 @@
 */
 
 /*
-	Copyright (c) 2008-2015 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2008-2016 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -57,7 +57,7 @@ if ( ! class_exists( 'c2c_RevealTemplate' ) ) :
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'reveal-template.widget.php' );
 
-final class c2c_RevealTemplate extends C2C_Plugin_039 {
+final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_041 {
 
 	/**
 	 * The one true instance.
@@ -114,7 +114,7 @@ final class c2c_RevealTemplate extends C2C_Plugin_039 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '3.1.1', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '3.2', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		return self::$instance = $this;
@@ -142,20 +142,31 @@ final class c2c_RevealTemplate extends C2C_Plugin_039 {
 	 * Initializes the plugin's configuration and localizable text variables.
 	 */
 	public function load_config() {
-		$this->name      = __( 'Reveal Template', $this->textdomain );
-		$this->menu_name = __( 'Reveal Template', $this->textdomain );
+		$this->name      = __( 'Reveal Template', 'reveal-template' );
+		$this->menu_name = __( 'Reveal Template', 'reveal-template' );
 
 		$this->config = array(
-			'display_in_footer' => array( 'input' => 'checkbox', 'default' => true,
-					'label' => __( 'Reveal in footer?', $this->textdomain ),
-					'help'  => __( 'To be precise, this displays where <code>&lt;?php wp_footer(); ?></code> is called. If you uncheck this, you\'ll have to use the widget or the template tag to display the template.', $this->textdomain ) ),
-			'format' => array( 'input' => 'long_text', 'default' => __( '<p>Rendered template: %template%</p>', $this->textdomain ),
-					'label' => __( 'Output format', $this->textdomain ), 'required' => true,
-					'help'  => __( 'Only used for the footer display. Use %template% to indicate where the template name should go.', $this->textdomain ) ),
-			'template_path' => array( 'input' => 'select', 'datatype' => 'hash', 'default' => $this->get_default_template_path_type(),
-					'label' => __( 'Template path', $this->textdomain ),
-					'options' => self::get_template_path_types(),
-					'help'  => __( 'How much of the template path do you want reported? Applies directory to footer display, and is the default for the template tag usage (though can be overridden via an argument to <code>c2c_reveal_template()</code>)', $this->textdomain ) )
+			'display_in_footer' => array(
+				'input'    => 'checkbox',
+				'default'  => true,
+				'label'    => __( 'Reveal in footer?', 'reveal-template' ),
+				'help'     => __( 'To be precise, this displays where <code>&lt;?php wp_footer(); ?></code> is called. If you uncheck this, you\'ll have to use the widget or the template tag to display the template.', 'reveal-template' ),
+			),
+			'format' => array(
+				'input'    => 'long_text',
+				'default'  => __( '<p>Rendered template: %template%</p>', 'reveal-template' ),
+				'label'    => __( 'Output format', 'reveal-template' ),
+				'required' => true,
+				'help'     => __( 'Only used for the footer display. Use %template% to indicate where the template name should go.', 'reveal-template' ),
+			),
+			'template_path' => array(
+				'input'    => 'select',
+				'datatype' => 'hash',
+				'default'  => $this->get_default_template_path_type(),
+				'label'    => __( 'Template path', 'reveal-template' ),
+				'options'  => self::get_template_path_types(),
+				'help'     => __( 'How much of the template path do you want reported? Applies directly to footer display, and is the default for the template tag usage (though can be overridden via an argument to <code>c2c_reveal_template()</code>)', 'reveal-template' ),
+			),
 		);
 	}
 
@@ -184,10 +195,10 @@ final class c2c_RevealTemplate extends C2C_Plugin_039 {
 	 */
 	public function options_page_description( $localized_heading_text = '' ) {
 		$options = $this->get_options();
-		parent::options_page_description( __( 'Reveal Template Settings', $this->textdomain ) );
-		echo '<p>' . __( 'Reveal the theme template used to render the displayed page. By default this appears in the site\'s footer and only for logged in users with the "update_themes" capability (such as an admin).', $this->textdomain ) . '</p>';
-		echo '<p>' . sprintf( __( 'Also note that the plugin provides a "Reveal Template" <a href="%s">widget</a> that can be used to reveal the current templated.', $this->textdomain ), admin_url( 'widgets.php' ) ) . '</p>';
-		echo '<p>' . sprintf( __( 'Please refer to this plugin\'s <a href="%s" title="readme">readme.txt</a> file for documentation and examples.', $this->textdomain ), $this->readme_url() ) . '</p>';
+		parent::options_page_description( __( 'Reveal Template Settings', 'reveal-template' ) );
+		echo '<p>' . __( 'Reveal the theme template used to render the displayed page. By default this appears in the site\'s footer and only for logged in users with the "update_themes" capability (such as an admin).', 'reveal-template' ) . '</p>';
+		echo '<p>' . sprintf( __( 'Also note that the plugin provides a "Reveal Template" <a href="%s">widget</a> that can be used to reveal the current templated.', 'reveal-template' ), admin_url( 'widgets.php' ) ) . '</p>';
+		echo '<p>' . sprintf( __( 'Please refer to this plugin\'s <a href="%s" title="readme">readme.txt</a> file for documentation and examples.', 'reveal-template' ), $this->readme_url() ) . '</p>';
 	}
 
 	/**
@@ -211,10 +222,10 @@ final class c2c_RevealTemplate extends C2C_Plugin_039 {
 	public function get_template_path_types() {
 		if ( ! self::$template_path_types ) {
 			self::$template_path_types = array(
-				'absolute'       => __( 'Absolute path, e.g. /usr/local/www/yoursite/wp-content/themes/yourtheme/single.php', $this->textdomain ),
-				'relative'       => __( 'Relative path, e.g. wp-content/themes/yourtheme/single.php', $this->textdomain ),
-				'theme-relative' => __( 'Path relative to themes directory, e.g. yourtheme/single.php', $this->textdomain ),
-				'filename'       => __( 'Filename, e.g. single.php', $this->textdomain )
+				'absolute'       => __( 'Absolute path, e.g. /usr/local/www/yoursite/wp-content/themes/yourtheme/single.php', 'reveal-template' ),
+				'relative'       => __( 'Relative path, e.g. wp-content/themes/yourtheme/single.php', 'reveal-template' ),
+				'theme-relative' => __( 'Path relative to themes directory, e.g. yourtheme/single.php', 'reveal-template' ),
+				'filename'       => __( 'Filename, e.g. single.php', 'reveal-template' )
 			);
 		}
 

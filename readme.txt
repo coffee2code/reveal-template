@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: template, theme, debug, presentation, template, design, widget, shortcode, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.6
-Tested up to: 4.3
-Stable tag: 3.1.1
+Requires at least: 4.1
+Tested up to: 4.4
+Stable tag: 3.2
 
 Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
 
@@ -104,6 +104,40 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Changelog ==
+
+= 3.2 (2016-03-15) =
+Highlights:
+* This release adds support for language packs and has some minor behind-the-scenes changes.
+
+Details:
+* Change: Update plugin framework to 041:
+    * Change class name to c2c_RevealTemplate_Plugin_041 to be plugin-specific.
+    * Set textdomain using a string instead of a variable.
+    * Don't load textdomain from file.
+    * Change admin page header from 'h2' to 'h1' tag.
+    * Add `c2c_plugin_version()`.
+    * Formatting improvements to inline docs.
+* Change: Update widget to 003:
+    * Explicitly declare `__construct()` public.
+    * Add `register_widget()` and change to calling it when hooking 'admin_init'.
+    * Reformat config array.
+* Change: Update widget framework to 012:
+    * Change class name to c2c_RevealTemplate_Widget_012 to be plugin-specific.
+    * Set textdomain using a string instead of a variable.
+    * Load textdomain.
+    * Declare class and two methods as being abstract.
+    * Discontinue use of `extract()`.
+    * Apply 'widget_title' filter to widget title.
+* Change: Add support for language packs:
+    * Set textdomain using a string instead of a variable.
+    * Add 'Text Domain' to plugin header.
+    * Remove .pot file and /lang subdirectory.
+* New: Add LICENSE file.
+* New: Add empty index.php to prevent files from being listed if web server has enabled directory listings.
+* Change: Minor code reformatting.
+* Change: Note compatibility through WP 4.4+.
+* Change: Dropped compatibility with version of WP older than 4.1.
+* Change: Update copyright date (2016).
 
 = 3.1.1 (2015-08-17) =
 * Update: Discontinue use of PHP4-style constructor invocation of WP_Widget to prevent PHP notices in PHP7.
@@ -249,6 +283,9 @@ if ( $current_template == 'category-12.php' ) {
 
 
 == Upgrade Notice ==
+
+= 3.2 =
+Minor update: improved support for localization; minor widget code changes; verified compatibility through WP 4.4; dropped compatibility with WP older than 4.1; updated copyright date (2016)
 
 = 3.1.1 =
 Minor bugfix update: Prevented PHP notice under PHP7+ for widget; noted compatibility through WP 4.3+
