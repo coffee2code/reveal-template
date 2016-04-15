@@ -105,6 +105,9 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
+= () =
+* New: Add a unit test for uninstall.
+
 = 3.2 (2016-03-15) =
 Highlights:
 * This release adds support for language packs and has some minor behind-the-scenes changes.

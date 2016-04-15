@@ -327,4 +327,15 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertEquals( $expected_display, do_shortcode( $str_admin_1 ) );
 	}
 
+	public function test_uninstall_deletes_option() {
+		$option = 'c2c_reveal_template';
+		c2c_RevealTemplate::get_instance()->get_options();
+
+		//$this->assertNotFalse( get_option( $option ) );
+
+		c2c_RevealTemplate::uninstall();
+
+		$this->assertFalse( get_option( $option ) );
+	}
+
 }
