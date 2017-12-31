@@ -310,7 +310,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 	public function reveal( $template_path_type, $args = array() ) {
 		$template = $this->template;
 
-		if ( empty( $template ) ) {
+		if ( ! $template ) {
 			return '';
 		}
 
@@ -350,7 +350,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 			} else {
 				$format = $args['format'];
 			}
-			$display = empty( $format ) ? $template : str_replace( '%template%', $template, $format );
+			$display = $format ? str_replace( '%template%', $template, $format ) : $template;
 
 			if ( $is_allowed && $display && $args['echo'] ) {
 				echo $display;
