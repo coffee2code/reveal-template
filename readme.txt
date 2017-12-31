@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: template, theme, debug, presentation, template, design, widget, shortcode, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 4.1
-Tested up to: 4.4
+Requires at least: 4.7
+Tested up to: 4.9
 Stable tag: 3.2
 
 Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
@@ -128,6 +128,8 @@ if ( $current_template == 'category-12.php' ) {
 * Change: Update unit test bootstrap
     * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
     * Enable more error output for unit tests
+* Change: Note compatibility through WP 4.9+
+* Change: Drop compatibility with versions of WP older than 4.7
 * Change: Update copyright date (2018)
 
 = 3.2 (2016-03-15) =

@@ -10,7 +10,7 @@
  * Text Domain: reveal-template
  * Description: Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
  *
- * Compatible with WordPress 4.1+ through 4.4+.
+ * Compatible with WordPress 4.7+ through 4.9+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
