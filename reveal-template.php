@@ -30,6 +30,7 @@
  * - Add 'Shortcode' section to readme.txt to fully document shortcode
  * - Add 'Frequently Asked Questions' section to readme.txt. (incl mention of no mime-type template support)
  * - Add optional to only output when WP_DEBUG is true
+ * - Integrate with Debug Bar plugin
 */
 
 /*
