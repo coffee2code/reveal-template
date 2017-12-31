@@ -125,12 +125,14 @@ Details:
     * Add `register_widget()` and change to calling it when hooking 'admin_init'.
     * Reformat config array.
 * Change: Update widget framework to 012:
-    * Change class name to c2c_RevealTemplate_Widget_012 to be plugin-specific.
-    * Set textdomain using a string instead of a variable.
-    * Load textdomain.
-    * Declare class and two methods as being abstract.
-    * Discontinue use of `extract()`.
-    * Apply 'widget_title' filter to widget title.
+    * Go back to non-plugin-specific class name of c2c_Widget_012
+    * Don't load textdomain
+    * Declare class and `load_config()` and `widget_body()` as being abstract
+    * Change class variable `$config` from public to protected
+    * Discontinue use of `extract()`
+    * Apply 'widget_title' filter to widget title
+    * Add more inline documentation
+    * Minor code reformatting (spacing, bracing, Yoda-ify conditions)
 * Change: Add support for language packs:
     * Set textdomain using a string instead of a variable.
     * Add 'Text Domain' to plugin header.
