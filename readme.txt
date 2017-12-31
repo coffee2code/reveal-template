@@ -127,6 +127,7 @@ if ( $current_template == 'category-12.php' ) {
 * New: Add a unit test for uninstall
 * Change: Update unit test bootstrap
     * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
+    * Enable more error output for unit tests
 
 = 3.2 (2016-03-15) =
 Highlights:
