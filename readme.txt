@@ -133,6 +133,7 @@ if ( $current_template == 'category-12.php' ) {
 * Change: Note compatibility through WP 4.9+
 * Change: Drop compatibility with versions of WP older than 4.7
 * Change: Update copyright date (2018)
+* Change: Minor dockblock reformatting
 
 = 3.2 (2016-03-15) =
 Highlights:

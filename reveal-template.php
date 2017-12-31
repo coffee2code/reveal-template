@@ -205,8 +205,8 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 	/**
 	 * Stores the name of the template being rendered.
 	 *
-	 * @param string  $template The template name
-	 * @return string The unmodified template name
+	 * @param string  $template The template name.
+	 * @return string The unmodified template name.
 	 */
 	public function template_handler( $template ) {
 		$this->template = $template;
@@ -296,16 +296,19 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 	/**
 	 * Formats for output the template path info for the currently rendered template.
 	 *
-	 * Possible configuration arguments for $args:
-	 * - 'admin_only':          (boolean) Only show for an admin? Default is true.
-	 * - 'echo':                (boolean) Echo the output? Default is true.
-	 * - 'format':              (string)  The output string format. Uses '%template%' as placeholder for template path.
-	 * - 'format_from_settings: (boolean) Use the format string specified via the plugin's settings page? Default is false.
-	 * - 'return':              (boolean) Return the value regardless of the admin_only value and check? Default is true.
+	 * @param string $template_path_type The style of the template's path for return. Accepts: 'absolute', 'relative',
+	 *                                   'theme-relative', 'filename'
+	 * @param array  $args               {
+	 *     Optional. Additional arguments.
 	 *
-	 * @param string $template_path_type The style of the template's path for return. Accepts: 'absolute', 'relative', 'theme-relative', 'filename'
-	 * @param array  $args               Optional. Additional arguments.
-	 * @return string                    The path info for the currently rendered template, unless $args['return'] is false AND user wouldn't be shown the output
+	 *     @type bool   $admin_only           Only show for an admin? Default is true.
+	 *     @type bool   $echo                 Echo the output? Default is true.
+	 *     @type string $format               Output string format. Uses '%template%' as placeholder for template path.
+	 *     @type bool   $format_from_settings Use format string specified via the plugin's settings page? Default false.
+	 *     @type bool   $return               Return the value regardless of the admin_only value and check? Default true.
+	 * }
+	 * @return string   The path info for the currently rendered template, unless $args['return'] is false AND user
+	 *                  wouldn't be shown the output
 	 */
 	public function reveal( $template_path_type, $args = array() ) {
 		$template = $this->template;
@@ -375,9 +378,11 @@ c2c_RevealTemplate::get_instance();
 	 *
 	 * @since 2.0
 	 *
-	 * @param bool $echo (optional) Echo the template info? Default is true
-	 * @param string $template_path_type (optional) The style of the template's path for return. Accepts: 'absolute', 'relative', 'theme-relative', 'filename'
-	 * @param array $args (optional) Additional configuration. See c2c_RevealTemplate::reveal() for documentation.
+	 * @param bool   $echo               Optional. Echo the template info? Default true
+	 * @param string $template_path_type Optional. The style of the template's path for return. Accepts: 'absolute',
+	 *                                   'relative', 'theme-relative', 'filename'
+	 * @param array  $args               Optional. Additional configuration. See c2c_RevealTemplate::reveal() for
+	 *                                   documentation.
 	 * @return string The path info for the currently rendered template
 	 */
 	if ( ! function_exists( 'c2c_reveal_template' ) ) :
