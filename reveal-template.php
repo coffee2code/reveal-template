@@ -226,7 +226,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 				'absolute'       => __( 'Absolute path, e.g. /usr/local/www/yoursite/wp-content/themes/yourtheme/single.php', 'reveal-template' ),
 				'relative'       => __( 'Relative path, e.g. wp-content/themes/yourtheme/single.php', 'reveal-template' ),
 				'theme-relative' => __( 'Path relative to themes directory, e.g. yourtheme/single.php', 'reveal-template' ),
-				'filename'       => __( 'Filename, e.g. single.php', 'reveal-template' )
+				'filename'       => __( 'Filename, e.g. single.php', 'reveal-template' ),
 			);
 		}
 
