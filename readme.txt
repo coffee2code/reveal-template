@@ -125,6 +125,7 @@ if ( $current_template == 'category-12.php' ) {
     * Update `disable_update_check()` to check for HTTP and HTTPS for plugin update check API URL.
     * Translate "Donate" in footer message.
 * New: Add a unit test for uninstall
+* New: Add README.md
 * Change: Update unit test bootstrap
     * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
     * Enable more error output for unit tests
