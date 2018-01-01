@@ -185,7 +185,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 			'category',
 			'comments_popup',
 			'date',
-			'front_page',
+			'frontpage',
 			'home',
 			'index',
 			'page',

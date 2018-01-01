@@ -106,6 +106,7 @@ if ( $current_template == 'category-12.php' ) {
 == Changelog ==
 
 = () =
+* Fix: Properly detect front page template
 * Change: Update plugin framework to 046
     * 046:
     * Fix `reset_options()` to reference instance variable `$options`.
