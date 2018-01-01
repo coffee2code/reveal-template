@@ -176,8 +176,26 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 	 */
 	public function register_filters() {
 		$options = $this->get_options();
-		$templates = array( '404', 'archive', 'attachment', 'author', 'category', 'comments_popup', 'date',
-							'front_page', 'home', 'index', 'page', 'paged', 'search', 'single', 'tag', 'taxonomy' );
+
+		$templates = array(
+			'404',
+			'archive',
+			'attachment',
+			'author',
+			'category',
+			'comments_popup',
+			'date',
+			'front_page',
+			'home',
+			'index',
+			'page',
+			'paged',
+			'search',
+			'single',
+			'tag',
+			'taxonomy',
+		);
+
 		foreach ( $templates as $template ) {
 			add_filter( $template . '_template', array( $this, 'template_handler' ) );
 		}

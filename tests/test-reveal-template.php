@@ -25,12 +25,22 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 
 	public static function get_templates() {
 		return array(
-			array( '404' ), array( 'archive' ), array( 'attachment' ),
-			array( 'author' ), array( 'category' ), array( 'comments_popup' ),
-			array( 'date' ), array( 'front_page' ), array( 'home' ),
-			array( 'index' ), array( 'page' ), array( 'paged' ),
-			array( 'search' ), array( 'single' ), array( 'tag' ),
-			array( 'taxonomy' )
+			array( '404' ),
+			array( 'archive' ),
+			array( 'attachment' ),
+			array( 'author' ),
+			array( 'category' ),
+			array( 'comments_popup' ),
+			array( 'date' ),
+			array( 'front_page' ),
+			array( 'home' ),
+			array( 'index' ),
+			array( 'page' ),
+			array( 'paged' ),
+			array( 'search' ),
+			array( 'single' ),
+			array( 'tag' ),
+			array( 'taxonomy' ),
 		);
 	}
 
