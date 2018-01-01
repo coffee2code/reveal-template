@@ -184,6 +184,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 			'author',
 			'category',
 			'date',
+			'embed',
 			'frontpage',
 			'home',
 			'index',
@@ -191,6 +192,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 			'paged',
 			'search',
 			'single',
+			'singular',
 			'tag',
 			'taxonomy',
 		);

@@ -31,6 +31,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 			array( 'author' ),
 			array( 'category' ),
 			array( 'date' ),
+			array( 'embed' ),
 			array( 'frontpage' ),
 			array( 'home' ),
 			array( 'index' ),
@@ -38,6 +39,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 			array( 'paged' ),
 			array( 'search' ),
 			array( 'single' ),
+			array( 'singular' ),
 			array( 'tag' ),
 			array( 'taxonomy' ),
 		);

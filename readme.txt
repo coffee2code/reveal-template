@@ -106,6 +106,7 @@ if ( $current_template == 'category-12.php' ) {
 == Changelog ==
 
 = () =
+* New: Add support for 'embed' and 'singular' templates
 * Fix: Properly detect front page template
 * Delete: Remove support for 'comments_popup' template
 * Change: Update plugin framework to 046
