@@ -129,7 +129,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 	public function test_version() {
-		$this->assertEquals( '3.2', c2c_RevealTemplate::get_instance()->version() );
+		$this->assertEquals( '3.3', c2c_RevealTemplate::get_instance()->version() );
 	}
 
 	public function test_plugin_framework_class_name() {

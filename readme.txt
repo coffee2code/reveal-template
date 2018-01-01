@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 3.2
+Stable tag: 3.3
 
 Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
 
@@ -105,7 +105,13 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
-= () =
+= 3.3 (2018-01-01) =
+Highlights:
+
+* This release adds support for 'embed' and 'singular' templates, fixes recognition of the front page template, updates its plugin framework, and has some minor behind-the-scenes changes.
+
+Details:
+
 * New: Add support for 'embed' and 'singular' templates
 * Fix: Properly detect front page template
 * Delete: Remove support for 'comments_popup' template
@@ -141,9 +147,11 @@ if ( $current_template == 'category-12.php' ) {
 
 = 3.2 (2016-03-15) =
 Highlights:
+
 * This release adds support for language packs and has some minor behind-the-scenes changes.
 
 Details:
+
 * Change: Update plugin framework to 041:
     * Change class name to c2c_RevealTemplate_Plugin_041 to be plugin-specific.
     * Set textdomain using a string instead of a variable.
@@ -319,6 +327,9 @@ Details:
 
 
 == Upgrade Notice ==
+
+= 3.3 =
+Recommended update: adds support for 'embed' and 'singular' templates, fixes recognition of the front page template, updates plugin framework to version 046; compatibility is now with WP 4.7-4.9+; updated copyright date (2018).
 
 = 3.2 =
 Minor update: improved support for localization; minor widget code changes; verified compatibility through WP 4.4; dropped compatibility with WP older than 4.1; updated copyright date (2016)
