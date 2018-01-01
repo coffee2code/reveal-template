@@ -30,7 +30,6 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 			array( 'attachment' ),
 			array( 'author' ),
 			array( 'category' ),
-			array( 'comments_popup' ),
 			array( 'date' ),
 			array( 'frontpage' ),
 			array( 'home' ),

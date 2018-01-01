@@ -183,7 +183,6 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 			'attachment',
 			'author',
 			'category',
-			'comments_popup',
 			'date',
 			'frontpage',
 			'home',
