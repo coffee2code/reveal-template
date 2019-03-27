@@ -108,6 +108,7 @@ if ( $current_template == 'category-12.php' ) {
 = () =
 * Change: Store setting name in class constant
 * Unit tests:
+    * New: Add unit test to ensure plugin doesn't save an option to database on activation
     * Change: Improve unit test for deletion of option
 * Change: Note compatibility through WP 5.1+
 * Change: Add README.md link to plugin's page in Plugin Directory

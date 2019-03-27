@@ -342,6 +342,14 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	 * Setting handling
 	 */
 
+	public function test_does_not_immediately_store_default_settings_in_db() {
+		$option_name = c2c_RevealTemplate::SETTING_NAME;
+		// Get the options just to see if they may get saved.
+		$options     = c2c_RevealTemplate::get_instance()->get_options();
+
+		$this->assertFalse( get_option( $option_name ) );
+	}
+
 	public function test_uninstall_deletes_option() {
 		$option_name = c2c_RevealTemplate::SETTING_NAME;
 		$options     = c2c_RevealTemplate::get_instance()->get_options();
