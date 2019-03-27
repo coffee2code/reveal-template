@@ -363,7 +363,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertNotEmpty( $options );
 		$this->assertNotFalse( get_option( $option_name ) );
 
-		c2c_RestrictUsernames::uninstall();
+		c2c_RevealTemplate::uninstall();
 
 		$this->assertFalse( get_option( $option_name ) );
 	}
