@@ -8,6 +8,9 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		parent::setUp();
 		$this->post_id = $this->factory->post->create();
 		$this->user_id = $this->factory->user->create();
+
+		$theme = wp_get_theme( 'twentyseventeen' );
+		switch_theme( $theme->get_stylesheet() );
 	}
 
 	public function tearDown() {

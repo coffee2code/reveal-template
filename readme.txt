@@ -108,6 +108,7 @@ if ( $current_template == 'category-12.php' ) {
 = () =
 * Change: Store setting name in class constant
 * Unit tests:
+    * Fix: Explicitly set 'twentyseventeen' as the theme to ensure testing against a known theme
     * New: Add unit test to ensure plugin doesn't save an option to database on activation
     * Change: Improve unit test for deletion of option
 * Change: Note compatibility through WP 5.1+
