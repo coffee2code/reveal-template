@@ -6,7 +6,7 @@
  *
  * @package c2c_RevealTemplateWidget
  * @author  Scott Reilly
- * @version 003
+ * @version 004
  */
 
 defined( 'ABSPATH' ) or die();
@@ -27,7 +27,7 @@ class c2c_RevealTemplateWidget extends c2c_Widget_013 {
 	 * @return string
 	 */
 	public static function version() {
-		return '003';
+		return '004';
 	}
 
 	/**

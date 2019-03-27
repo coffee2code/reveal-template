@@ -118,6 +118,8 @@ if ( $current_template == 'category-12.php' ) {
     * Drop compatibility with version of WP older than 4.7
 * Change: Update widget framework to 013
     * Add `get_config()` as a getter for config array
+* Change: Update widget to 004
+    * Update to use v013 of the widget framework
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
 * Change: Initialize plugin on `plugins_loaded` action instead of on load
 * Unit tests:
