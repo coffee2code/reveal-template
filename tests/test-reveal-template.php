@@ -77,7 +77,17 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		global $current_user, $user_ID;
 
 		$current_user = $user_ID = null;
-    }
+	}
+
+	private function set_option( $settings = array() ) {
+		$defaults = array(
+			'display_in_footer' => true,
+			'format'            => '<p>Rendered template: %template%</p>',
+			'template_path'     => 'theme-relative',
+		);
+		$settings = wp_parse_args( $settings, $defaults );
+		c2c_RevealTemplate::get_instance()->update_option( $settings, true );
+	}
 
 	public function get_output( $template_path_type, $args = array() ) {
 		ob_start();
