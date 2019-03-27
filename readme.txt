@@ -108,6 +108,7 @@ if ( $current_template == 'category-12.php' ) {
 = () =
 * Change: Store setting name in class constant
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* Change: Initialize plugin on `plugins_loaded` action instead of on load
 * Unit tests:
     * Fix: Use a different template as the directly assigned template to ensure it's one the unit test default theme has defined
     * Fix: Explicitly set 'twentyseventeen' as the theme to ensure testing against a known theme

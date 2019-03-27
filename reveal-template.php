@@ -391,7 +391,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 	}
 } // end c2c_RevealTemplate
 
-c2c_RevealTemplate::get_instance();
+add_action( 'plugins_loaded', array( 'c2c_RevealTemplate', 'get_instance' ) );
 
 //
 // TEMPLATE FUNCTION
