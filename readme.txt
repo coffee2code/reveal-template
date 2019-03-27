@@ -116,6 +116,8 @@ if ( $current_template == 'category-12.php' ) {
     * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
     * Note compatibility through WP 4.9+
     * Drop compatibility with version of WP older than 4.7
+* Change: Update widget framework to 013
+    * Add `get_config()` as a getter for config array
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
 * Change: Initialize plugin on `plugins_loaded` action instead of on load
 * Unit tests:

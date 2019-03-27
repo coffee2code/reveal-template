@@ -2,18 +2,18 @@
 /**
  * C2C_Widget widget code.
  *
- * Copyright (c) 2010-2016 by Scott Reilly (aka coffee2code)
+ * Copyright (c) 2010-2017 by Scott Reilly (aka coffee2code)
  *
- * @package c2c_Widget_012
+ * @package c2c_Widget_013
  * @author  Scott Reilly
- * @version 012
+ * @version 013
  */
 
 defined( 'ABSPATH' ) or die();
 
-if ( class_exists( 'WP_Widget' ) && ! class_exists( 'c2c_Widget_012' ) ) :
+if ( class_exists( 'WP_Widget' ) && ! class_exists( 'c2c_Widget_013' ) ) :
 
-abstract class c2c_Widget_012 extends WP_Widget {
+abstract class c2c_Widget_013 extends WP_Widget {
 
 	/**
 	 * Widget ID.
@@ -79,7 +79,7 @@ abstract class c2c_Widget_012 extends WP_Widget {
 	 * @return string
 	 */
 	public static function version() {
-		return '012';
+		return '013';
 	}
 
 
@@ -118,6 +118,17 @@ abstract class c2c_Widget_012 extends WP_Widget {
 		$control_ops = apply_filters( $this->get_hook( 'control_ops' ), $control_ops );
 
 		parent::__construct( $this->widget_id, $this->title, $widget_ops, $control_ops );
+	}
+
+	/**
+	 * Returns the config array.
+	 *
+	 * @since 013
+	 *
+	 * @return array
+	 */
+	public function get_config() {
+		return $this->config;
 	}
 
 	/**

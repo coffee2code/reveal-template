@@ -15,7 +15,7 @@ if ( ! class_exists( 'c2c_RevealTemplateWidget' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-widget.php' );
 
-class c2c_RevealTemplateWidget extends c2c_Widget_012 {
+class c2c_RevealTemplateWidget extends c2c_Widget_013 {
 
 	protected static $template_path_types;
 
