@@ -339,7 +339,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 	public function test_uninstall_deletes_option() {
-		$option = 'c2c_reveal_template';
+		$option = c2c_RevealTemplate::SETTING_NAME;
 		c2c_RevealTemplate::get_instance()->get_options();
 
 		//$this->assertNotFalse( get_option( $option ) );

@@ -61,6 +61,14 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'reveal-template.widge
 final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 
 	/**
+	 * Name of plugin's setting.
+	 *
+	 * @since 3.4
+	 * @var string
+	 */
+	const SETTING_NAME = 'c2c_reveal_template';
+
+	/**
 	 * The one true instance.
 	 *
 	 * @var c2c_RevealTemplate
@@ -136,7 +144,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_046 {
 	 * @since 2.1
 	 */
 	public static function uninstall() {
-		delete_option( 'c2c_reveal_template' );
+		delete_option( self::SETTING_NAME );
 	}
 
 	/**
