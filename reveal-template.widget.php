@@ -2,7 +2,7 @@
 /**
  * Reveal Widget plugin widget code.
  *
- * Copyright (c) 2013-2016 by Scott Reilly (aka coffee2code)
+ * Copyright (c) 2013-2019 by Scott Reilly (aka coffee2code)
  *
  * @package c2c_RevealTemplateWidget
  * @author  Scott Reilly

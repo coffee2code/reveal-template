@@ -106,6 +106,7 @@ if ( $current_template == 'category-12.php' ) {
 == Changelog ==
 
 = () =
+* Change: Update copyright date (2019)
 * Change: Update License URI to be HTTPS
 
 = 3.3 (2018-01-01) =
