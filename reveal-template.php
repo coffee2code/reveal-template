@@ -6,7 +6,7 @@
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
  * License:     GPLv2 or later
- * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: reveal-template
  * Description: Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
  *
