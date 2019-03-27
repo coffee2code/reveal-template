@@ -180,7 +180,8 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_048 {
 	}
 
 	/**
-	 * Override the plugin framework's register_filters() to actually actions against filters.
+	 * Override the plugin framework's register_filters() to actually register
+	 * actions against filters.
 	 */
 	public function register_filters() {
 		$options = $this->get_options();
