@@ -281,7 +281,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 	public function test_page_specific_template_is_returned_when_set() {
-		$template = 'single.php'; // Something non-standard but the template actually exists.
+		$template = 'comments.php'; // Something non-standard but the template actually exists.
 		$post_id = $this->factory->post->create( array( 'post_type' => 'page' ) );
 		add_post_meta( $post_id, '_wp_page_template', $template, true );
 
