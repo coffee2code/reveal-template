@@ -19,7 +19,9 @@ See [readme.txt](https://github.com/coffee2code/reveal-template/blob/master/read
 
 ## Support
 
-Commercial support and custom development are not presently available. You can raise an [issue](https://github.com/coffee2code/reveal-template/issues) on GitHub or post in the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/reveal-template/). If the plugin has been of benefit to you, how about [submitting a review](https://wordpress.org/support/plugin/reveal-template/reviews/) for it in the WordPress Plugin Directory or considerating a [donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522)?
+Commercial support and custom development are not presently available. You can raise an [issue](https://github.com/coffee2code/reveal-template/issues) on GitHub or post in the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/reveal-template/).
+
+If the plugin has been of benefit to you, how about [submitting a review](https://wordpress.org/support/plugin/reveal-template/reviews/) for it in the WordPress Plugin Directory or considerating a [donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522)?
 
 
 ## License
