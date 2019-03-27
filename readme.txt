@@ -107,6 +107,7 @@ if ( $current_template == 'category-12.php' ) {
 
 = () =
 * Change: Store setting name in class constant
+* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
 * Unit tests:
     * Fix: Use a different template as the directly assigned template to ensure it's one the unit test default theme has defined
     * Fix: Explicitly set 'twentyseventeen' as the theme to ensure testing against a known theme
@@ -196,147 +197,7 @@ Details:
 * Change: Dropped compatibility with version of WP older than 4.1.
 * Change: Update copyright date (2016).
 
-= 3.1.1 (2015-08-17) =
-* Update: Discontinue use of PHP4-style constructor invocation of WP_Widget to prevent PHP notices in PHP7.
-* Update: Update widget framework to 010.
-* Update: Note compatibility through WP 4.3+.
-* Add: Add unit test for widget version.
-
-= 3.1 (2015-02-20) =
-* Update plugin framework to 039
-* Update widget framework to 009
-* Add more unit tests
-* Explicitly declare `activation()` and `uninstall()` static
-* Reformat plugin header
-* Change documentation links to wp.org to be https
-* Minor documentation spacing changes throughout
-* Note compatibility through WP 4.1+
-* Update copyright date (2015)
-* Add plugin icon
-* Regenerate .pot
-
-= 3.0 (2013-12-28) =
-* Add 'Reveal Template' widget
-* Add widget framework 008
-* Add 'revealtemplate' shortcode
-* Fix to recognize proper template names for hooks, 'front_page' and 'comments_popup' (they need underscores)
-* Change arguments for object method reveal() (will break code using this method directly)
-* Enhance reveal() with 'format' args option to permit custom format string to be directly sent
-* Enhance reveal() with 'format_from_settings' args option to permit use of the format string defined via settings even if not being shown in footer
-* Enhance reveal() with 'admin_only' args option to control if output should be echoed for just admins or not
-* Enhance reveal() with 'return' args option to allow not returning a value for the function if the user isn't permitted to view the output
-* Add optional $args argument to c2c_reveal_template() to feed into the identical arg for reveal()
-* Add reveal_to_current_user() to contain logic for determining if the current user can be shown the template name/path
-* Add get_template_path_types() to allow fetching of the recognized template path types and their descriptions
-* Add reveal_in_footer() as function hooked to wp_footer (configures use of reveal() for the wp_footer context)
-* Changed default template path type to 'theme-relative'
-* Make class variable $instance private
-* Add get_instance() class method to obtain singleton instance, creating one if it doesn't exist
-* Add get_default_template_path_type() class method to obtain default template path type
-* Remove long deprecated reveal_template(); use c2c_reveal_template() instead if you aren't already
-* Update plugin framework to 036
-* Add unit tests
-* For options_page_description(), match method signature of parent class
-* Note compatibility through WP 3.8+
-* Drop compatibility with version of WP older than 3.6
-* Update copyright date (2014)
-* Add banner
-* Add 'Screenshots' section to readme.txt
-* Add screenshot of widget
-* Updated existing screenshot
-* Regenerate .pot
-* Numerous readme.txt text and formatting tweaks
-* Change donate link
-
-= 2.3 =
-* When set to echo or display in footer, only do so for logged in users with the 'update_themes' capability
-* Recognize 'frontpage' and 'index' templates
-* Fix recognition of 'commentspopup' template
-* Update plugin framework to 035
-* Discontinue use of explicit pass-by-reference for objects
-* Add check to prevent execution of code if file is directly accessed
-* Regenerate .pot
-* Re-license as GPLv2 or later (from X11)
-* Add 'License' and 'License URI' header tags to readme.txt and plugin file
-* Note compatibility through WP 3.5+
-* Update copyright date (2013)
-* Minor code reformatting (spacing)
-* Remove ending PHP close tag
-* Move screenshot into repo's assets directory
-
-= 2.2 =
-* Update plugin framework to 031
-* Remove support for 'c2c_reveal_template' global
-* Note compatibility through WP 3.3+
-* Drop support for versions of WP older than 3.1
-* Move .pot into lang/
-* Regenerate .pot
-* Add 'Domain Path' directive to top of main plugin file
-* Update screenshot for WP 3.3
-* Add link to plugin directory page to readme.txt
-* Update copyright date (2012)
-
-= 2.1 =
-* Update plugin framework to v023
-* Save a static version of itself in class variable $instance
-* Deprecate use of global variable $c2c_reveal_template to store instance
-* Explicitly declare all functions as public
-* Add __construct(), activation(), and uninstall()
-* Note compatibility through WP 3.2+
-* Drop compatibility with versions of WP older than 3.0
-* Minor code formatting changes (spacing)
-* Add plugin homepage and author links in description in readme.txt
-
-= 2.0.4 =
-* Fix bug with theme-relative template path output showing parent theme path instead of child theme path
-
-= 2.0.3 =
-* Update plugin framework to version 021
-* Explicitly declare all class functions public
-* Delete plugin options upon uninstallation
-* Note compatibility through WP 3.1+
-* Update copyright date (2011)
-
-= 2.0.2 =
-* Update plugin framework to version 017
-
-= 2.0.1 =
-* Update plugin framework to version 016
-* Fix template tag name references in readme.txt to use renamed function name
-* Add Template Tags section to readme.txt
-
-= 2.0 =
-* Re-implementation by extending C2C_Plugin_013, which among other things adds support for:
-    * Reset of options to default values
-    * Better sanitization of input values
-    * Offload of core/basic functionality to generic plugin framework
-    * Additional hooks for various stages/places of plugin operation
-    * Easier localization support
-* Full localization support
-* Add c2c_reveal_template()
-* Deprecate reveal_template() in favor of c2c_reveal_template() (but retain for backward compatibility)
-* Rename class from 'RevealTemplate' to 'c2c_RevealTemplate'
-* Remove docs from top of plugin file (all that and more are in readme.txt)
-* Change description
-* Add package info to top of plugin file
-* Add PHPDoc documentation
-* Note compatibility with WP 2.9+, 3.0+
-* Drop support for versions of WP older than 2.8
-* Minor tweaks to code formatting (spacing)
-* Add Changelog and Upgrade Notice sections to readme.txt
-* Update copyright date
-* Remove trailing whitespace in header docs
-* Update screenshot
-* Add .pot file
-
-= 1.0.1 =
-* Check for 'manage_options' instead of 'edit_posts' permission in order to edit settings
-* Use plugins_url() instead of hard-coding path
-* Tweak readme tags and donate link
-* Note compatibility with WP 2.8+
-
-= 1.0 =
-* Initial release
+_Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/reveal-template/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
