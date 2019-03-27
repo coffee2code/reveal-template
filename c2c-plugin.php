@@ -2,17 +2,17 @@
 /**
  * @package C2C_Plugins
  * @author  Scott Reilly
- * @version 046
+ * @version 048
  */
 /*
 Basis for other plugins.
 
-Compatible with WordPress 3.6+ through 4.7+.
+Compatible with WordPress 4.7 through 4.9+.
 
 */
 
 /*
-	Copyright (c) 2010-2017 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2010-2018 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -31,9 +31,9 @@ Compatible with WordPress 3.6+ through 4.7+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'c2c_RevealTemplate_Plugin_046' ) ) :
+if ( ! class_exists( 'c2c_RevealTemplate_Plugin_048' ) ) :
 
-abstract class c2c_RevealTemplate_Plugin_046 {
+abstract class c2c_RevealTemplate_Plugin_048 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -65,7 +65,7 @@ abstract class c2c_RevealTemplate_Plugin_046 {
 	 * @since 040
 	 */
 	public function c2c_plugin_version() {
-		return '046';
+		return '048';
 	}
 
 	/**
@@ -133,14 +133,14 @@ abstract class c2c_RevealTemplate_Plugin_046 {
 	 *
 	 * @since 036
 	 */
-	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'reveal-template' ), '036' ); }
+	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'reveal-template' ), '036' ); }
 
 	/**
 	 * A dummy magic method to prevent object from being unserialized
 	 *
 	 * @since 036
 	 */
-	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'reveal-template' ), '036' ); }
+	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'reveal-template' ), '036' ); }
 
 	/**
 	 * Returns the plugin's version.
@@ -152,13 +152,11 @@ abstract class c2c_RevealTemplate_Plugin_046 {
 	}
 
 	/**
-	 * Handles installation tasks, such as ensuring plugin options are instantiated and saved to options table.
+	 * Handles installation tasks.
 	 *
 	 * This can be overridden.
 	 */
 	public function install() {
-		$this->options = $this->get_options();
-		update_option( $this->admin_options_name, $this->options );
 	}
 
 	/**
@@ -353,14 +351,8 @@ abstract class c2c_RevealTemplate_Plugin_046 {
 	public function reset_options() {
 		$this->reset_caches();
 
-		// If a setting has been saved to the database.
-		if ( $option = get_option( $this->admin_options_name ) ) {
-			// Unset the options (so that in get_options() the defaults are used).
-			foreach ( $this->get_option_names() as $opt ) {
-				unset( $this->options[ $opt ] );
-			}
-			update_option( $this->admin_options_name, $this->options );
-		}
+		// Delete the setting from the database.
+		delete_option( $this->admin_options_name );
 
 		$this->options = $this->get_options( false );
 
@@ -386,6 +378,7 @@ abstract class c2c_RevealTemplate_Plugin_046 {
 		if ( isset( $_POST['Reset'] ) ) {
 			$options = $this->reset_options();
 			add_settings_error( 'general', 'settings_reset', __( 'Settings reset.', 'reveal-template' ), 'updated' );
+			unset( $_POST['Reset'] );
 		} else {
 			// Start with the existing options, then start overwriting their potential override value. (This prevents
 			// unscrupulous addition of fields by the user)
