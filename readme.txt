@@ -107,6 +107,8 @@ if ( $current_template == 'category-12.php' ) {
 
 = () =
 * Change: Store setting name in class constant
+* Unit tests:
+    * Change: Improve unit test for deletion of option
 * Change: Note compatibility through WP 5.1+
 * Change: Add README.md link to plugin's page in Plugin Directory
 * Change: Update copyright date (2019)
