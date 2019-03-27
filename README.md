@@ -2,6 +2,8 @@
 
 A plugin for WordPress to reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
 
+This plugin is available in the WordPress Plugin Directory: https://wordpress.org/plugins/reveal-template/
+
 
 ## Installation
 
