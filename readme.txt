@@ -5,7 +5,7 @@ Tags: template, theme, debug, presentation, template, design, widget, shortcode,
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
-Tested up to: 4.9
+Tested up to: 5.1
 Stable tag: 3.3
 
 Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
@@ -106,6 +106,7 @@ if ( $current_template == 'category-12.php' ) {
 == Changelog ==
 
 = () =
+* Change: Note compatibility through WP 5.1+
 * Change: Update copyright date (2019)
 * Change: Update License URI to be HTTPS
 
