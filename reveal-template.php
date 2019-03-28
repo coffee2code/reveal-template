@@ -152,7 +152,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_048 {
 	 */
 	public function load_config() {
 		$this->name      = __( 'Reveal Template', 'reveal-template' );
-		$this->menu_name = __( 'Reveal Template', 'reveal-template' );
+		$this->menu_name = $this->name;
 
 		$this->config = array(
 			'display_in_footer' => array(
