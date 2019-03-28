@@ -1,5 +1,42 @@
 # Changelog
 
+## 3.4 _(2019-03-28)_
+
+### Highlights:
+
+* This release is a minor update that verifies compatibility through WordPress 5.1+ and makes minor behind-the-scenes improvements.
+
+### Details:
+* Change: Store setting name in class constant
+* Change: Update plugin framework to 048
+    * 048:
+    * When resetting options, delete the option rather than setting it with default values
+    * Prevent double "Settings reset" admin notice upon settings reset
+    * 047:
+    * Don't save default setting values to database on install
+    * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
+    * Note compatibility through WP 4.9+
+    * Drop compatibility with version of WP older than 4.7
+* Change: Update widget framework to 013
+    * Add `get_config()` as a getter for config array
+* Change: Update widget to 004
+    * Update to use v013 of the widget framework
+* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* Change: Initialize plugin on `plugins_loaded` action instead of on load
+* Unit tests:
+    * Fix: Use a different template as the directly assigned template to ensure it's one the unit test default theme has defined
+    * Fix: Explicitly set 'twentyseventeen' as the theme to ensure testing against a known theme
+    * New: Add unit test to ensure plugin doesn't save an option to database on activation
+    * New: Add `set_option()` to facilitate setting of plugin options
+    * New: Add unit test for setting defaults
+    * New: Add a bunch of assertions for use of `reveal()` alongside uses of `c2c_reveal_template()`
+    * Change: Improve unit test for deletion of option
+* Change: Note compatibility through WP 5.1+
+* Change: Add README.md link to plugin's page in Plugin Directory
+* Change: Update copyright date (2019)
+* Change: Update License URI to be HTTPS
+* Change: Split paragraph in README.md's "Support" section into two
+
 ## 3.3 _(2018-01-01)_
 
 ### Highlights:

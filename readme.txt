@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 5.1
-Stable tag: 3.3
+Stable tag: 3.4
 
 Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
 
@@ -105,7 +105,13 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
-= () =
+= 3.4 (2019-03-28) =
+Highlights:
+
+* This release is a minor update that verifies compatibility through WordPress 5.1+ and makes minor behind-the-scenes improvements.
+
+Details:
+
 * Change: Store setting name in class constant
 * Change: Update plugin framework to 048
     * 048:
@@ -218,6 +224,9 @@ _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/re
 
 
 == Upgrade Notice ==
+
+= 3.4 =
+Minor update: tweaked plugin initialization, fixed some unit tests and added more, updates plugin framework to version 048, noted compatibility through WP 5.1+, created CHANGELOG.md to store historical changelog outside of readme.txt, and updated copyright date (2019)
 
 = 3.3 =
 Recommended update: adds support for 'embed' and 'singular' templates, fixes recognition of the front page template, updates plugin framework to version 046; compatibility is now with WP 4.7-4.9+; updated copyright date (2018).
