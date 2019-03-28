@@ -128,6 +128,7 @@ if ( $current_template == 'category-12.php' ) {
     * New: Add unit test to ensure plugin doesn't save an option to database on activation
     * New: Add `set_option()` to facilitate setting of plugin options
     * New: Add unit test for setting defaults
+    * New: Add a bunch of assertions for use of `reveal()` alongside uses of `c2c_reveal_template()`
     * Change: Improve unit test for deletion of option
 * Change: Note compatibility through WP 5.1+
 * Change: Add README.md link to plugin's page in Plugin Directory

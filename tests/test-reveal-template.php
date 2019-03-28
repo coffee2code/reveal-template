@@ -98,9 +98,14 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		c2c_RevealTemplate::get_instance()->update_option( $settings, true );
 	}
 
-	public function get_output( $template_path_type, $args = array() ) {
+	public function get_output( $template_path_type, $args = array(), $use_function = true ) {
 		ob_start();
-		c2c_reveal_template( true, $template_path_type, $args );
+		if ( $use_function ) {
+			c2c_reveal_template( true, $template_path_type, $args );
+		} else {
+			$args['echo'] = true;
+			c2c_RevealTemplate::get_instance()->reveal( $template_path_type, $args );
+		}
 		$out = ob_get_contents();
 		ob_end_clean();
 		return $out;
@@ -135,6 +140,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		foreach ( c2c_RevealTemplate::get_instance()->get_template_path_types() as $template_type => $desc ) {
 			$expected = $this->get_template_path_part( $absolute_path, $template_type );
 			$this->assertEquals( $expected, c2c_reveal_template( false, $template_type ) );
+			$this->assertEquals( $expected, c2c_RevealTemplate::get_instance()->reveal( $template_type, array( 'echo' => false ) ) );
 		}
 	}
 
@@ -196,6 +202,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( is_user_logged_in() );
 		$this->assertEmpty( $this->get_output( $template_path_type ) );
+		$this->assertEmpty( $this->get_output( $template_path_type, array(), false ) );
 	}
 
 	/**
@@ -237,12 +244,16 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		apply_filters( 'single_template', get_stylesheet_directory() . '/single.php' );
 
 		$this->assertEmpty( $this->get_output( 'filename', array( 'admin_only' => true ) ) );
+		$this->assertEmpty( $this->get_output( 'filename', array( 'admin_only' => true ), false ) );
 		$this->assertEquals( 'single.php', $this->get_output( 'filename', array( 'admin_only' => false ) ) );
+		$this->assertEquals( 'single.php', $this->get_output( 'filename', array( 'admin_only' => false ), false ) );
 
 		$this->create_user( 'administrator' );
 
 		$this->assertEquals( 'single.php', $this->get_output( 'filename', array( 'admin_only' => true ) ) );
+		$this->assertEquals( 'single.php', $this->get_output( 'filename', array( 'admin_only' => true ), false ) );
 		$this->assertEquals( 'single.php', $this->get_output( 'filename', array( 'admin_only' => false ) ) );
+		$this->assertEquals( 'single.php', $this->get_output( 'filename', array( 'admin_only' => false ), false ) );
 
 	}
 
@@ -256,6 +267,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		apply_filters( 'single_template', get_stylesheet_directory() . '/single.php' );
 
 		$this->assertEquals( 'single.php', $this->get_output( 'filename', array( 'echo' => false ) ) );
+		$this->assertEquals( 'single.php', $this->get_output( 'filename', array( 'echo' => false ), false ) );
 
 		ob_start();
 		c2c_reveal_template( false, $template_path_type, array( 'echo' => true ) );
@@ -272,6 +284,10 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 			'Abc (category.php)',
 			c2c_reveal_template( false, 'filename', array( 'format' => 'Abc (%template%)', 'format_from_settings' => false ) )
 		);
+		$this->assertEquals(
+			'Abc (category.php)',
+			c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'format' => 'Abc (%template%)', 'format_from_settings' => false, 'echo' => false ) )
+		);
 	}
 
 	public function test_c2c_reveal_template_arg_format_from_settings() {
@@ -283,6 +299,10 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 			str_replace( '%template%', 'category.php', $options['format'] ),
 			c2c_reveal_template( false, 'filename', array( 'format' => 'Abc (%template%)', 'format_from_settings' => true ) )
 		);
+		$this->assertEquals(
+			str_replace( '%template%', 'category.php', $options['format'] ),
+			c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'format' => 'Abc (%template%)', 'format_from_settings' => true, 'echo' => false ) )
+		);
 	}
 
 	public function test_c2c_reveal_template_arg_return() {
@@ -292,11 +312,19 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( '', c2c_reveal_template( false, 'filename', array( 'return' => 'gibberish' ) ) );
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => true ) ) );
 
+		$this->assertEmpty( '', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => false, 'echo' => false ) ) );
+		$this->assertEmpty( '', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => 'gibberish', 'echo' => false ) ) );
+		$this->assertEquals( 'category.php', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => true, 'echo' => false ) ) );
+
 		$this->create_user( 'administrator' );
 
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => false ) ) );
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => true ) ) );
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => 'gibberish' ) ) );
+
+		$this->assertEquals( 'category.php', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => false, 'echo' => false ) ) );
+		$this->assertEquals( 'category.php', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => true, 'echo' => false ) ) );
+		$this->assertEquals( 'category.php', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => 'gibberish', 'echo' => false ) ) );
 	}
 
 	public function test_page_specific_template_is_returned_when_set() {
@@ -309,6 +337,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( $template, get_page_template_slug( $post_id ) );
 		$this->assertEquals( $template, c2c_reveal_template( false, 'filename', array( 'return' => true ) ) );
+		$this->assertEquals( $template, c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => true, 'echo' => false ) ) );
 	}
 
 	/**
@@ -358,6 +387,25 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertEquals( $expected_display, do_shortcode( $str_no_admin ) );
 		$this->assertEquals( $expected_display, do_shortcode( $str_admin_0 ) );
 		$this->assertEquals( $expected_display, do_shortcode( $str_admin_1 ) );
+	}
+
+	/*
+	 * reveal()
+	 */
+
+	/**
+	 * @dataProvider get_template_path_types
+	 */
+	public function test_reveal_with_echo( $template_path_type ) {
+		$this->create_user( 'administrator' );
+
+		$template = 'category';
+		$full_path = get_stylesheet_directory() . "/{$template}.php";
+		apply_filters( $template . '_template', $full_path );
+
+		$expected = $this->get_template_path_part( $full_path, $template_path_type );
+
+		$this->assertEquals( $expected, $this->get_output( $template_path_type, array(), false ) );
 	}
 
 	/*
