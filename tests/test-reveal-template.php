@@ -56,6 +56,15 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		return $ret;
 	}
 
+	public static function get_option_defaults() {
+		return array(
+			array( 'display_in_footer', true ),
+			array( 'format'           , '<p>Rendered template: %template%</p>' ),
+			array( 'template_path'    , 'theme-relative' ),
+		);
+	}
+
+
 
 	//
 	//
@@ -79,17 +88,13 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$current_user = $user_ID = null;
 	}
 
-	private function get_option_defaults() {
-		return array(
-			'display_in_footer' => true,
-			'format'            => '<p>Rendered template: %template%</p>',
-			'template_path'     => 'theme-relative',
-		);
-	}
-
 	private function set_option( $settings = array() ) {
 		$defaults = $this->get_option_defaults();
-		$settings = wp_parse_args( $settings, $defaults );
+		$defaults2 = array();
+		foreach ( $defaults as $item ) {
+			$defaults2[ $item[0] ] = $item[1];
+		}
+		$settings = wp_parse_args( $settings, $defaults2 );
 		c2c_RevealTemplate::get_instance()->update_option( $settings, true );
 	}
 
@@ -359,13 +364,15 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	 * Settings
 	 */
 
-	public function test_setting_defaults() {
+	/**
+	 * @dataProvider get_option_defaults
+	 */
+	public function test_setting_defaults( $name, $default ) {
 		$options = c2c_RevealTemplate::get_instance()->get_options();
 		$defaults = $this->get_option_defaults();
 
-		foreach ( $defaults as $name => $default ) {
-			$this->assertEquals( $default, $options[ $name ] );
-		}
+		$this->assertTrue( in_array( $name, array_keys( $options ) ) );
+		$this->assertEquals( $default, $options[ $name ] );
 	}
 
 	/*
