@@ -270,7 +270,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'single.php', $this->get_output( 'filename', array( 'echo' => false ), false ) );
 
 		ob_start();
-		c2c_reveal_template( false, $template_path_type, array( 'echo' => true ) );
+		c2c_reveal_template( false, 'filename', array( 'echo' => true ) );
 		$out = ob_get_contents();
 		ob_end_clean();
 
