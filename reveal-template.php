@@ -361,6 +361,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_048 {
 
 		$return = $args['return'];
 
+		// Format the template path string based on type.
 		switch ( $template_path_type ) {
 			case 'absolute':
 				// Do nothing; already have the absolute path
@@ -377,9 +378,11 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_048 {
 				break;
 		}
 
+		// Check if current user can be shown the template.
 		$is_allowed = ( false === $args['admin_only'] || $this->reveal_to_current_user() );
 
 		if ( $return || $is_allowed ) {
+			// Format the template path string according to format string.
 			if ( $args['format_from_settings'] ) {
 				$options = $this->get_options();
 				$format = $options['format'];
