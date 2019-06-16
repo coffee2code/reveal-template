@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Reveal Template
- * Version:     3.4
+ * Version:     3.4.1
  * Plugin URI:  http://coffee2code.com/wp-plugins/reveal-template/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,7 +18,7 @@
  *
  * @package Reveal_Template
  * @author  Scott Reilly
- * @version 3.4
+ * @version 3.4.1
  */
 
 /*
@@ -128,7 +128,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_048 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '3.4', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '3.4.1', 'reveal-template', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		return self::$instance = $this;

@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 5.2
-Stable tag: 3.4
+Stable tag: 3.4.1
 
 Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
 
@@ -105,6 +105,13 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
+= 3.4.1 (2019-06-16) =
+* Change: Return an empty string instead of null when the template path string shouldn't return anything
+* Unit tests:
+    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
+    * Fix: Use explicit string value instead of referencing undefined variable
+* Change: Note compatibility through WP 5.2+
+
 = 3.4 (2019-03-28) =
 Highlights:
 
@@ -182,48 +189,13 @@ Details:
 * Change: Minor code reformatting
 * Change: Minor dockblock reformatting
 
-= 3.2 (2016-03-15) =
-Highlights:
-
-* This release adds support for language packs and has some minor behind-the-scenes changes.
-
-Details:
-
-* Change: Update plugin framework to 041:
-    * Change class name to c2c_RevealTemplate_Plugin_041 to be plugin-specific.
-    * Set textdomain using a string instead of a variable.
-    * Don't load textdomain from file.
-    * Change admin page header from 'h2' to 'h1' tag.
-    * Add `c2c_plugin_version()`.
-    * Formatting improvements to inline docs.
-* Change: Update widget to 003:
-    * Explicitly declare `__construct()` public.
-    * Add `register_widget()` and change to calling it when hooking 'admin_init'.
-    * Reformat config array.
-* Change: Update widget framework to 012:
-    * Go back to non-plugin-specific class name of c2c_Widget_012
-    * Don't load textdomain
-    * Declare class and `load_config()` and `widget_body()` as being abstract
-    * Change class variable `$config` from public to protected
-    * Discontinue use of `extract()`
-    * Apply 'widget_title' filter to widget title
-    * Add more inline documentation
-    * Minor code reformatting (spacing, bracing, Yoda-ify conditions)
-* Change: Add support for language packs:
-    * Set textdomain using a string instead of a variable.
-    * Add 'Text Domain' to plugin header.
-    * Remove .pot file and /lang subdirectory.
-* New: Add LICENSE file.
-* New: Add empty index.php to prevent files from being listed if web server has enabled directory listings.
-* Change: Minor code reformatting.
-* Change: Note compatibility through WP 4.4+.
-* Change: Dropped compatibility with version of WP older than 4.1.
-* Change: Update copyright date (2016).
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/reveal-template/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.4.1 =
+Trivial update: minor change in `c2c_reveal_template()` to return an empty string where a null had been returned, modernized unit tests, noted compatibility through WP 5.2+
 
 = 3.4 =
 Minor update: tweaked plugin initialization, fixed some unit tests and added more, updates plugin framework to version 048, noted compatibility through WP 5.1+, created CHANGELOG.md to store historical changelog outside of readme.txt, and updated copyright date (2019)
