@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Return an empty string instead of null when the template path string shouldn't return anything
 * Unit tests:
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
     * Fix: Use explicit string value instead of referencing undefined variable

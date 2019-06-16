@@ -394,7 +394,10 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_048 {
 
 			return $display;
 		}
+
+		return '';
 	}
+
 } // end c2c_RevealTemplate
 
 add_action( 'plugins_loaded', array( 'c2c_RevealTemplate', 'get_instance' ) );
