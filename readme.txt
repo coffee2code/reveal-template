@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 5.3
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 
 Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
 
@@ -105,6 +105,11 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
+= 3.4.2 (2019-12-27) =
+* New: Unit tests: Add test to verify plugin hooks `plugins_loaded` action to initialize itself
+* Change: Note compatibility through WP 5.3+
+* Change: Update copyright date (2020)
+
 = 3.4.1 (2019-06-16) =
 * Change: Return an empty string instead of null when the template path string shouldn't return anything
 * Unit tests:
@@ -149,50 +154,13 @@ Details:
 * Change: Update License URI to be HTTPS
 * Change: Split paragraph in README.md's "Support" section into two
 
-= 3.3 (2018-01-01) =
-Highlights:
-
-* This release adds support for 'embed' and 'singular' templates, fixes recognition of the front page template, updates its plugin framework, and has some minor behind-the-scenes changes.
-
-Details:
-
-* New: Add support for 'embed' and 'singular' templates
-* Fix: Properly detect front page template
-* Delete: Remove support for 'comments_popup' template
-* Change: Update plugin framework to 046
-    * 046:
-    * Fix `reset_options()` to reference instance variable `$options`.
-    * Note compatibility through WP 4.7+.
-    * Update copyright date (2017)
-    * 045:
-    * Ensure `reset_options()` resets values saved in the database.
-    * 044:
-    * Add `reset_caches()` to clear caches and memoized data. Use it in `reset_options()` and `verify_config()`.
-    * Add `verify_options()` with logic extracted from `verify_config()` for initializing default option attributes.
-    * Add `add_option()` to add a new option to the plugin's configuration.
-    * Add filter 'sanitized_option_names' to allow modifying the list of whitelisted option names.
-    * Change: Refactor `get_option_names()`.
-    * 043:
-    * Disregard invalid lines supplied as part of hash option value.
-    * 042:
-    * Update `disable_update_check()` to check for HTTP and HTTPS for plugin update check API URL.
-    * Translate "Donate" in footer message.
-* New: Add a unit test for uninstall
-* New: Add README.md
-* Change: Update unit test bootstrap
-    * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
-    * Enable more error output for unit tests
-* Change: Add GitHub link to readme
-* Change: Note compatibility through WP 4.9+
-* Change: Drop compatibility with versions of WP older than 4.7
-* Change: Update copyright date (2018)
-* Change: Minor code reformatting
-* Change: Minor dockblock reformatting
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/reveal-template/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.4.2 =
+Trivial update: noted compatibility through WP 5.3+ and updated copyright date (2020)
 
 = 3.4.1 =
 Trivial update: minor change in `c2c_reveal_template()` to return an empty string where a null had been returned, modernized unit tests, noted compatibility through WP 5.2+

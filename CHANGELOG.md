@@ -1,6 +1,6 @@
 # Changelog
 
-## _(in-progress)_
+## 3.4.2 _(2019-12-27)_
 * New: Unit tests: Add test to verify plugin hooks `plugins_loaded` action to initialize itself
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
