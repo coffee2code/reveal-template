@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Change: Note compatibility through WP 5.3+
+
 ## 3.4.1 _(2019-06-16)_
 * Change: Return an empty string instead of null when the template path string shouldn't return anything
 * Unit tests:
