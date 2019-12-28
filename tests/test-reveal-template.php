@@ -172,6 +172,11 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertTrue( is_a( c2c_RevealTemplate::get_instance(), 'c2c_RevealTemplate' ) );
 	}
 
+	public function test_hooks_plugins_loaded() {
+		$this->assertEquals( 10, has_filter( 'plugins_loaded', array( 'c2c_RevealTemplate', 'get_instance' ) ) );
+	}
+
+
 	/* Widget */
 
 	public function test_widget_class_exists() {
