@@ -2,6 +2,20 @@
 
 ## _(in-progress)_
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it
+* Change: Update plugin framework to 050
+    * 050:
+    * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
+    * Output donation markup using `printf()` rather than using string concatenation
+    * Update copyright date (2020)
+    * Note compatibility through WP 5.4+
+    * Drop compatibility with version of WP older than 4.9
+    * 049:
+    * Correct last arg in call to `add_settings_field()` to be an array
+    * Wrap help text for settings in `label` instead of `p`
+    * Only use `label` for help text for checkboxes, otherwise use `p`
+    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
+    * Note compatibility through WP 5.1+
+    * Update copyright date (2019)
 * Change: Note compatibility through WP 5.4+
 * Change: Drop compatibility with version of WP older than 4.9
 * Change: Update links to coffee2code.com to be HTTPS
