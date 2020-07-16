@@ -22,23 +22,6 @@
  */
 
 /*
- * TODO:
- * - Support BuddyPress
- * - Filter for reveal_to_current_user()?
- * - Add 'format' field to widget
- * - Add 'format' attribute to shortcode
- * - Add 'Shortcode' section to readme.txt to fully document shortcode
- * - Add 'Frequently Asked Questions' section to readme.txt. (incl mention of no mime-type template support)
- * - Add option to only output when WP_DEBUG is true
- * - Add block implementation of shortcode
- * - Add option to allow reveal to be shown to all visitors, not just admins
- * - Add option dropdown to allow choice of where reveal is shown:
- *   * In footer (as currently done)
- *   * As HTML comment in footer (new feature)
- *   * In admin bar (new feature)
-*/
-
-/*
 	Copyright (c) 2008-2020 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
