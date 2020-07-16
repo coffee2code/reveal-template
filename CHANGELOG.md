@@ -23,6 +23,7 @@
 * Unit tests:
     * New: Add tests for `register_filters()`, `options_page_description()`
     * New: Add test for setting name
+    * Change: Store plugin instance in test object to simplify referencing it
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
 
 ## 3.4.2 _(2019-12-27)_

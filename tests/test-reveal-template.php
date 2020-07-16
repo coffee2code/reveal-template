@@ -4,6 +4,8 @@ defined( 'ABSPATH' ) or die();
 
 class Reveal_Template_Test extends WP_UnitTestCase {
 
+	protected $obj;
+
 	public function setUp() {
 		parent::setUp();
 		$this->post_id = $this->factory->post->create();
@@ -11,13 +13,15 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 
 		$theme = wp_get_theme( 'twentyseventeen' );
 		switch_theme( $theme->get_stylesheet() );
+
+		$this->obj = c2c_RevealTemplate::get_instance();
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 		$this->unset_current_user();
 
-		c2c_RevealTemplate::get_instance()->reset_options();
+		$this->obj->reset_options();
 	}
 
 
@@ -97,7 +101,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 			$defaults2[ $item[0] ] = $item[1];
 		}
 		$settings = wp_parse_args( $settings, $defaults2 );
-		c2c_RevealTemplate::get_instance()->update_option( $settings, true );
+		$this->obj->update_option( $settings, true );
 	}
 
 	public function get_output( $template_path_type, $args = array(), $use_function = true ) {
@@ -106,7 +110,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 			c2c_reveal_template( true, $template_path_type, $args );
 		} else {
 			$args['echo'] = true;
-			c2c_RevealTemplate::get_instance()->reveal( $template_path_type, $args );
+			$this->obj->reveal( $template_path_type, $args );
 		}
 		$out = ob_get_contents();
 		ob_end_clean();
@@ -139,10 +143,10 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 	public function assert_template_types( $absolute_path ) {
-		foreach ( c2c_RevealTemplate::get_instance()->get_template_path_types() as $template_type => $desc ) {
+		foreach ( $this->obj->get_template_path_types() as $template_type => $desc ) {
 			$expected = $this->get_template_path_part( $absolute_path, $template_type );
 			$this->assertEquals( $expected, c2c_reveal_template( false, $template_type ) );
-			$this->assertEquals( $expected, c2c_RevealTemplate::get_instance()->reveal( $template_type, array( 'echo' => false ) ) );
+			$this->assertEquals( $expected, $this->obj->reveal( $template_type, array( 'echo' => false ) ) );
 		}
 	}
 
@@ -159,7 +163,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 	public function test_version() {
-		$this->assertEquals( '3.4.2', c2c_RevealTemplate::get_instance()->version() );
+		$this->assertEquals( '3.4.2', $this->obj->version() );
 	}
 
 	public function test_plugin_framework_class_name() {
@@ -167,11 +171,11 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 	public function test_plugin_framework_version() {
-		$this->assertEquals( '050', c2c_RevealTemplate::get_instance()->c2c_plugin_version() );
+		$this->assertEquals( '050', $this->obj->c2c_plugin_version() );
 	}
 
 	public function test_instance_object_is_returned() {
-		$this->assertTrue( is_a( c2c_RevealTemplate::get_instance(), 'c2c_RevealTemplate' ) );
+		$this->assertTrue( is_a( $this->obj, 'c2c_RevealTemplate' ) );
 	}
 
 	public function test_hooks_plugins_loaded() {
@@ -191,27 +195,27 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	 */
 	public function test_hooks_template_for_each_template( $template ) {
 		add_filter( $template . '_template', array( $this, 'template_handler' ) );
-		$this->assertEquals( 10, has_filter( $template . '_template', array( c2c_RevealTemplate::get_instance(), 'template_handler' ) ) );
+		$this->assertEquals( 10, has_filter( $template . '_template', array( $this->obj, 'template_handler' ) ) );
 	}
 
 	public function test_hooks_wp_footer_for_each_template() {
 		// Undo hook that was hooked by default during plugin init.
-		remove_action( 'wp_footer', array( c2c_RevealTemplate::get_instance(), 'reveal_in_footer' ) );
+		remove_action( 'wp_footer', array( $this->obj, 'reveal_in_footer' ) );
 		$this->set_option( array( 'display_in_footer' => true ) );
 
-		c2c_RevealTemplate::get_instance()->register_filters();
+		$this->obj->register_filters();
 
-		$this->assertEquals( 10, has_action( 'wp_footer', array( c2c_RevealTemplate::get_instance(), 'reveal_in_footer' ) ) );
+		$this->assertEquals( 10, has_action( 'wp_footer', array( $this->obj, 'reveal_in_footer' ) ) );
 	}
 
 	public function test_does_not_hook_wp_footer_for_each_template_if_display_in_footer_is_false() {
 		// Undo hook that was hooked by default during plugin init.
-		remove_action( 'wp_footer', array( c2c_RevealTemplate::get_instance(), 'reveal_in_footer' ) );
+		remove_action( 'wp_footer', array( $this->obj, 'reveal_in_footer' ) );
 		$this->set_option( array( 'display_in_footer' => false ) );
 
-		c2c_RevealTemplate::get_instance()->register_filters();
+		$this->obj->register_filters();
 
-		$this->assertFalse( has_action( 'wp_footer', array( c2c_RevealTemplate::get_instance(), 'reveal_in_footer' ) ) );
+		$this->assertFalse( has_action( 'wp_footer', array( $this->obj, 'reveal_in_footer' ) ) );
 	}
 
 	/* Widget */
@@ -257,7 +261,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		apply_filters( $template . '_template', $full_path );
 
 		$this->assertTrue( is_user_logged_in() );
-		$this->assertTrue( c2c_RevealTemplate::get_instance()->reveal_to_current_user() );
+		$this->assertTrue( $this->obj->reveal_to_current_user() );
 		$this->assert_template_types( $full_path );
 	}
 
@@ -271,7 +275,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		apply_filters( $template . '_template', $full_path );
 
 		$this->assertTrue( is_user_logged_in() );
-		$this->assertTrue( c2c_RevealTemplate::get_instance()->reveal_to_current_user() );
+		$this->assertTrue( $this->obj->reveal_to_current_user() );
 		$this->assert_template_types( $full_path );
 	}
 
@@ -279,7 +283,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	 * @dataProvider get_templates
 	 */
 	public function test_hooks_template_filter( $template ) {
-		$this->assertNotFalse( has_filter( $template . '_template', array( c2c_RevealTemplate::get_instance(), 'template_handler' ) ) );
+		$this->assertNotFalse( has_filter( $template . '_template', array( $this->obj, 'template_handler' ) ) );
 	}
 
 	public function test_c2c_reveal_template_arg_admin_only() {
@@ -328,14 +332,14 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		);
 		$this->assertEquals(
 			'Abc (category.php)',
-			c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'format' => 'Abc (%template%)', 'format_from_settings' => false, 'echo' => false ) )
+			$this->obj->reveal( 'filename', array( 'format' => 'Abc (%template%)', 'format_from_settings' => false, 'echo' => false ) )
 		);
 	}
 
 	public function test_c2c_reveal_template_arg_format_from_settings() {
 		apply_filters( 'category_template', get_stylesheet_directory() . '/category.php' );
 
-		$options = c2c_RevealTemplate::get_instance()->get_options();
+		$options = $this->obj->get_options();
 
 		$this->assertEquals(
 			str_replace( '%template%', 'category.php', $options['format'] ),
@@ -343,7 +347,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		);
 		$this->assertEquals(
 			str_replace( '%template%', 'category.php', $options['format'] ),
-			c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'format' => 'Abc (%template%)', 'format_from_settings' => true, 'echo' => false ) )
+			$this->obj->reveal( 'filename', array( 'format' => 'Abc (%template%)', 'format_from_settings' => true, 'echo' => false ) )
 		);
 	}
 
@@ -354,9 +358,9 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( '', c2c_reveal_template( false, 'filename', array( 'return' => 'gibberish' ) ) );
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => true ) ) );
 
-		$this->assertEmpty( '', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => false, 'echo' => false ) ) );
-		$this->assertEmpty( '', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => 'gibberish', 'echo' => false ) ) );
-		$this->assertEquals( 'category.php', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => true, 'echo' => false ) ) );
+		$this->assertEmpty( '', $this->obj->reveal( 'filename', array( 'return' => false, 'echo' => false ) ) );
+		$this->assertEmpty( '', $this->obj->reveal( 'filename', array( 'return' => 'gibberish', 'echo' => false ) ) );
+		$this->assertEquals( 'category.php', $this->obj->reveal( 'filename', array( 'return' => true, 'echo' => false ) ) );
 
 		$this->create_user( 'administrator' );
 
@@ -364,9 +368,9 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => true ) ) );
 		$this->assertEquals( 'category.php', c2c_reveal_template( false, 'filename', array( 'return' => 'gibberish' ) ) );
 
-		$this->assertEquals( 'category.php', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => false, 'echo' => false ) ) );
-		$this->assertEquals( 'category.php', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => true, 'echo' => false ) ) );
-		$this->assertEquals( 'category.php', c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => 'gibberish', 'echo' => false ) ) );
+		$this->assertEquals( 'category.php', $this->obj->reveal( 'filename', array( 'return' => false, 'echo' => false ) ) );
+		$this->assertEquals( 'category.php', $this->obj->reveal( 'filename', array( 'return' => true, 'echo' => false ) ) );
+		$this->assertEquals( 'category.php', $this->obj->reveal( 'filename', array( 'return' => 'gibberish', 'echo' => false ) ) );
 	}
 
 	public function test_page_specific_template_is_returned_when_set() {
@@ -379,7 +383,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( $template, get_page_template_slug( $post_id ) );
 		$this->assertEquals( $template, c2c_reveal_template( false, 'filename', array( 'return' => true ) ) );
-		$this->assertEquals( $template, c2c_RevealTemplate::get_instance()->reveal( 'filename', array( 'return' => true, 'echo' => false ) ) );
+		$this->assertEquals( $template, $this->obj->reveal( 'filename', array( 'return' => true, 'echo' => false ) ) );
 	}
 
 	/**
@@ -460,7 +464,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$expected .= '<p class="see-help">See the "Help" link to the top-right of the page for more help.</p>' . "\n";
 		$expected .= '<p>Reveal the theme template used to render the displayed page. By default this appears in the site\'s footer and only for logged in users with the "update_themes" capability (such as an admin).</p>';
 
-		$this->expectOutputRegex( '~' . preg_quote( $expected ) . '~', c2c_RevealTemplate::get_instance()->options_page_description() );
+		$this->expectOutputRegex( '~' . preg_quote( $expected ) . '~', $this->obj->options_page_description() );
 	}
 
 	/*
@@ -471,7 +475,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	 * @dataProvider get_option_defaults
 	 */
 	public function test_setting_defaults( $name, $default ) {
-		$options = c2c_RevealTemplate::get_instance()->get_options();
+		$options = $this->obj->get_options();
 		$defaults = $this->get_option_defaults();
 
 		$this->assertTrue( in_array( $name, array_keys( $options ) ) );
@@ -485,14 +489,14 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	public function test_does_not_immediately_store_default_settings_in_db() {
 		$option_name = c2c_RevealTemplate::SETTING_NAME;
 		// Get the options just to see if they may get saved.
-		$options     = c2c_RevealTemplate::get_instance()->get_options();
+		$options     = $this->obj->get_options();
 
 		$this->assertFalse( get_option( $option_name ) );
 	}
 
 	public function test_uninstall_deletes_option() {
 		$option_name = c2c_RevealTemplate::SETTING_NAME;
-		$options     = c2c_RevealTemplate::get_instance()->get_options();
+		$options     = $this->obj->get_options();
 
 		// Explicitly set an option to ensure options get saved to the database.
 		$this->set_option( array( 'template_path' => 'absolute' ) );
