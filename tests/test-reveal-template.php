@@ -16,6 +16,8 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		$this->unset_current_user();
+
+		c2c_RevealTemplate::get_instance()->reset_options();
 	}
 
 
@@ -178,6 +180,38 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 
 	public function test_setting_name() {
 		$this->assertEquals( 'c2c_reveal_template', c2c_RevealTemplate::SETTING_NAME );
+	}
+
+	/*
+	 * register_filters()
+	 */
+
+	/**
+	 * @dataProvider get_templates
+	 */
+	public function test_hooks_template_for_each_template( $template ) {
+		add_filter( $template . '_template', array( $this, 'template_handler' ) );
+		$this->assertEquals( 10, has_filter( $template . '_template', array( c2c_RevealTemplate::get_instance(), 'template_handler' ) ) );
+	}
+
+	public function test_hooks_wp_footer_for_each_template() {
+		// Undo hook that was hooked by default during plugin init.
+		remove_action( 'wp_footer', array( c2c_RevealTemplate::get_instance(), 'reveal_in_footer' ) );
+		$this->set_option( array( 'display_in_footer' => true ) );
+
+		c2c_RevealTemplate::get_instance()->register_filters();
+
+		$this->assertEquals( 10, has_action( 'wp_footer', array( c2c_RevealTemplate::get_instance(), 'reveal_in_footer' ) ) );
+	}
+
+	public function test_does_not_hook_wp_footer_for_each_template_if_display_in_footer_is_false() {
+		// Undo hook that was hooked by default during plugin init.
+		remove_action( 'wp_footer', array( c2c_RevealTemplate::get_instance(), 'reveal_in_footer' ) );
+		$this->set_option( array( 'display_in_footer' => false ) );
+
+		c2c_RevealTemplate::get_instance()->register_filters();
+
+		$this->assertFalse( has_action( 'wp_footer', array( c2c_RevealTemplate::get_instance(), 'reveal_in_footer' ) ) );
 	}
 
 	/* Widget */
