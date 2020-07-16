@@ -3,6 +3,8 @@
 ## _(in-progress)_
 * Change: Note compatibility through WP 5.4+
 * Change: Update links to coffee2code.com to be HTTPS
+* Unit tests:
+    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
 
 ## 3.4.2 _(2019-12-27)_
 * New: Unit tests: Add test to verify plugin hooks `plugins_loaded` action to initialize itself
