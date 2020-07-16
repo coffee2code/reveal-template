@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: template, theme, debug, presentation, template, design, widget, shortcode, coffee2code
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 4.7
+Requires at least: 4.9
 Tested up to: 5.4
 Stable tag: 3.4.2
 
