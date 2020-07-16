@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it
+* Fix: Correct typo on plugin settings page
 * Change: Update plugin framework to 050
     * 050:
     * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved

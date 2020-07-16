@@ -214,7 +214,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_050 {
 		$options = $this->get_options();
 		parent::options_page_description( __( 'Reveal Template Settings', 'reveal-template' ) );
 		echo '<p>' . __( 'Reveal the theme template used to render the displayed page. By default this appears in the site\'s footer and only for logged in users with the "update_themes" capability (such as an admin).', 'reveal-template' ) . '</p>';
-		echo '<p>' . sprintf( __( 'Also note that the plugin provides a "Reveal Template" <a href="%s">widget</a> that can be used to reveal the current templated.', 'reveal-template' ), admin_url( 'widgets.php' ) ) . '</p>';
+		echo '<p>' . sprintf( __( 'Also note that the plugin provides a "Reveal Template" <a href="%s">widget</a> that can be used to reveal the current template.', 'reveal-template' ), admin_url( 'widgets.php' ) ) . '</p>';
 		echo '<p>' . sprintf( __( 'Please refer to this plugin\'s <a href="%s" title="readme">readme.txt</a> file for documentation and examples.', 'reveal-template' ), $this->readme_url() ) . '</p>';
 	}
 
