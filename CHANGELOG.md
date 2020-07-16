@@ -21,6 +21,7 @@
 * Change: Drop compatibility with version of WP older than 4.9
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
+    * New: Add test for setting name
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
 
 ## 3.4.2 _(2019-12-27)_
