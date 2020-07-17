@@ -4,11 +4,11 @@
  * @author  Scott Reilly
  * @version 050
  */
+
 /*
 Basis for other plugins.
 
-Compatible with WordPress 4.9 through 5.3+.
-
+Compatible with WordPress 4.9 through 5.4+.
 */
 
 /*
