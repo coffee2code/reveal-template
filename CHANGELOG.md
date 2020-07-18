@@ -3,6 +3,7 @@
 ## _(in-progress)_
 * New: Add integration with admin bar
     * New: Add admin bar entry for revealing template
+    * New: Add setting to control if admin bar entry should appear (defaulted to true)
     * New: Add new screenshot
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it
 * Fix: Correct typo on plugin settings page

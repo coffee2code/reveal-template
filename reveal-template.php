@@ -149,6 +149,12 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_050 {
 				'label'    => __( 'Reveal in footer?', 'reveal-template' ),
 				'help'     => __( 'To be precise, this displays where <code>&lt;?php wp_footer(); ?></code> is called. If you uncheck this, you\'ll have to use the widget or the template tag to display the template.', 'reveal-template' ),
 			),
+			'display_in_admin_bar' => array(
+				'input'    => 'checkbox',
+				'default'  => true,
+				'label'    => __( 'Reveal in admin bar?', 'reveal-template' ),
+				'help'     => __( 'Adds a "Reveal Template" admin bar entry that only appears on the front-end of the site.', 'reveal-template' ),
+			),
 			'format' => array(
 				'input'    => 'long_text',
 				'default'  => __( '<p>Rendered template: %template%</p>', 'reveal-template' ),
@@ -162,7 +168,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_050 {
 				'default'  => $this->get_default_template_path_type(),
 				'label'    => __( 'Template path', 'reveal-template' ),
 				'options'  => self::get_template_path_types(),
-				'help'     => __( 'How much of the template path do you want reported? Applies directly to footer display, and is the default for the template tag usage (though can be overridden via an argument to <code>c2c_reveal_template()</code>)', 'reveal-template' ),
+				'help'     => __( 'How much of the template path do you want reported? Applies directly to admin bar and footer displays, and is the default for the template tag usage (though can be overridden via an argument to <code>c2c_reveal_template()</code>)', 'reveal-template' ),
 			),
 		);
 	}
@@ -202,7 +208,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_050 {
 			add_action( 'wp_footer', array( $this, 'reveal_in_footer' ) );
 		}
 
-		if ( ! is_admin() && is_admin_bar_showing() && $this->reveal_to_current_user() ) {
+		if ( $options['display_in_admin_bar'] && ! is_admin() && is_admin_bar_showing() && $this->reveal_to_current_user() ) {
 			add_action( 'wp_before_admin_bar_render', array( $this, 'output_admin_bar_styles' ) );
 			add_action( 'admin_bar_menu', array( $this, 'add_to_admin_bar' ), 100 );
 		}

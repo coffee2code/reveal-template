@@ -65,6 +65,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	public static function get_option_defaults() {
 		return array(
 			array( 'display_in_footer', true ),
+			array( 'display_in_admin_bar', true ),
 			array( 'format'           , '<p>Rendered template: %template%</p>' ),
 			array( 'template_path'    , 'theme-relative' ),
 		);
@@ -249,6 +250,21 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		add_filter( 'show_admin_bar', '__return_false' );
 		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $user_id );
+		$this->obj->register_filters();
+
+		$this->assertFalse( has_action( 'wp_before_admin_bar_render', array( $this->obj, 'output_admin_bar_styles' ) ) );
+		$this->assertFalse( has_action( 'admin_bar_menu', array( $this->obj, 'add_to_admin_bar' ) ) );
+	}
+
+	public function test_does_not_hook_admin_bar_hooks_when_it_would_show_except_that_display_in_admin_bar_is_false() {
+		// Undo hooks that were hooked by default during plugin init.
+		remove_action( 'wp_before_admin_bar_render', array( $this, 'output_admin_bar_styles' ) );
+		remove_action( 'admin_bar_menu', array( $this, 'add_to_admin_bar' ), 100 );
+		$this->set_option( array( 'display_in_admin_bar' => false ) );
+		add_filter( 'show_admin_bar', '__return_true' );
+		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user_id );
+
 		$this->obj->register_filters();
 
 		$this->assertFalse( has_action( 'wp_before_admin_bar_render', array( $this->obj, 'output_admin_bar_styles' ) ) );
