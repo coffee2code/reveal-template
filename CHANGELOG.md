@@ -1,6 +1,9 @@
 # Changelog
 
 ## _(in-progress)_
+* New: Add integration with admin bar
+    * New: Add admin bar entry for revealing template
+    * New: Add new screenshot
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it
 * Fix: Correct typo on plugin settings page
 * Change: Update plugin framework to 050

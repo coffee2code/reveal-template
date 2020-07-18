@@ -202,6 +202,11 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_050 {
 			add_action( 'wp_footer', array( $this, 'reveal_in_footer' ) );
 		}
 
+		if ( ! is_admin() && is_admin_bar_showing() && $this->reveal_to_current_user() ) {
+			add_action( 'wp_before_admin_bar_render', array( $this, 'output_admin_bar_styles' ) );
+			add_action( 'admin_bar_menu', array( $this, 'add_to_admin_bar' ), 100 );
+		}
+
 		add_shortcode( $this->shortcode, array( $this, 'shortcode' ) );
 	}
 
@@ -307,6 +312,46 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_050 {
 	public function reveal_in_footer() {
 		$options = $this->get_options();
 		return $this->reveal( $options['template_path'], array( 'format_from_settings' => true ) );
+	}
+
+	/**
+	 * Outputs CSS for the admin bar menu item.
+	 *
+	 * @since 3.5
+	 */
+	public function output_admin_bar_styles() {
+		echo '<style>#wpadminbar #wp-admin-bar-reveal-template .ab-icon::before { content: "\f100"; top: 2px; } </style>' . "\n";
+	}
+
+	/**
+	 * Adds an admin menu bar node that reveals the template.
+	 *
+	 * @since 3.5
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar WP_Admin_Bar instance.
+	 */
+	public function add_to_admin_bar( $wp_admin_bar ) {
+		$wp_admin_bar->add_node(
+			array(
+				'id'     => 'reveal-template',
+				'parent' => 'top-secondary',
+				'title'  => '<span class="ab-icon"></span><span class="ab-label">' . __( 'Reveal Template', 'reveal-template' ) . '</span>',
+				'meta'   => array(
+					'tabindex' => 0,
+				),
+			)
+		);
+
+		$options = $this->get_options();
+		$path = $this->reveal( $options['template_path'], array( 'echo' => false, 'format_from_settings' => false ) );
+
+		$wp_admin_bar->add_node(
+			array(
+				'parent' => 'reveal-template',
+				'id'     => 'revealed-template',
+				'title'  => $path,
+			)
+		);
 	}
 
 	/**

@@ -218,6 +218,43 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$this->assertFalse( has_action( 'wp_footer', array( $this->obj, 'reveal_in_footer' ) ) );
 	}
 
+	public function test_does_not_hook_admin_bar_hooks_for_user_without_cap() {
+		$this->assertFalse( has_action( 'wp_before_admin_bar_render', array( $this->obj, 'output_admin_bar_styles' ) ) );
+		$this->assertFalse( has_action( 'admin_bar_menu', array( $this->obj, 'add_to_admin_bar' ) ) );
+	}
+
+	public function test_hooks_admin_bar_hooks_for_user_with_cap_and_admin_bar_showing() {
+		add_filter( 'show_admin_bar', '__return_true' );
+		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user_id );
+		$this->obj->register_filters();
+
+		$this->assertEquals( 10, has_action( 'wp_before_admin_bar_render', array( $this->obj, 'output_admin_bar_styles' ) ) );
+		$this->assertEquals( 100, has_action( 'admin_bar_menu', array( $this->obj, 'add_to_admin_bar' ) ) );
+	}
+
+	public function test_does_not_hook_admin_bar_hooks_for_user_with_cap_when_in_admin() {
+		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user_id );
+		set_current_screen( 'edit' );
+
+		$this->obj->register_filters();
+
+		$this->assertTrue( is_admin() );
+		$this->assertFalse( has_action( 'wp_before_admin_bar_render', array( $this->obj, 'output_admin_bar_styles' ) ) );
+		$this->assertFalse( has_action( 'admin_bar_menu', array( $this->obj, 'add_to_admin_bar' ) ) );
+	}
+
+	public function test_does_not_hook_admin_bar_hooks_for_user_with_cap_but_admin_bar_not_showing() {
+		add_filter( 'show_admin_bar', '__return_false' );
+		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user_id );
+		$this->obj->register_filters();
+
+		$this->assertFalse( has_action( 'wp_before_admin_bar_render', array( $this->obj, 'output_admin_bar_styles' ) ) );
+		$this->assertFalse( has_action( 'admin_bar_menu', array( $this->obj, 'add_to_admin_bar' ) ) );
+	}
+
 	/* Widget */
 
 	public function test_widget_class_exists() {
@@ -465,6 +502,67 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 		$expected .= '<p>Reveal the theme template used to render the displayed page. By default this appears in the site\'s footer and only for logged in users with the "update_themes" capability (such as an admin).</p>';
 
 		$this->expectOutputRegex( '~' . preg_quote( $expected ) . '~', $this->obj->options_page_description() );
+	}
+
+	/*
+	 * output_admin_bar_styles()
+	 */
+
+	public function test_output_admin_bar_styles() {
+		$expected = '<style>#wpadminbar #wp-admin-bar-reveal-template .ab-icon::before { content: "\f100"; top: 2px; } </style>' . "\n";
+
+		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', $this->obj->output_admin_bar_styles() );
+	}
+
+	/*
+	 * add_to_admin_bar()
+	 */
+
+	public function test_add_to_admin_bar_for_parent_node() {
+		global $wp_admin_bar;
+
+		_wp_admin_bar_init();
+
+		$this->obj->add_to_admin_bar( $wp_admin_bar );
+
+		$node = $wp_admin_bar->get_node( 'reveal-template' );
+
+		$this->assertEquals( 'top-secondary', $node->parent );
+		$this->assertEquals(
+			'<span class="ab-icon"></span><span class="ab-label">Reveal Template</span>',
+			$node->title
+		);
+	}
+
+	public function test_add_to_admin_bar_for_reveal_node() {
+		global $wp_admin_bar;
+
+		apply_filters( 'category_template', get_stylesheet_directory() . '/category.php' );
+
+		_wp_admin_bar_init();
+
+		$this->obj->add_to_admin_bar( $wp_admin_bar );
+
+		$node = $wp_admin_bar->get_node( 'revealed-template' );
+
+		$this->assertEquals( 'reveal-template', $node->parent );
+		$this->assertEquals( 'twentyseventeen/category.php', $node->title );
+	}
+
+	public function test_add_to_admin_bar_for_reveal_node_abides_by_template_setting_and_ignores_formatting_setting() {
+		global $wp_admin_bar;
+
+		apply_filters( 'category_template', get_stylesheet_directory() . '/category.php' );
+		$this->set_option( array( 'template_path' => 'filename', 'format' => 'EEE %template%' ) );
+
+		_wp_admin_bar_init();
+
+		$this->obj->add_to_admin_bar( $wp_admin_bar );
+
+		$node = $wp_admin_bar->get_node( 'revealed-template' );
+
+		$this->assertEquals( 'reveal-template', $node->parent );
+		$this->assertEquals( 'category.php', $node->title );
 	}
 
 	/*
