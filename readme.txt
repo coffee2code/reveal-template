@@ -8,18 +8,22 @@ Requires at least: 4.9
 Tested up to: 5.4
 Stable tag: 3.4.2
 
-Reveal the theme template file used to render the displayed page, via the footer, widget, shortcode, and/or template tag.
+Reveal the theme template file used to render the displayed page, via the admin bar, footer, widget, shortcode, and/or template tag.
 
 
 == Description ==
 
 Designers and developers know that it can sometimes be confusing and frustrating to determine the exact template being utilized to render the currently displayed page in WordPress. Sometimes page or category specific templates exist, or a page/post has been set by the post author to use a particular template, or the current theme doesn't employ certain templates causing WordPress to fall back to others.
 
-This plugin relieves the aggravation by assisting designers and developers by displaying the template being used to render the currently displayed page in WordPress. This can be shown in one or more of the following methods:
+This plugin relieves that aggravation by assisting designers and developers by displaying the template being used to render the currently displayed page in WordPress. This can be shown in one or more of the following methods:
+
+= Admin bar =
+
+By default, the theme-relative path to the theme template file used to render the page is shown in the admin bar. The settings page for the plugin, at 'Design' -> 'Reveal Template', allows you to control and configure this particular method. Note: even if enabled by the setting, the admin bar entry also only appears if the admin bar is showing and if the user has the ability to see the revealed templated.
 
 = Site footer =
 
-By default, the theme-relative path to the theme template file used to render the page is shown in the site's footer. The settings page for the plugin, at 'Design' -> 'Reveal Template', allows you to control and configure this particular method. Note: this only works if the theme follows the recommended practice of calling the `wp_footer()` template tag) at some point.
+By default, the theme-relative path to the theme template file used to render the page is shown in the site's footer. The settings page for the plugin, at 'Design' -> 'Reveal Template', allows you to control and configure this particular method. Note: even if enabled by the setting, the footer output only appears if the theme follows the recommended practice of calling the `wp_footer()` template tag) at some point and the user and the user has the ability to see the revealed template.
 
 = Widget =
 
@@ -70,6 +74,7 @@ Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/reveal-template/) | 
 
 1. The plugin's settings page.
 2. The 'Reveal Template' widget.
+3. The admin bar entry.
 
 
 == Template Tags ==
