@@ -320,7 +320,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	 * @dataProvider get_templates
 	 */
 	public function test_hooks_template_filter( $template ) {
-		$this->assertNotFalse( has_filter( $template . '_template', array( $this->obj, 'template_handler' ) ) );
+		$this->assertEquals( 10, has_filter( $template . '_template', array( $this->obj, 'template_handler' ) ) );
 	}
 
 	public function test_c2c_reveal_template_arg_admin_only() {
