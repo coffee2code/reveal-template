@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 3.5 _(2020-07-18)_
+
+### Highlights:
+
+This feature release adds an admin bar entry to reveal the current template, updates the plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, and updates compatibility to be WP 4.9-5.4+.
+
+### Details:
+
 * New: Add integration with admin bar
     * New: Add admin bar entry for revealing template
     * New: Add setting to control if admin bar entry should appear (defaulted to true)

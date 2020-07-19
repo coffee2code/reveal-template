@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.4
-Stable tag: 3.4.2
+Stable tag: 3.5
 
 Reveal the theme template file used to render the displayed page, via the admin bar, footer, widget, shortcode, and/or template tag.
 
@@ -110,6 +110,44 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
+= 3.5 (2020-07-18) =
+Highlights:
+
+* This feature release adds an admin bar entry to reveal the current template, updates the plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, and updates compatibility to be WP 4.9-5.4+.
+
+Details:
+
+* New: Add integration with admin bar
+    * New: Add admin bar entry for revealing template
+    * New: Add setting to control if admin bar entry should appear (defaulted to true)
+    * New: Add `can_show_in_admin_bar()` for determining if the admin bar item should be shown
+    * New: Add new screenshot
+* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add items to it)
+* Fix: Correct typo on plugin settings page
+* Change: Update plugin framework to 050
+    * 050:
+    * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
+    * Output donation markup using `printf()` rather than using string concatenation
+    * Update copyright date (2020)
+    * Note compatibility through WP 5.4+
+    * Drop compatibility with version of WP older than 4.9
+    * 049:
+    * Correct last arg in call to `add_settings_field()` to be an array
+    * Wrap help text for settings in `label` instead of `p`
+    * Only use `label` for help text for checkboxes, otherwise use `p`
+    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
+    * Note compatibility through WP 5.1+
+    * Update copyright date (2019)
+* Change: Note compatibility through WP 5.4+
+* Change: Drop compatibility with version of WP older than 4.9
+* Change: Update links to coffee2code.com to be HTTPS
+* Change: Update screenshot
+* Unit tests:
+    * New: Add tests for `register_filters()`, `options_page_description()`
+    * New: Add test for setting name
+    * Change: Store plugin instance in test object to simplify referencing it
+    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
+
 = 3.4.2 (2019-12-27) =
 * New: Unit tests: Add test to verify plugin hooks `plugins_loaded` action to initialize itself
 * Change: Note compatibility through WP 5.3+
@@ -122,47 +160,13 @@ if ( $current_template == 'category-12.php' ) {
     * Fix: Use explicit string value instead of referencing undefined variable
 * Change: Note compatibility through WP 5.2+
 
-= 3.4 (2019-03-28) =
-Highlights:
-
-* This release is a minor update that verifies compatibility through WordPress 5.1+ and makes minor behind-the-scenes improvements.
-
-Details:
-
-* Change: Store setting name in class constant
-* Change: Update plugin framework to 048
-    * 048:
-    * When resetting options, delete the option rather than setting it with default values
-    * Prevent double "Settings reset" admin notice upon settings reset
-    * 047:
-    * Don't save default setting values to database on install
-    * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
-    * Note compatibility through WP 4.9+
-    * Drop compatibility with version of WP older than 4.7
-* Change: Update widget framework to 013
-    * Add `get_config()` as a getter for config array
-* Change: Update widget to 004
-    * Update to use v013 of the widget framework
-* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
-* Change: Initialize plugin on `plugins_loaded` action instead of on load
-* Unit tests:
-    * Fix: Use a different template as the directly assigned template to ensure it's one the unit test default theme has defined
-    * Fix: Explicitly set 'twentyseventeen' as the theme to ensure testing against a known theme
-    * New: Add unit test to ensure plugin doesn't save an option to database on activation
-    * New: Add `set_option()` to facilitate setting of plugin options
-    * New: Add unit test for setting defaults
-    * New: Add a bunch of assertions for use of `reveal()` alongside uses of `c2c_reveal_template()`
-    * Change: Improve unit test for deletion of option
-* Change: Note compatibility through WP 5.1+
-* Change: Add README.md link to plugin's page in Plugin Directory
-* Change: Update copyright date (2019)
-* Change: Update License URI to be HTTPS
-* Change: Split paragraph in README.md's "Support" section into two
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/reveal-template/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.5 =
+Feature release: added admin bar entry to reveal the current template, updated plugin framework, added TODO.md file, updated a few URLs to be HTTPS, expanded unit testing, and updated compatibility to be WP 4.9-5.4+.
 
 = 3.4.2 =
 Trivial update: noted compatibility through WP 5.3+ and updated copyright date (2020)

@@ -164,7 +164,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 	public function test_version() {
-		$this->assertEquals( '3.4.2', $this->obj->version() );
+		$this->assertEquals( '3.5', $this->obj->version() );
 	}
 
 	public function test_plugin_framework_class_name() {
