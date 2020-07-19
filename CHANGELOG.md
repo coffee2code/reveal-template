@@ -6,7 +6,7 @@
     * New: Add setting to control if admin bar entry should appear (defaulted to true)
     * New: Add `can_show_in_admin_bar()` for determining if the admin bar item should be shown
     * New: Add new screenshot
-* New: Add TODO.md and move existing TODO list from top of main plugin file into it
+* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add items to it)
 * Fix: Correct typo on plugin settings page
 * Change: Update plugin framework to 050
     * 050:
