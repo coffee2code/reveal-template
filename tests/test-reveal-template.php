@@ -521,6 +521,50 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * can_show_in_admin_bar()
+	 */
+
+	public function test_can_show_in_admin_bar_when_in_admin() {
+		add_filter( 'show_admin_bar', '__return_true' );
+		set_current_screen( 'edit' );
+
+		$this->assertFalse( $this->obj->can_show_in_admin_bar() );
+
+		set_current_screen( 'front' );
+	}
+
+	public function test_can_show_in_admin_bar_when_admin_bar_not_showing() {
+		add_filter( 'show_admin_bar', '__return_false' );
+
+		$this->assertFalse( $this->obj->can_show_in_admin_bar() );
+	}
+
+	public function test_can_show_in_admin_bar_on_frontend_with_setting_disabled() {
+		add_filter( 'show_admin_bar', '__return_true' );
+		$this->set_option( array( 'display_in_admin_bar' => false ) );
+
+		$this->assertFalse( $this->obj->can_show_in_admin_bar() );
+	}
+
+	public function test_can_show_in_admin_bar_on_frontend_with_user_without_cap() {
+		add_filter( 'show_admin_bar', '__return_true' );
+		$this->set_option( array( 'display_in_admin_bar' => true ) );
+		$user_id = $this->factory->user->create( array( 'role' => 'subsceiber' ) );
+		wp_set_current_user( $user_id );
+
+		$this->assertFalse( $this->obj->can_show_in_admin_bar() );
+	}
+
+	public function test_can_show_in_admin_bar_on_frontend_with_all_conditions_met() {
+		add_filter( 'show_admin_bar', '__return_true' );
+		$this->set_option( array( 'display_in_admin_bar' => true ) );
+		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user_id );
+
+		$this->assertTrue( $this->obj->can_show_in_admin_bar() );
+	}
+
+	/*
 	 * output_admin_bar_styles()
 	 */
 

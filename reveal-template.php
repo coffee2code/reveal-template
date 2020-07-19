@@ -208,7 +208,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_050 {
 			add_action( 'wp_footer', array( $this, 'reveal_in_footer' ) );
 		}
 
-		if ( $options['display_in_admin_bar'] && ! is_admin() && is_admin_bar_showing() && $this->reveal_to_current_user() ) {
+		if ( $this->can_show_in_admin_bar() ) {
 			add_action( 'wp_before_admin_bar_render', array( $this, 'output_admin_bar_styles' ) );
 			add_action( 'admin_bar_menu', array( $this, 'add_to_admin_bar' ), 100 );
 		}
@@ -318,6 +318,25 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_050 {
 	public function reveal_in_footer() {
 		$options = $this->get_options();
 		return $this->reveal( $options['template_path'], array( 'format_from_settings' => true ) );
+	}
+
+	/**
+	 * Determines if the admin bar entry should be shown.
+	 *
+	 * @since 3.5
+	 *
+	 * @return bool True if the admin bar entry can be shown, else false.
+	 */
+	public function can_show_in_admin_bar() {
+		// Don't show if in admin or is admin bar isn't even showing.
+		if ( is_admin() || ! is_admin_bar_showing() ) {
+			return false;
+		}
+
+		$options = $this->get_options();
+
+		// Is feature enabled via settings and user is permitted to see it?
+		return $options['display_in_admin_bar'] && $this->reveal_to_current_user();
 	}
 
 	/**
