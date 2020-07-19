@@ -25,6 +25,7 @@
 * Change: Note compatibility through WP 5.4+
 * Change: Drop compatibility with version of WP older than 4.9
 * Change: Update links to coffee2code.com to be HTTPS
+* Change: Update screenshot
 * Unit tests:
     * New: Add tests for `register_filters()`, `options_page_description()`
     * New: Add test for setting name
