@@ -19,11 +19,11 @@ This plugin relieves that aggravation by assisting designers and developers by d
 
 = Admin bar =
 
-By default, the theme-relative path to the theme template file used to render the page is shown in the admin bar. The settings page for the plugin, at 'Design' -> 'Reveal Template', allows you to control and configure this particular method. Note: even if enabled by the setting, the admin bar entry also only appears if the admin bar is showing and if the user has the ability to see the revealed templated.
+By default, the theme-relative path to the theme template file used to render the page is shown in the admin bar. The settings page for the plugin, at 'Design' -> 'Reveal Template', allows you to control and configure this particular method. Note: even if enabled by the setting, the admin bar entry also only appears if the admin bar is showing and if the user has the ability to see the revealed template.
 
 = Site footer =
 
-By default, the theme-relative path to the theme template file used to render the page is shown in the site's footer. The settings page for the plugin, at 'Design' -> 'Reveal Template', allows you to control and configure this particular method. Note: even if enabled by the setting, the footer output only appears if the theme follows the recommended practice of calling the `wp_footer()` template tag) at some point and the user and the user has the ability to see the revealed template.
+By default, the theme-relative path to the theme template file used to render the page is shown in the site's footer. The settings page for the plugin, at 'Design' -> 'Reveal Template', allows you to control and configure this particular method. Note: even if enabled by the setting, the footer output only appears if the theme follows the recommended practice of calling the `wp_footer()` template tag at some point and the user has the ability to see the revealed template.
 
 = Widget =
 
