@@ -82,6 +82,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_051 {
 
 	/**
 	 * The template being used.
+	 *
 	 * @var string
 	 */
 	private $template = '';
