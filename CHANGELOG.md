@@ -9,6 +9,7 @@
     * Update `readme_url()` to refer to plugin's readme.txt on plugins.svn.wordpress.org
     * Remove defunct line of code
 * Hardening: Escape URLs before being displayed
+* Change: Include mention of the template also being revealed in the admin bar by default
 * Change: Refactor how setting page explanatory text is output
 * Change: Fix typos in readme
 * Change: Note compatibility through WP 5.6+

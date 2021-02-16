@@ -228,7 +228,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_051 {
 		?>
 
 		<p>
-			<?php _e( 'Reveal the theme template used to render the displayed page. By default this appears in the site\'s footer and only for logged in users with the "update_themes" capability (such as an admin).', 'reveal-template' ); ?>
+			<?php _e( 'Reveal the theme template used to render the displayed page. By default this appears in the admin bar and the site\'s footer, but only for logged in users with the "update_themes" capability (such as an admin).', 'reveal-template' ); ?>
 		</p>
 		<p>
 			<?php printf(
