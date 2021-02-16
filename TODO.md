@@ -19,7 +19,6 @@ The following list comprises ideas, suggestions, and known issues, all of which 
   * In admin bar (new feature)
 * Add custom capability
 * Integrate admin bar node as subitem of Debug Bar when that plugin is active?
-* Add setting to restrict reveal to only appear if WP_DEBUG is enabled?
 
 
 Feel free to make your own suggestions or champion for something already on the list (via the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/reveal-template/) or on [GitHub](https://github.com/coffee2code/reveal-template/) as an issue or PR).
