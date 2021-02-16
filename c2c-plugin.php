@@ -7,7 +7,7 @@
 /*
 Basis for other plugins.
 
-Compatible with WordPress 4.9 through 5.4+.
+Compatible with WordPress 4.9 through 5.6+.
 
 */
 

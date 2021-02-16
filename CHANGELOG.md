@@ -2,7 +2,9 @@
 
 ## _(in-progress)_
 * New: Add support for 'privacypolicy' template
-* Change: Update plugin framework to 051
+* Change: Update plugin framework to 052
+    * 052:
+    * Update copyright date (2021)
     * 051:
     * Allow setting integer input value to include commas
     * Use `number_format_i18n()` to format integer value within input field
