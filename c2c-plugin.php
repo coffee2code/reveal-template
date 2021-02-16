@@ -1,6 +1,6 @@
 <?php
 /**
- * @package C2C_Plugins
+ * @package C2C_Plugin
  * @author  Scott Reilly
  * @version 051
  */
