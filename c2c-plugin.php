@@ -80,6 +80,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 	protected function __construct( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
 		$id_base = sanitize_title( $id_base );
 		if ( ! file_exists( $file ) ) {
+			/* translators: %s: Path to the plugin file. */
 			die( sprintf( __( 'Invalid file specified for C2C_Plugin: %s', 'reveal-template' ), $file ) );
 		}
 
@@ -390,6 +391,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 					if ( $this->config[ $opt ]['input'] == 'checkbox' ) {
 						$options[ $opt ] = '';
 					} elseif ( true === $this->config[ $opt ]['required'] ) {
+						/* translators: %s: Label for setting. */
 						$msg = sprintf( __( 'A value is required for: "%s"', 'reveal-template' ), $this->config[ $opt ]['label'] );
 						add_settings_error( 'general', 'setting_required', $msg, 'error' );
 					}
@@ -398,6 +400,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 					$val = $inputs[ $opt ];
 					$error = false;
 					if ( empty( $val ) && ( true === $this->config[ $opt ]['required'] ) ) {
+						/* translators: %s: Label for setting. */
 						$msg = sprintf( __( 'A value is required for: "%s"', 'reveal-template' ), $this->config[ $opt ]['label'] );
 						$error = true;
 					} else {
@@ -410,6 +413,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 									$val = str_replace( ',', '', $val );
 								}
 								if ( ! empty( $val ) && ( ! is_numeric( $val ) || ( intval( $val ) != round( $val ) ) ) ) {
+									/* translators: %s: Label for setting. */
 									$msg = sprintf( __( 'Expected integer value for: %s', 'reveal-template' ), $this->config[ $opt ]['label'] );
 									$error = true;
 									$val = '';
@@ -493,6 +497,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 		// Ensure required configuration options have been configured via the sub-class. Die if any aren't.
 		foreach ( $this->required_config as $config ) {
 			if ( empty( $this->$config ) ) {
+				/* translators: %s: The setting configuration key name. */
 				die( sprintf( __( "The plugin configuration option '%s' must be supplied.", 'reveal-template' ), $config ) );
 			}
 		}
@@ -1005,6 +1010,7 @@ HTML;
 
 		echo '<div id="c2c" class="wrap"><div>' . "\n";
 		printf(
+			/* translators: %s: Link to plugin author's homepage. */
 			__( 'This plugin brought to you by %s.', 'reveal-template' ),
 			'<a href="https://coffee2code.com" title="' . esc_attr__( 'The plugin author homepage.', 'reveal-template' ) . '">Scott Reilly (coffee2code)</a>'
 		);

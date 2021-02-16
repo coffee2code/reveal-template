@@ -5,6 +5,7 @@
 * Change: Update plugin framework to 052
     * 052:
     * Don't translate urlencoded donation email body text
+    * Add inline comments for translators to clarify purpose of placeholders
     * Note compatibility through WP 5.6+
     * Update copyright date (2021)
     * 051:
