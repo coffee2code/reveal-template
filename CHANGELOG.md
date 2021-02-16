@@ -4,6 +4,10 @@
 * New: Add support for 'privacypolicy' template
 * Change: Update plugin framework to 052
     * 052:
+    * Handle WordPress's deprecation of the use of the term "whitelist"
+        * Change: Rename `whitelist_options()` to `allowed_options()`
+        * Change: Use `add_allowed_options()` instead of deprecated `add_option_whitelist()` for WP 5.5+
+        * Change: Hook `allowed_options` filter instead of deprecated `whitelist_options` for WP 5.5+
     * Add `is_wp_version_cmp()` as a utility to compare current WP version against a given WP version
     * Don't translate urlencoded donation email body text
     * Add inline comments for translators to clarify purpose of placeholders

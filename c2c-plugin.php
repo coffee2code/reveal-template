@@ -305,24 +305,33 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 	 */
 	public function init_options() {
 		register_setting( $this->admin_options_name, $this->admin_options_name, array( $this, 'sanitize_inputs' ) );
+
 		add_settings_section( 'default', '', array( $this, 'options_page_description' ), $this->plugin_file );
-		add_filter( 'whitelist_options', array( $this, 'whitelist_options' ) );
+
+		add_filter(
+			$this->is_wp_version_cmp( '5.5' ) ? 'allowed_options' : 'whitelist_options',
+			array( __CLASS__, 'allowed_options' )
+		);
+
 		foreach ( $this->get_option_names( false ) as $opt ) {
 			add_settings_field( $opt, $this->get_option_label( $opt ), array( $this, 'display_option' ), $this->plugin_file, 'default', array( 'label_for' => $opt ) );
 		}
 	}
 
 	/**
-	 * Whitelist the plugin's option(s)
+	 * Allows the plugin's option(s)
 	 *
-	 * @param array $options Array of options.
+	 * @since 052 Renamed from `whitelist_options()`.
 	 *
-	 * @return array The whitelist-amended $options array.
+	 * @param array $options Array of allowed options.
+	 * @return array The amended allowed options array.
 	 */
-	public function whitelist_options( $options ) {
+	public function allowed_options( $options ) {
 		$added = array( $this->admin_options_name => array( $this->admin_options_name ) );
-		$options = add_option_whitelist( $added, $options );
-		return $options;
+
+		return function_exists( 'add_allowed_options' )
+			? add_allowed_options( $added, $options )
+			: add_option_whitelist( $added, $options );
 	}
 
 	/**
