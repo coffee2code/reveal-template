@@ -177,6 +177,8 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_051 {
 	/**
 	 * Override the plugin framework's register_filters() to actually register
 	 * actions against filters.
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/get_query_template/
 	 */
 	public function register_filters() {
 		$options = $this->get_options();
