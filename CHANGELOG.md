@@ -4,6 +4,7 @@
 * New: Add support for 'privacypolicy' template
 * Change: Update plugin framework to 052
     * 052:
+    * Don't translate urlencoded donation email body text
     * Note compatibility through WP 5.6+
     * Update copyright date (2021)
     * 051:

@@ -706,7 +706,7 @@ HTML;
 	public function donate_link( $links, $file ) {
 		if ( $file == $this->plugin_basename ) {
 			$donation_url  = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522';
-			$donation_url .= urlencode( sprintf( __( 'Donation for coffee2code plugin: %s', 'reveal-template' ), $this->name ) );
+			$donation_url .= urlencode( "Donation for coffee2code plugin: {$this->name}" );
 			$title         = __( 'Coffee fuels my coding.', 'reveal-template' );
 			$links[] = '<a href="' . esc_url( $donation_url ) . '" title="' . esc_attr( $title ) . '">' . __( 'Donate', 'reveal-template' ) . '</a>';
 		}
