@@ -4,6 +4,7 @@
 * New: Add support for 'privacypolicy' template
 * Change: Update plugin framework to 052
     * 052:
+    * Add `is_wp_version_cmp()` as a utility to compare current WP version against a given WP version
     * Don't translate urlencoded donation email body text
     * Add inline comments for translators to clarify purpose of placeholders
     * Change PHP package name (make it singular)

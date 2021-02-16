@@ -203,6 +203,25 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 	}
 
 	/**
+	 * Determines if the running WordPress version is of an expected relativity
+	 * to a given version.
+	 *
+	 * @since 052
+	 *
+	 * @param string $wp_ver   A version string to compare the current WP
+	 *                         version against.
+	 * @param string $operator Optional. A comparison operator compatible with
+	 *                         PHP's `version_compare()`. Default '>='.
+	 * @return bool True if provided version is relative to the current version
+	 *              of WordPress according to comparison operation, else false.
+	 */
+	public function is_wp_version_cmp( $wp_ver, $operator = '>=' ) {
+		$operator = $operator ?: '>=';
+
+		return version_compare( $GLOBALS['wp_version'], $wp_ver, $operator );
+	}
+
+	/**
 	 * Checks to see if the plugin has been upgraded from an earlier version.
 	 *
 	 * Calls handle_plugin_update() if an upgrade was detected. Override that
