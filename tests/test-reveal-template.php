@@ -515,9 +515,9 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 	public function test_options_page_description() {
 		$expected = '<h1>Reveal Template Settings</h1>' . "\n";
 		$expected .= '<p class="see-help">See the "Help" link to the top-right of the page for more help.</p>' . "\n";
-		$expected .= '<p>Reveal the theme template used to render the displayed page. By default this appears in the site\'s footer and only for logged in users with the "update_themes" capability (such as an admin).</p>';
+		$expected .= '\s+<p>\s+Reveal the theme template used to render the displayed page. By default this appears in the site\'s footer and only for logged in users with the "update_themes" capability \(such as an admin\)\.\s+</p>';
 
-		$this->expectOutputRegex( '~' . preg_quote( $expected ) . '~', $this->obj->options_page_description() );
+		$this->expectOutputRegex( '~' . $expected . '~m', $this->obj->options_page_description() );
 	}
 
 	/*
