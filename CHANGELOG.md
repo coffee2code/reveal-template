@@ -9,6 +9,7 @@
         * Change: Use `add_allowed_options()` instead of deprecated `add_option_whitelist()` for WP 5.5+
         * Change: Hook `allowed_options` filter instead of deprecated `whitelist_options` for WP 5.5+
     * Add `is_wp_version_cmp()` as a utility to compare current WP version against a given WP version
+    * Refactor `contextual_help()` to be easier to read, and correct function docblocks
     * Don't translate urlencoded donation email body text
     * Add inline comments for translators to clarify purpose of placeholders
     * Change PHP package name (make it singular)

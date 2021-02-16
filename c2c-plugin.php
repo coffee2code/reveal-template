@@ -584,30 +584,34 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 	}
 
 	/**
-	 * Outputs simple contextual help text, comprising solely of a thickboxed link
-	 * to the plugin's hosted readme.txt file.
+	 * Returns markup for simple contextual help text, comprising solely of a
+	 * thickboxed link to the plugin's hosted readme.txt file.
 	 *
-	 * NOTE: If overriding this in a sub-class, before sure to include the
-	 * check at the beginning of the function to ensure it shows up on its
-	 * own settings admin page.
+	 * NOTE: If overriding this in a sub-class, be sure to include the check at
+	 * the beginning of the function to ensure it shows up on its own settings
+	 * admin page.
 	 *
 	 * @param string $contextual_help The default contextual help.
 	 * @param int    $screen_id       The screen ID.
 	 * @param object $screen          The screen object (only supplied in WP 3.0).
+	 * @return string
 	 */
 	public function contextual_help( $contextual_help, $screen_id, $screen = null ) {
 		if ( $screen_id != $this->options_page ) {
 			return $contextual_help;
 		}
 
-		$help_url = admin_url( "plugin-install.php?tab=plugin-information&amp;plugin={$this->id_base}&amp;TB_iframe=true&amp;width=640&amp;height=514" );
-
 		$help = '<h3>' . __( 'More Plugin Help', 'reveal-template' ) . '</h3>';
 		$help .= '<p class="more-help">';
-		$help .= '<a title="' . esc_attr( sprintf( __( 'More information about %1$s %2$s', 'reveal-template' ), $this->name, $this->version ) ) .
-			'" class="thickbox" href="' . $help_url . '">' . __( 'Click for more help on this plugin', 'reveal-template' ) . '</a>' .
-			__( ' (especially check out the "Other Notes" tab, if present)', 'reveal-template' );
+		$help .= sprintf(
+			'<a title="%s" class="thickbox" href="%s">%s</a>%s',
+			esc_attr( sprintf( __( 'More information about %1$s %2$s', 'reveal-template' ), $this->name, $this->version ) ),
+			esc_url( admin_url( "plugin-install.php?tab=plugin-information&amp;plugin={$this->id_base}&amp;TB_iframe=true&amp;width=640&amp;height=514" ) ),
+			__( 'Click for more help on this plugin', 'reveal-template' ),
+			__( ' (especially check out the "Other Notes" tab, if present)', 'reveal-template' )
+		);
 		$help .= ".</p>\n";
+
 		return $help;
 	}
 
