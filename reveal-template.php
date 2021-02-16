@@ -194,6 +194,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_051 {
 			'index',
 			'page',
 			'paged',
+			'privacypolicy',
 			'search',
 			'single',
 			'singular',

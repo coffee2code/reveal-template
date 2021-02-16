@@ -46,6 +46,7 @@ class Reveal_Template_Test extends WP_UnitTestCase {
 			array( 'index' ),
 			array( 'page' ),
 			array( 'paged' ),
+			array( 'privacypolicy' ),
 			array( 'search' ),
 			array( 'single' ),
 			array( 'singular' ),

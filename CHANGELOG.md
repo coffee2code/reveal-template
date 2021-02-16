@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* New: Add support for 'privacypolicy' template
 * Change: Update plugin framework to 051
     * 051:
     * Allow setting integer input value to include commas
