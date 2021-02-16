@@ -233,13 +233,13 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_051 {
 		<p>
 			<?php printf(
 				__( 'Also note that the plugin provides a "Reveal Template" <a href="%s">widget</a> that can be used to reveal the current template.', 'reveal-template' ),
-				admin_url( 'widgets.php' )
+				esc_url( admin_url( 'widgets.php' ) )
 			); ?>
 		</p>
 		<p>
 			<?php printf(
 				__( 'Please refer to this plugin\'s <a href="%s" title="readme">readme.txt</a> file for documentation and examples.', 'reveal-template' ),
-				$this->readme_url()
+				esc_url( $this->readme_url() )
 			); ?>
 		</p>
 
