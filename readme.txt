@@ -5,7 +5,7 @@ Tags: template, theme, debug, presentation, template, design, widget, shortcode,
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
-Tested up to: 5.6
+Tested up to: 5.7
 Stable tag: 3.5
 
 Reveal the theme template file used to render the displayed page, via the admin bar, footer, widget, shortcode, and/or template tag.
