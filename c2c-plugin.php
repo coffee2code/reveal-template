@@ -80,8 +80,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 	protected function __construct( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
 		$id_base = sanitize_title( $id_base );
 		if ( ! file_exists( $file ) ) {
-			/* translators: %s: Path to the plugin file. */
-			die( sprintf( __( 'Invalid file specified for C2C_Plugin: %s', 'reveal-template' ), $file ) );
+			die( sprintf( $this->get_c2c_string( 'Invalid file specified for C2C_Plugin: %s' ), $file ) );
 		}
 
 		$u_id_base = str_replace( '-', '_', $id_base );
@@ -134,14 +133,14 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 	 *
 	 * @since 036
 	 */
-	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'reveal-template' ), '036' ); }
+	public function __clone() { _doing_it_wrong( __FUNCTION__, $this->get_c2c_string( 'Something went wrong.' ), '036' ); }
 
 	/**
 	 * A dummy magic method to prevent object from being unserialized
 	 *
 	 * @since 036
 	 */
-	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'reveal-template' ), '036' ); }
+	public function __wakeup() { _doing_it_wrong( __FUNCTION__, $this->get_c2c_string( 'Something went wrong.' ), '036' ); }
 
 	/**
 	 * Returns the plugin's version.
@@ -353,7 +352,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 			echo '<h1>' . $localized_heading_text . "</h1>\n";
 		}
 		if ( ! $this->disable_contextual_help ) {
-			echo '<p class="see-help">' . __( 'See the "Help" link to the top-right of the page for more help.', 'reveal-template' ) . "</p>\n";
+			echo '<p class="see-help">' . $this->get_c2c_string( 'See the "Help" link to the top-right of the page for more help.' ) . "</p>\n";
 		}
 	}
 
@@ -406,7 +405,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 		do_action( $this->get_hook( 'before_save_options' ), $this );
 		if ( isset( $_POST['Reset'] ) ) {
 			$options = $this->reset_options();
-			add_settings_error( 'general', 'settings_reset', __( 'Settings reset.', 'reveal-template' ), 'updated' );
+			add_settings_error( 'general', 'settings_reset', $this->get_c2c_string( 'Settings reset.' ), 'updated' );
 			unset( $_POST['Reset'] );
 		} else {
 			// Start with the existing options, then start overwriting their potential override value. (This prevents
@@ -419,8 +418,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 					if ( $this->config[ $opt ]['input'] == 'checkbox' ) {
 						$options[ $opt ] = '';
 					} elseif ( true === $this->config[ $opt ]['required'] ) {
-						/* translators: %s: Label for setting. */
-						$msg = sprintf( __( 'A value is required for: "%s"', 'reveal-template' ), $this->config[ $opt ]['label'] );
+						$msg = sprintf( $this->get_c2c_string( 'A value is required for: "%s"' ), $this->config[ $opt ]['label'] );
 						add_settings_error( 'general', 'setting_required', $msg, 'error' );
 					}
 				}
@@ -428,8 +426,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 					$val = $inputs[ $opt ];
 					$error = false;
 					if ( empty( $val ) && ( true === $this->config[ $opt ]['required'] ) ) {
-						/* translators: %s: Label for setting. */
-						$msg = sprintf( __( 'A value is required for: "%s"', 'reveal-template' ), $this->config[ $opt ]['label'] );
+						$msg = sprintf( $this->get_c2c_string( 'A value is required for: "%s"' ), $this->config[ $opt ]['label'] );
 						$error = true;
 					} else {
 						$input = $this->config[ $opt ]['input'];
@@ -442,7 +439,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 								}
 								if ( ! empty( $val ) && ( ! is_numeric( $val ) || ( intval( $val ) != round( $val ) ) ) ) {
 									/* translators: %s: Label for setting. */
-									$msg = sprintf( __( 'Expected integer value for: %s', 'reveal-template' ), $this->config[ $opt ]['label'] );
+									$msg = sprintf( $this->get_c2c_string( 'Expected integer value for: %s' ), $this->config[ $opt ]['label'] );
 									$error = true;
 									$val = '';
 								}
@@ -495,6 +492,15 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 	abstract protected function load_config();
 
 	/**
+	 * Returns translated strings used by c2c_Plugin parent class.
+	 *
+	 * @since 060
+	 *
+	 * @return string[]
+	 */
+	abstract public function get_c2c_string( $string );
+
+	/**
 	 * Adds a new option to the plugin's configuration.
 	 *
 	 * Intended to be used for dynamically adding a new option after the config
@@ -525,8 +531,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 		// Ensure required configuration options have been configured via the sub-class. Die if any aren't.
 		foreach ( $this->required_config as $config ) {
 			if ( empty( $this->$config ) ) {
-				/* translators: %s: The setting configuration key name. */
-				die( sprintf( __( "The plugin configuration option '%s' must be supplied.", 'reveal-template' ), $config ) );
+				die( sprintf( $this->get_c2c_string( "The plugin configuration option '%s' must be supplied." ), $config ) );
 			}
 		}
 
@@ -571,7 +576,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 	 * Loads the localization textdomain for the plugin.
 	 */
 	protected function load_textdomain() {
-		load_plugin_textdomain( 'reveal-template' );
+		load_plugin_textdomain( $this->id_base );
 	}
 
 	/**
@@ -601,14 +606,14 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 			return $contextual_help;
 		}
 
-		$help = '<h3>' . __( 'More Plugin Help', 'reveal-template' ) . '</h3>';
+		$help = '<h3>' . $this->get_c2c_string( 'More Plugin Help' ) . '</h3>';
 		$help .= '<p class="more-help">';
 		$help .= sprintf(
 			'<a title="%s" class="thickbox" href="%s">%s</a>%s',
-			esc_attr( sprintf( __( 'More information about %1$s %2$s', 'reveal-template' ), $this->name, $this->version ) ),
+			esc_attr( sprintf( $this->get_c2c_string( 'More information about %1$s %2$s' ), $this->name, $this->version ) ),
 			esc_url( admin_url( "plugin-install.php?tab=plugin-information&amp;plugin={$this->id_base}&amp;TB_iframe=true&amp;width=640&amp;height=514" ) ),
-			__( 'Click for more help on this plugin', 'reveal-template' ),
-			__( ' (especially check out the "Other Notes" tab, if present)', 'reveal-template' )
+			$this->get_c2c_string( 'Click for more help on this plugin' ),
+			$this->get_c2c_string( ' (especially check out the "Other Notes" tab, if present)' )
 		);
 		$help .= ".</p>\n";
 
@@ -719,7 +724,7 @@ HTML;
 	public function help_tabs_content( $screen ) {
 		$screen->add_help_tab( array(
 			'id'      => 'c2c-more-help-' . $this->id_base,
-			'title'   => __( 'More Help', 'reveal-template' ),
+			'title'   => $this->get_c2c_string( 'More Help' ),
 			'content' => self::contextual_help( '', $this->options_page )
 		) );
 	}
@@ -732,7 +737,7 @@ HTML;
 	 * @return array Links associated with a plugin on the admin Plugins page
 	 */
 	public function plugin_action_links( $action_links ) {
-		$settings_link = '<a href="' . $this->settings_page . '.php?page='.$this->plugin_basename.'">' . __( 'Settings', 'reveal-template' ) . '</a>';
+		$settings_link = '<a href="' . $this->settings_page . '.php?page='.$this->plugin_basename.'">' . $this->get_c2c_string( 'Settings' ) . '</a>';
 		array_unshift( $action_links, $settings_link );
 		return $action_links;
 	}
@@ -744,8 +749,8 @@ HTML;
 		if ( $file == $this->plugin_basename ) {
 			$donation_url  = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522';
 			$donation_url .= urlencode( "Donation for coffee2code plugin: {$this->name}" );
-			$title         = __( 'Coffee fuels my coding.', 'reveal-template' );
-			$links[] = '<a href="' . esc_url( $donation_url ) . '" title="' . esc_attr( $title ) . '">' . __( 'Donate', 'reveal-template' ) . '</a>';
+			$title         = $this->get_c2c_string( 'Coffee fuels my coding.' );
+			$links[] = '<a href="' . esc_url( $donation_url ) . '" title="' . esc_attr( $title ) . '">' . $this->get_c2c_string( 'Donate' ) . '</a>';
 		}
 		return $links;
 	}
@@ -1034,23 +1039,22 @@ HTML;
 		settings_fields( $this->admin_options_name );
 		do_settings_sections( $this->plugin_file );
 
-		echo '<input type="submit" name="Submit" class="button-primary" value="' . esc_attr__( 'Save Changes', 'reveal-template' ) . '" />' . "\n";
-		echo '<input type="submit" name="Reset" class="button" value="' . esc_attr__( 'Reset Settings', 'reveal-template' ) . '" />' . "\n";
+		echo '<input type="submit" name="Submit" class="button-primary" value="' . esc_attr( $this->get_c2c_string( 'Save Changes' ) ) . '" />' . "\n";
+		echo '<input type="submit" name="Reset" class="button" value="' . esc_attr( $this->get_c2c_string( 'Reset Settings' ) ) . '" />' . "\n";
 		echo '</form>' . "\n";
 
 		do_action( $this->get_hook( 'after_settings_form' ), $this );
 
 		echo '<div id="c2c" class="wrap"><div>' . "\n";
 		printf(
-			/* translators: %s: Link to plugin author's homepage. */
-			__( 'This plugin brought to you by %s.', 'reveal-template' ),
-			'<a href="https://coffee2code.com" title="' . esc_attr__( 'The plugin author homepage.', 'reveal-template' ) . '">Scott Reilly (coffee2code)</a>'
+			$this->get_c2c_string( 'This plugin brought to you by %s.' ),
+			'<a href="https://coffee2code.com" title="' . esc_attr( $this->get_c2c_string( 'The plugin author homepage.' ) ) . '">Scott Reilly (coffee2code)</a>'
 		);
 		printf(
 			'<span><a href="%1$s" title="%2$s">%3$s</span>',
 			esc_url( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522' ),
-			esc_attr__( 'Please consider a donation', 'reveal-template' ),
-			__( 'Did you find this plugin useful?', 'reveal-template' )
+			esc_attr( $this->get_c2c_string( 'Please consider a donation' ) ),
+			$this->get_c2c_string( 'Did you find this plugin useful?' )
 		);
 		echo "</div>\n";
 

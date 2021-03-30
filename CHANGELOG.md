@@ -4,6 +4,9 @@
 * New: Add support for 'privacypolicy' template
 * Change: Update plugin framework to 052
     * 052:
+    * Move string translation handling into inheriting class making the plugin framework code plugin-agnostic
+        * Add abstract function `get_c2c_string()` as a getter for translated strings
+        * Replace all existing string usage with calls to `get_c2c_string()`
     * Handle WordPress's deprecation of the use of the term "whitelist"
         * Change: Rename `whitelist_options()` to `allowed_options()`
         * Change: Use `add_allowed_options()` instead of deprecated `add_option_whitelist()` for WP 5.5+
