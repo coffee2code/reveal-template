@@ -16,6 +16,7 @@
     * Don't translate urlencoded donation email body text
     * Add inline comments for translators to clarify purpose of placeholders
     * Change PHP package name (make it singular)
+    * Tweak inline function description
     * Note compatibility through WP 5.7+
     * Update copyright date (2021)
     * 051:

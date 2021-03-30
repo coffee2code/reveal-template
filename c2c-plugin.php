@@ -202,8 +202,7 @@ abstract class c2c_RevealTemplate_Plugin_051 {
 	}
 
 	/**
-	 * Determines if the running WordPress version is of an expected relativity
-	 * to a given version.
+	 * Determines if the running WordPress is relative to a given version.
 	 *
 	 * @since 052
 	 *
