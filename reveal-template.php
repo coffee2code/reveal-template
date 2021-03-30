@@ -137,6 +137,76 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_051 {
 	}
 
 	/**
+	 * Returns translated strings used by c2c_Plugin parent class.
+	 *
+	 * @since 3.6
+	 *
+	 * @param string $string Optional. The string whose translation should be
+	 *                       returned, or an empty string to return all strings.
+	 *                       Default ''.
+	 * @return string|string[] The translated string, or if a string was provided
+	 *                         but a translation was not found then the original
+	 *                         string, or an array of all strings if $string is ''.
+	 */
+	public function get_c2c_string( $string = '' ) {
+		$strings = array(
+			'A value is required for: "%s"'
+				/* translators: %s: Label for setting. */
+				=> __( 'A value is required for: "%s"', 'reveal-template' ),
+			'Click for more help on this plugin'
+				=> __( 'Click for more help on this plugin', 'reveal-template' ),
+			' (especially check out the "Other Notes" tab, if present)'
+				=> __( ' (especially check out the "Other Notes" tab, if present)', 'reveal-template' ),
+			'Coffee fuels my coding.'
+				=> __( 'Coffee fuels my coding.', 'reveal-template' ),
+			'Did you find this plugin useful?'
+				=> __( 'Did you find this plugin useful?', 'reveal-template' ),
+			'Donate'
+				=> __( 'Donate', 'reveal-template' ),
+			'Expected integer value for: %s'
+				=> __( 'Expected integer value for: %s', 'reveal-template' ),
+			'Invalid file specified for C2C_Plugin: %s'
+				/* translators: %s: Path to the plugin file. */
+				=> __( 'Invalid file specified for C2C_Plugin: %s', 'reveal-template' ),
+			'More information about %1$s %2$s'
+				/* translators: 1: plugin name 2: plugin version */
+				=> __( 'More information about %1$s %2$s', 'reveal-template' ),
+			'More Help'
+				=> __( 'More Help', 'reveal-template' ),
+			'More Plugin Help'
+				=> __( 'More Plugin Help', 'reveal-template' ),
+			'Please consider a donation'
+				=> __( 'Please consider a donation', 'reveal-template' ),
+			'Reset Settings'
+				=> __( 'Reset Settings', 'reveal-template' ),
+			'Save Changes'
+				=> __( 'Save Changes', 'reveal-template' ),
+			'See the "Help" link to the top-right of the page for more help.'
+				=> __( 'See the "Help" link to the top-right of the page for more help.', 'reveal-template' ),
+			'Settings'
+				=> __( 'Settings', 'reveal-template' ),
+			'Settings reset.'
+				=> __( 'Settings reset.', 'reveal-template' ),
+			'Something went wrong.'
+				=> __( 'Something went wrong.', 'reveal-template' ),
+			'The plugin author homepage.'
+				=> __( 'The plugin author homepage.', 'reveal-template' ),
+			"The plugin configuration option '%s' must be supplied."
+				/* translators: %s: The setting configuration key name. */
+				=>__( "The plugin configuration option '%s' must be supplied.", 'reveal-template' ),
+			'This plugin brought to you by %s.'
+				/* translators: %s: Link to plugin author's homepage. */
+				=> __( 'This plugin brought to you by %s.', 'reveal-template' ),
+		);
+
+		if ( ! $string ) {
+			return array_values( $strings );
+		}
+
+		return ! empty( $strings[ $string ] ) ? $strings[ $string ] : $string;
+	}
+
+	/**
 	 * Initializes the plugin's configuration and localizable text variables.
 	 */
 	public function load_config() {
