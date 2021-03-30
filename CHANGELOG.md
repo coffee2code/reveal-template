@@ -2,8 +2,9 @@
 
 ## _(in-progress)_
 * New: Add support for 'privacypolicy' template
-* Change: Update plugin framework to 052
-    * 052:
+* Change: Update plugin framework to 060
+    * 060:
+    * Rename class from `c2c_{PluginName}_Plugin_051` to `c2c_Plugin_060`
     * Move string translation handling into inheriting class making the plugin framework code plugin-agnostic
         * Add abstract function `get_c2c_string()` as a getter for translated strings
         * Replace all existing string usage with calls to `get_c2c_string()`
