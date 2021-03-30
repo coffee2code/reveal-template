@@ -28,6 +28,7 @@
 * Hardening: Escape URLs before being displayed
 * Change: Include mention of the template also being revealed in the admin bar by default
 * Change: Refactor how setting page explanatory text is output
+* Change: Tweak help text for display_in_footer setting to reflect additional display methods
 * Change: Fix typos in readme
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)

@@ -218,7 +218,7 @@ final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_051 {
 				'input'    => 'checkbox',
 				'default'  => true,
 				'label'    => __( 'Reveal in footer?', 'reveal-template' ),
-				'help'     => __( 'To be precise, this displays where <code>&lt;?php wp_footer(); ?></code> is called. If you uncheck this, you\'ll have to use the widget or the template tag to display the template.', 'reveal-template' ),
+				'help'     => __( 'To be precise, this displays where <code>&lt;?php wp_footer(); ?></code> is called. Refer to the documentation for additional ways to display the template (e.g. widget, shortcode, template tag).', 'reveal-template' ),
 			),
 			'display_in_admin_bar' => array(
 				'input'    => 'checkbox',
