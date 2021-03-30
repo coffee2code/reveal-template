@@ -46,7 +46,7 @@ if ( ! class_exists( 'c2c_RevealTemplate' ) ) :
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'reveal-template.widget.php' );
 
-final class c2c_RevealTemplate extends c2c_RevealTemplate_Plugin_051 {
+final class c2c_RevealTemplate extends c2c_Plugin_060 {
 
 	/**
 	 * Name of plugin's setting.
