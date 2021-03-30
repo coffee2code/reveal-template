@@ -11,6 +11,7 @@
         * Change: Rename `whitelist_options()` to `allowed_options()`
         * Change: Use `add_allowed_options()` instead of deprecated `add_option_whitelist()` for WP 5.5+
         * Change: Hook `allowed_options` filter instead of deprecated `whitelist_options` for WP 5.5+
+    * New: Add initial unit tests (currently just covering `is_wp_version_cmp()` and `get_c2c_string()`)
     * Add `is_wp_version_cmp()` as a utility to compare current WP version against a given WP version
     * Refactor `contextual_help()` to be easier to read, and correct function docblocks
     * Don't translate urlencoded donation email body text
