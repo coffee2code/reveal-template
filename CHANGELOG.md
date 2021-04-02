@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 3.6 _(2021-04-01)_
+
+### Highlights:
+
+This minor release adds support for the 'privacypolicy' template, updates the plugin framework, improves some inline and UI help text, and notes compatibility through WP 5.7+.
+
+### Details:
+
 * New: Add support for 'privacypolicy' template
 * Change: Update plugin framework to 060
     * 060:

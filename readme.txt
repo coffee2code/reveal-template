@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 3.5
+Stable tag: 3.6
 
 Reveal the theme template file used to render the displayed page, via the admin bar, footer, widget, shortcode, and/or template tag.
 
@@ -110,6 +110,48 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
+= 3.6 (2021-04-01) =
+Highlights:
+
+* This minor release adds support for the 'privacypolicy' template, updates the plugin framework, improves some inline and UI help text, and notes compatibility through WP 5.7+.
+
+Details:
+
+* New: Add support for 'privacypolicy' template
+* Change: Update plugin framework to 060
+    * 060:
+    * Rename class from `c2c_{PluginName}_Plugin_051` to `c2c_Plugin_060`
+    * Move string translation handling into inheriting class making the plugin framework code plugin-agnostic
+        * Add abstract function `get_c2c_string()` as a getter for translated strings
+        * Replace all existing string usage with calls to `get_c2c_string()`
+    * Handle WordPress's deprecation of the use of the term "whitelist"
+        * Change: Rename `whitelist_options()` to `allowed_options()`
+        * Change: Use `add_allowed_options()` instead of deprecated `add_option_whitelist()` for WP 5.5+
+        * Change: Hook `allowed_options` filter instead of deprecated `whitelist_options` for WP 5.5+
+    * New: Add initial unit tests (currently just covering `is_wp_version_cmp()` and `get_c2c_string()`)
+    * Add `is_wp_version_cmp()` as a utility to compare current WP version against a given WP version
+    * Refactor `contextual_help()` to be easier to read, and correct function docblocks
+    * Don't translate urlencoded donation email body text
+    * Add inline comments for translators to clarify purpose of placeholders
+    * Change PHP package name (make it singular)
+    * Tweak inline function description
+    * Note compatibility through WP 5.7+
+    * Update copyright date (2021)
+    * 051:
+    * Allow setting integer input value to include commas
+    * Use `number_format_i18n()` to format integer value within input field
+    * Update link to coffee2code.com to be HTTPS
+    * Update `readme_url()` to refer to plugin's readme.txt on plugins.svn.wordpress.org
+    * Remove defunct line of code
+* Change: Move translation of all parent class strings into main plugin file
+* Hardening: Escape URLs before being displayed
+* Change: Include mention of the template also being revealed in the admin bar by default
+* Change: Refactor how setting page explanatory text is output
+* Change: Tweak help text for display_in_footer setting to reflect additional display methods
+* Change: Fix typos in readme
+* Change: Note compatibility through WP 5.7+
+* Change: Update copyright date (2021)
+
 = 3.5 (2020-07-18) =
 Highlights:
 
@@ -153,17 +195,13 @@ Details:
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 
-= 3.4.1 (2019-06-16) =
-* Change: Return an empty string instead of null when the template path string shouldn't return anything
-* Unit tests:
-    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
-    * Fix: Use explicit string value instead of referencing undefined variable
-* Change: Note compatibility through WP 5.2+
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/reveal-template/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.6 =
+Minor release: added support for the 'privacypolicy' template, updated plugin framework, improved some inline and UI help text, noted compatibility through WP 5.7+, and updated copyright date (2021).
 
 = 3.5 =
 Feature release: added admin bar entry to reveal the current template, updated plugin framework, added TODO.md file, updated a few URLs to be HTTPS, expanded unit testing, and updated compatibility to be WP 4.9-5.4+.
