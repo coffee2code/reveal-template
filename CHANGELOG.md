@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Fix: Update plugin framework to 061 to fix an error preventing settings from being updated.
+
 ## 3.6 _(2021-04-01)_
 
 ### Highlights:
