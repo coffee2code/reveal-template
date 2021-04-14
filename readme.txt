@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 3.6
+Stable tag: 3.6.1
 
 Reveal the theme template file used to render the displayed page, via the admin bar, footer, widget, shortcode, and/or template tag.
 
@@ -110,6 +110,9 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
+= 3.6.1 (2021-04-14) =
+* Fix: Update plugin framework to 061 to fix a bug preventing settings from getting saved.
+
 = 3.6 (2021-04-01) =
 Highlights:
 
@@ -190,15 +193,13 @@ Details:
     * Change: Store plugin instance in test object to simplify referencing it
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
 
-= 3.4.2 (2019-12-27) =
-* New: Unit tests: Add test to verify plugin hooks `plugins_loaded` action to initialize itself
-* Change: Note compatibility through WP 5.3+
-* Change: Update copyright date (2020)
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/reveal-template/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.6.1 =
+Bugfix release: fixed a bug preventing settings from getting saved; updated plugin framework to v061
 
 = 3.6 =
 Minor release: added support for the 'privacypolicy' template, updated plugin framework, improved some inline and UI help text, noted compatibility through WP 5.7+, and updated copyright date (2021).
