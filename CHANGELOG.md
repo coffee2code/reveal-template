@@ -7,6 +7,7 @@
         * Change: Move `tests/` into `tests/phpunit/tests/`
         * Change: Move `tests/bootstrap.php` to `tests/phpunit/`
         * Change: Move `bin/` into `phpunit/`
+    * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 
 ## 3.6.1 _(2021-04-14)_
 * Fix: Update plugin framework to 061 to fix a bug preventing settings from getting saved.
