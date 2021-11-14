@@ -2,6 +2,11 @@
 
 ## _(in-progress)_
 * Change: Note compatibility through WP 5.8+
+* Unit tests:
+    * Change: Restructure unit test file structure
+        * Change: Move `tests/` into `tests/phpunit/tests/`
+        * Change: Move `tests/bootstrap.php` to `tests/phpunit/`
+        * Change: Move `bin/` into `phpunit/`
 
 ## 3.6.1 _(2021-04-14)_
 * Fix: Update plugin framework to 061 to fix a bug preventing settings from getting saved.
