@@ -20,6 +20,7 @@
     * Change: Check that there is a current screen before attempting to access its property
     * Change: Remove 'type' attribute from `style` tag
     * Change: Incorporate commonly defined styling for inline_textarea
+* Change: Tweak installation instruction
 * Unit tests:
     * Change: Restructure unit test file structure
         * Change: Move `tests/` into `tests/phpunit/tests/`

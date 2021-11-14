@@ -65,7 +65,7 @@ Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/reveal-template/) | 
 == Installation ==
 
 1. Whether installing or updating, whether this plugin or any other, it is always advisable to back-up your data before starting
-1. Unzip `reveal-template.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
+1. Install via the built-in WordPress plugin installer. Or install the plugin code inside the plugins directory for your site (typically `/wp-content/plugins/`).
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 1. Optionally customize the plugin's settings by clicking the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the 'Design' -> 'Reveal Template' link, to go to the plugin's admin settings page. Or use the 'Reveal Template' widget. Or use the shortcode.
 
