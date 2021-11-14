@@ -2,7 +2,7 @@
 /**
  * @package C2C_Plugin
  * @author  Scott Reilly
- * @version 061
+ * @version 064
  */
 /*
 Basis for other plugins.
@@ -31,9 +31,9 @@ Compatible with WordPress 4.9 through 5.7+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'c2c_Plugin_061' ) ) :
+if ( ! class_exists( 'c2c_Plugin_064' ) ) :
 
-abstract class c2c_Plugin_061 {
+abstract class c2c_Plugin_064 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -48,12 +48,14 @@ abstract class c2c_Plugin_061 {
 		'input'            => '',
 		'input_attributes' => '',
 		'label'            => '',
+		'more_help'        => '',
 		'no_wrap'          => false,
 		'numbered'         => false,
 		'options'          => '',
 		'output'           => '', // likely deprecated
 		'required'         => false
 	);
+	protected $donation_url       = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522';
 	protected $saved_settings     = false;
 	protected $saved_settings_msg = '';
 
@@ -65,7 +67,7 @@ abstract class c2c_Plugin_061 {
 	 * @since 040
 	 */
 	public function c2c_plugin_version() {
-		return '061';
+		return '064';
 	}
 
 	/**
@@ -120,27 +122,31 @@ abstract class c2c_Plugin_061 {
 		add_action( 'init',                         array( $this, 'init' ) );
 		add_action( 'activate_' . $plugin_file,     array( $this, 'install' ) );
 		add_action( 'deactivate_' . $plugin_file,   array( $this, 'deactivate' ) );
-		if ( $this->is_plugin_admin_page() || $this->is_submitting_form() ) {
-			add_action( 'admin_init', array( $this, 'init_options' ) );
-			if ( ! $this->is_submitting_form() ) {
-				add_action( 'admin_head', array( $this, 'add_c2c_admin_css' ) );
-			}
-		}
+		add_action( 'admin_init',                   array( $this, 'init_options' ) );
+		add_action( 'admin_head',                   array( $this, 'add_c2c_admin_css' ) );
 	}
 
 	/**
-	 * A dummy magic method to prevent object from being cloned
+	 * A dummy magic method to prevent object from being cloned.
 	 *
 	 * @since 036
+	 * @since 062 Throw error to actually prevent cloning.
 	 */
-	public function __clone() { _doing_it_wrong( __FUNCTION__, $this->get_c2c_string( 'Something went wrong.' ), '036' ); }
+	public function __clone() {
+		/* translators: %s: Name of plugin class. */
+		throw new Error( sprintf( $this->get_c2c_string( '%s cannot be cloned.' ), __CLASS__ ) );
+	}
 
 	/**
-	 * A dummy magic method to prevent object from being unserialized
+	 * A dummy magic method to prevent object from being unserialized.
 	 *
 	 * @since 036
+	 * @since 062 Throw error to actually prevent unserialization.
 	 */
-	public function __wakeup() { _doing_it_wrong( __FUNCTION__, $this->get_c2c_string( 'Something went wrong.' ), '036' ); }
+	public function __wakeup() {
+		/* translators: %s: Name of plugin class. */
+		throw new Error( sprintf( $this->get_c2c_string( '%s cannot be unserialized.' ), __CLASS__ ) );
+	}
 
 	/**
 	 * Returns the plugin's version.
@@ -192,9 +198,7 @@ abstract class c2c_Plugin_061 {
 				if ( version_compare( $GLOBALS['wp_version'], '3.3', '<' ) ) {
 					add_filter( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
 				}
-				if ( $this->is_plugin_admin_page() ) {
-					add_thickbox();
-				}
+				add_action( 'admin_enqueue_scripts', 'add_thickbox' );
 			}
 		}
 
@@ -628,13 +632,17 @@ abstract class c2c_Plugin_061 {
 			return;
 		}
 
+		if ( ! $this->is_plugin_admin_page() ) {
+			return;
+		}
+
 		$c2c_plugin_css_was_output = true;
 		$logo = plugins_url( 'c2c_minilogo.png', $this->plugin_file );
 		/**
 		 * Remember to increment the plugin_css_version variable if changing the CSS
 		 */
 		echo <<<HTML
-		<style type="text/css">
+		<style>
 		.long-text {width:98% !important;}
 		#c2c {
 			text-align:center;
@@ -664,7 +672,7 @@ abstract class c2c_Plugin_061 {
 		.wrap {margin-bottom:30px !important;}
 		.c2c-form .hr, .c2c-hr {border-bottom:1px solid #ccc;padding:0 2px;margin-bottom:6px;}
 		.c2c-fieldset {border:1px solid #ccc; padding:2px 8px;}
-		.c2c-textarea, .c2c-inline_textarea {width:98%;font-family:"Courier New", Courier, mono; display: block;}
+		.c2c-textarea, .c2c-inline_textarea {width:98%;font-family:"Courier New", Courier, mono; display: block; white-space: pre; word-wrap: normal; overflow-x: scroll;}
 		.see-help {font-size:x-small;font-style:italic;}
 		.more-help {display:block;margin-top:8px;}
 		</style>
@@ -704,13 +712,11 @@ HTML;
 			return;
 		}
 
-		$screen = get_current_screen();
-
-		if ( $screen->id != $this->options_page ) {
+		if ( ! $this->is_plugin_admin_page() ) {
 			return;
 		}
 
-		$this->help_tabs_content( $screen );
+		$this->help_tabs_content( get_current_screen() );
 	}
 
 	/**
@@ -746,10 +752,8 @@ HTML;
 	 */
 	public function donate_link( $links, $file ) {
 		if ( $file == $this->plugin_basename ) {
-			$donation_url  = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522';
-			$donation_url .= urlencode( "Donation for coffee2code plugin: {$this->name}" );
 			$title         = $this->get_c2c_string( 'Coffee fuels my coding.' );
-			$links[] = '<a href="' . esc_url( $donation_url ) . '" title="' . esc_attr( $title ) . '">' . $this->get_c2c_string( 'Donate' ) . '</a>';
+			$links[] = '<a href="' . esc_url( $this->donation_url ) . '" title="' . esc_attr( $title ) . '">' . $this->get_c2c_string( 'Donate' ) . '</a>';
 		}
 		return $links;
 	}
@@ -903,10 +907,33 @@ HTML;
 	/**
 	 * Checks if the current page is the plugin's settings page.
 	 *
+	 * Note: This should not be used during or before `'admin_init'` since the
+	 * current screen won't be set yet.
+	 *
 	 * @return bool True if on the plugin's settings page, else false.
 	 */
 	protected function is_plugin_admin_page() {
-		return ( basename( $_SERVER['PHP_SELF'], '.php' ) == $this->settings_page && isset( $_REQUEST['page'] ) && $_REQUEST['page'] == $this->plugin_basename );
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		if ( ! did_action( 'admin_init' ) ) {
+			_doing_it_wrong(
+				__METHOD__,
+				sprintf( $this->get_c2c_string( 'The method %1$s should not be called until after the %2$s action.' ), 'is_plugin_admin_page()', 'admin_init' ),
+				'063'
+			);
+		}
+
+		$current_screen = get_current_screen();
+
+		return (
+			$current_screen
+		&&
+			$this->options_page
+		&&
+			$current_screen->id === $this->options_page
+		);
 	}
 
 	/**
@@ -1004,15 +1031,18 @@ HTML;
 			echo '</fieldset>';
 		} elseif ( $input == 'checkbox' ) {
 			echo "<input type='{$input}' {$attribs} value='1' " . checked( $value, 1, false ) . " />\n";
+			if ( ! empty( $this->config[ $opt ]['help'] ) ) {
+				printf( "<label class='description' for='%s'>%s</label>\n", $opt, $this->config[ $opt ]['help'] );
+				$this->config[ $opt ]['help'] = '';
+			}
 		} else { // Only 'text' and 'password' should fall through to here.
 			echo "<input type='{$input}' {$attribs} value='" . esc_attr( $value ) . "' />\n";
 		}
-		if ( $help = apply_filters( $this->get_hook( 'option_help'), $this->config[ $opt ]['help'], $opt ) ) {
-			if ( 'checkbox' === $input ) {
-				echo "<label class='description' for='{$opt}'>{$help}</label>\n";
-			} else {
-				echo "<p class='description'>{$help}</p>\n";
-			}
+		if ( $help = apply_filters( $this->get_hook( 'option_help'), $this->config[ $opt ]['help'], $opt, 'help' ) ) {
+			echo "<p class='description'>{$help}</p>\n";
+		}
+		if ( $help = apply_filters( $this->get_hook( 'option_help'), $this->config[ $opt ]['more_help'], $opt, 'more_help' ) ) {
+			echo "<p class='description'>{$help}</p>\n";
 		}
 
 		do_action( $this->get_hook( 'post_display_option' ), $opt );
@@ -1051,9 +1081,9 @@ HTML;
 		);
 		printf(
 			'<span><a href="%1$s" title="%2$s">%3$s</span>',
-			esc_url( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522' ),
-			esc_attr( $this->get_c2c_string( 'Please consider a donation' ) ),
-			$this->get_c2c_string( 'Did you find this plugin useful?' )
+			esc_url( $this->donation_url ),
+			esc_attr( $this->get_c2c_string( "Thanks for the consideration; it's much appreciated." ) ),
+			$this->get_c2c_string( 'If this plugin has been useful to you, please consider a donation.' )
 		);
 		echo "</div>\n";
 

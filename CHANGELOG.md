@@ -2,6 +2,24 @@
 
 ## _(in-progress)_
 * Change: Note compatibility through WP 5.8+
+* Change: Update plugin framework to 064
+    * 064:
+    * New: For checkbox settings, support a 'more_help' config option for defining help text to appear below checkbox and its label
+    * Fix: Fix URL for plugin listing donate link
+    * Change: Store donation URL as object variable
+    * Change: Update strings used for settings page donation link
+    * 063:
+    * Fix: Simplify settings initialization to prevent conflicts with other plugins
+    * Change: Remove ability to detect plugin settings page before current screen is set, as it is no longer needed
+    * Change: Enqueue thickbox during `'admin_enqueue_scripts'` action instead of during `'init'`
+    * Change: Use `is_plugin_admin_page()` in `help_tabs()` instead of reproducing its functionality
+    * Change: Trigger a debugging warning if `is_plugin_admin_page()` is used before `'admin_init'` action is fired
+    * 062:
+    * Change: Update `is_plugin_admin_page()` to use `get_current_screen()` when available
+    * Change: Actually prevent object cloning and unserialization by throwing an error
+    * Change: Check that there is a current screen before attempting to access its property
+    * Change: Remove 'type' attribute from `style` tag
+    * Change: Incorporate commonly defined styling for inline_textarea
 * Unit tests:
     * Change: Restructure unit test file structure
         * Change: Move `tests/` into `tests/phpunit/tests/`
