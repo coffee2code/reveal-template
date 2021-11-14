@@ -8,6 +8,7 @@
         * Change: Move `tests/bootstrap.php` to `tests/phpunit/`
         * Change: Move `bin/` into `phpunit/`
         * Change: In bootstrap, store path to plugin file constant so its value can be used within that file and in test file
+        * Change: In bootstrap, check for test installation in more places and exit with error message if not found
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 
 ## 3.6.1 _(2021-04-14)_
