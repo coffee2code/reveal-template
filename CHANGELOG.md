@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 3.7 _(2021-11-14)_
+
+### Highlights:
+
+This minor release updates the plugin framework, notes compatibility through WP 5.8+, and reorganizes unit tests.
+
+### Details:
+
 * Change: Note compatibility through WP 5.8+
 * Change: Update plugin framework to 064
     * 064:

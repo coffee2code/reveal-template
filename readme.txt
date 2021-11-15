@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.8
-Stable tag: 3.6.1
+Stable tag: 3.7
 
 Reveal the theme template file used to render the displayed page, via the admin bar, footer, widget, shortcode, and/or template tag.
 
@@ -110,6 +110,45 @@ if ( $current_template == 'category-12.php' ) {
 
 == Changelog ==
 
+= 3.7 (2021-11-14) =
+Highlights:
+
+This minor release updates the plugin framework, notes compatibility through WP 5.8+, and reorganizes unit tests.
+
+Details:
+
+* Change: Note compatibility through WP 5.8+
+* Change: Update plugin framework to 064
+    * 064:
+    * New: For checkbox settings, support a 'more_help' config option for defining help text to appear below checkbox and its label
+    * Fix: Fix URL for plugin listing donate link
+    * Change: Store donation URL as object variable
+    * Change: Update strings used for settings page donation link
+    * 063:
+    * Fix: Simplify settings initialization to prevent conflicts with other plugins
+    * Change: Remove ability to detect plugin settings page before current screen is set, as it is no longer needed
+    * Change: Enqueue thickbox during `'admin_enqueue_scripts'` action instead of during `'init'`
+    * Change: Use `is_plugin_admin_page()` in `help_tabs()` instead of reproducing its functionality
+    * Change: Trigger a debugging warning if `is_plugin_admin_page()` is used before `'admin_init'` action is fired
+    * 062:
+    * Change: Update `is_plugin_admin_page()` to use `get_current_screen()` when available
+    * Change: Actually prevent object cloning and unserialization by throwing an error
+    * Change: Check that there is a current screen before attempting to access its property
+    * Change: Remove 'type' attribute from `style` tag
+    * Change: Incorporate commonly defined styling for inline_textarea
+* Change: Tweak installation instruction
+* Unit tests:
+    * Change: Restructure unit test file structure
+        * Change: Move `tests/` into `tests/phpunit/tests/`
+        * Change: Move `tests/bootstrap.php` to `tests/phpunit/`
+        * Change: Move `bin/` into `phpunit/`
+        * Change: In bootstrap, store path to plugin file constant so its value can be used within that file and in test file
+        * Change: In bootstrap, check for test installation in more places and exit with error message if not found
+        * Change: Remove 'test-' prefix from unit test files
+    * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+* Change: Tweak some formatting in TODO.md
+* New: Add a few more possible TODO items
+
 = 3.6.1 (2021-04-14) =
 * Fix: Update plugin framework to 061 to fix a bug preventing settings from getting saved.
 
@@ -155,48 +194,13 @@ Details:
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
 
-= 3.5 (2020-07-18) =
-Highlights:
-
-* This feature release adds an admin bar entry to reveal the current template, updates the plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, and updates compatibility to be WP 4.9-5.4+.
-
-Details:
-
-* New: Add integration with admin bar
-    * New: Add admin bar entry for revealing template
-    * New: Add setting to control if admin bar entry should appear (defaulted to true)
-    * New: Add `can_show_in_admin_bar()` for determining if the admin bar item should be shown
-    * New: Add new screenshot
-* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add items to it)
-* Fix: Correct typo on plugin settings page
-* Change: Update plugin framework to 050
-    * 050:
-    * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
-    * Output donation markup using `printf()` rather than using string concatenation
-    * Update copyright date (2020)
-    * Note compatibility through WP 5.4+
-    * Drop compatibility with version of WP older than 4.9
-    * 049:
-    * Correct last arg in call to `add_settings_field()` to be an array
-    * Wrap help text for settings in `label` instead of `p`
-    * Only use `label` for help text for checkboxes, otherwise use `p`
-    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
-    * Note compatibility through WP 5.1+
-    * Update copyright date (2019)
-* Change: Note compatibility through WP 5.4+
-* Change: Drop compatibility with version of WP older than 4.9
-* Change: Update links to coffee2code.com to be HTTPS
-* Change: Update screenshot
-* Unit tests:
-    * New: Add tests for `register_filters()`, `options_page_description()`
-    * New: Add test for setting name
-    * Change: Store plugin instance in test object to simplify referencing it
-    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/reveal-template/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.7 =
+Minor release: updated plugin framework, noted compatibility through WP 5.8+, and reorganized unit tests.
 
 = 3.6.1 =
 Bugfix release: fixed a bug preventing settings from getting saved; updated plugin framework to v061
