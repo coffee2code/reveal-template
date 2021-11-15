@@ -30,6 +30,7 @@
         * Change: In bootstrap, check for test installation in more places and exit with error message if not found
         * Change: Remove 'test-' prefix from unit test files
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+* New: Add a few more possible TODO items
 
 ## 3.6.1 _(2021-04-14)_
 * Fix: Update plugin framework to 061 to fix a bug preventing settings from getting saved.
