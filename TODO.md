@@ -6,7 +6,7 @@ The following list comprises ideas, suggestions, and known issues, all of which 
 
 * Verify/add support for BuddyPress
 * Verify/add support for bbPress
-* Filter for reveal_to_current_user()?
+* Filter for `reveal_to_current_user()`?
 * Add 'format' field to widget
 * Add 'format' attribute to shortcode
 * Add 'Shortcode' section to readme.txt to fully document shortcode
@@ -15,15 +15,14 @@ The following list comprises ideas, suggestions, and known issues, all of which 
 * Add block implementation of shortcode
 * Add option to allow reveal to be shown to all visitors, not just admins
 * Add option dropdown to allow choice of where reveal is shown:
-  * In footer (as currently done)
-  * As HTML comment in footer (new feature)
-  * In admin bar (new feature)
+    * In footer (as currently done)
+    * As HTML comment in footer (new feature)
+    * In admin bar (new feature)
 * Add custom capability
 * Integrate admin bar node as subitem of Debug Bar when that plugin is active?
 * Abandon separate versioning of widget class (`c2c_RevealTemplateWidget`)
     * Update `@since` values for each class to corresponding plugin versions
 * Add unit tests for `c2c_Widget` class
 * Add unit tests for `c2c_RevealTemplateWidget` class
-
 
 Feel free to make your own suggestions or champion for something already on the list (via the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/reveal-template/) or on [GitHub](https://github.com/coffee2code/reveal-template/) as an issue or PR).
